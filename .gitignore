@@ -1,3 +1,6 @@
+# For the time being will ignore xml. May need to change this later...
+*.xml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
