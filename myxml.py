@@ -5,7 +5,7 @@ from property import Property
 
 
 def parseXML( filename ):
-    
+
     # Get the top level document
     doc = xml.dom.minidom.parse( filename )
 
@@ -16,13 +16,13 @@ def parseXML( filename ):
     propList = list()
 
     for each in properties:
-        
+
         # Instantiate our property
         theProp = Property()
-        
+
         # Get the Name of the Property
         theProp.name = each.getAttribute( 'name' )
-        
+
         # Get the Answer attribute. From that get the validity and the source
         # Assumes that there is only one Answer, etc...
         answerAttr = each.getElementsByTagName( 'Answer' )[0]
@@ -32,15 +32,15 @@ def parseXML( filename ):
         # Get the K attribute and fill in the value
         kAttr = each.getElementsByTagName( 'K' )[0]
         theProp.K = kAttr.firstChild.data
-        
+
         # Add to our list of Properties
         propList.append( theProp )
-        
+
     # TODO: remove before flight
     for each in propList:
         each.printAttrs()
-        
+
     return propList
-        
-        
+
+
 

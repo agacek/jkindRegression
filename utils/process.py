@@ -6,8 +6,8 @@ Created on Jun 28, 2013
 
 import subprocess
 
-def call( commandLineStr, verbose = False ):
-    proc = subprocess.Popen( commandLineStr, stdout = subprocess.PIPE, shell = True )
+def call( commandLineStr, verbose=False ):
+    proc = subprocess.Popen( commandLineStr, stdout=subprocess.PIPE, shell=True )
     ( out, err ) = proc.communicate()
     if( verbose == True ):
         print( commandLineStr )

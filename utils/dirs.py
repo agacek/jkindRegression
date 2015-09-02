@@ -12,15 +12,15 @@ def copyFile( filename, dstDir ):
     
     Returns the new path+filename of the copied file.
     '''
-    
-    
+
+
     try:
         os.mkdir( dstDir )
     except FileExistsError:
         pass
 
     shutil.copy( filename, dstDir )
-    
+
     rv = os.path.join( dstDir, os.path.basename( filename ) )
 
     return rv

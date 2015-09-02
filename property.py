@@ -16,8 +16,8 @@ class Property( object ):
         self.source = ''
         self.answer = ''
         self.K = ''
-        
-        
+
+
     def printAttrs( self ):
         print( '\n-------' )
         print( 'Name:   ' + self.name )
