@@ -1,5 +1,5 @@
 
-from jkind.jkind_exec import jkind_exec
+from test_runner.runner import go
 from my_os.env_vars import checkEnvVars
 
 
@@ -9,7 +9,5 @@ if __name__ == '__main__':
     solver = None
 
     checkEnvVars()
-    propertyList = jkind_exec( name, solver )
 
-    for each in propertyList:
-        each.printAttrs()
+    go( name )

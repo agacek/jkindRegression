@@ -1,6 +1,6 @@
 
 import xml.dom.minidom
-from property import Property
+from data import Property
 
 
 def parseXML( filename ):
@@ -16,7 +16,7 @@ def parseXML( filename ):
 
     for each in properties:
 
-        # Instantiate our property
+        # Instantiate our data
         theProp = Property()
 
         # Get the Name of the Property
