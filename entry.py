@@ -1,7 +1,7 @@
 
-from jkind import jkind
-from utils.env_vars import checkEnvVars
-from myxml import parseXML
+from jkind.jkind_exec import jkind_exec
+from my_os.env_vars import checkEnvVars
+
 
 if __name__ == '__main__':
 
@@ -9,6 +9,7 @@ if __name__ == '__main__':
     solver = None
 
     checkEnvVars()
-    xmlFile = jkind( name, solver )
+    propertyList = jkind_exec( name, solver )
 
-    parseXML( xmlFile )
+    for each in propertyList:
+        each.printAttrs()

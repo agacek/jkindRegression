@@ -1,8 +1,4 @@
-'''
-Created on Sep 2, 2015
 
-@author: prmarti1
-'''
 
 class Property( object ):
     '''

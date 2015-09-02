@@ -1,6 +1,5 @@
 
 import xml.dom.minidom
-from xml.dom.minidom import Node
 from property import Property
 
 
@@ -35,10 +34,6 @@ def parseXML( filename ):
 
         # Add to our list of Properties
         propList.append( theProp )
-
-    # TODO: remove before flight
-    for each in propList:
-        each.printAttrs()
 
     return propList
 
