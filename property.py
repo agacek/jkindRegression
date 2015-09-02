@@ -8,7 +8,7 @@ class Property( object ):
     '''
     classdocs
     '''
-    def __init__( self, params ):
+    def __init__( self ):
         '''
         Constructor
         '''
@@ -19,6 +19,7 @@ class Property( object ):
         
         
     def printAttrs( self ):
+        print( '\n-------' )
         print( 'Name:   ' + self.name )
         print( 'Source: ' + self.source )
         print( 'Answer: ' + self.answer )

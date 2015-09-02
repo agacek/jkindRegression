@@ -15,3 +15,7 @@ def jkind( filename, solver ):
     
     a = 'jkind ' + newSrc + ' -xml'
     call( a )
+    
+    # Return the path to the xml file we expect to have created
+    xmlFile = newSrc + '.xml'
+    return xmlFile

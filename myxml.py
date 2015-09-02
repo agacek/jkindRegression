@@ -1,32 +1,46 @@
 
 import xml.dom.minidom
 from xml.dom.minidom import Node
+from property import Property
 
 
-doc = xml.dom.minidom.parse( 'c:/temp/pre.lus.xml' )
-
-props = doc.getElementsByTagName( 'Property' )
-
-for each in props:
-    print( each.getAttribute( 'name' ) )
+def parseXML( filename ):
     
-# Get the first Property Attribute
-ok2 = props[0]
-ok2_name = ok2.getAttribute( 'name' )
+    # Get the top level document
+    doc = xml.dom.minidom.parse( filename )
 
-# Get the Answer attribute from the Property
-ok2_answer = ok2.getElementsByTagName( 'Answer' )[0]
-ok2_valid = ok2_answer.firstChild.data  # get the data, valid or not
-ok2_source = ok2_answer.getAttribute( 'source' )  # get the source (i.e. k-induction)
+    # Get a list of all the Property elements
+    properties = doc.getElementsByTagName( 'Property' )
 
-# Get the K attribute from the Property
-ok2_k = ok2.getElementsByTagName( 'K' )[0]
-ok2_k_num = ok2_k.firstChild.data  # get the k number
+    # Initialize a list to contain the Property instantiations
+    propList = list()
 
-# Print the results
-print( '------' )
-print( ok2_name )
-print( ok2_source )
-print( ok2_valid )
-print( ok2_k_num )
+    for each in properties:
+        
+        # Instantiate our property
+        theProp = Property()
+        
+        # Get the Name of the Property
+        theProp.name = each.getAttribute( 'name' )
+        
+        # Get the Answer attribute. From that get the validity and the source
+        # Assumes that there is only one Answer, etc...
+        answerAttr = each.getElementsByTagName( 'Answer' )[0]
+        theProp.answer = answerAttr.firstChild.data
+        theProp.source = answerAttr.getAttribute( 'source' )
+
+        # Get the K attribute and fill in the value
+        kAttr = each.getElementsByTagName( 'K' )[0]
+        theProp.K = kAttr.firstChild.data
+        
+        # Add to our list of Properties
+        propList.append( theProp )
+        
+    # TODO: remove before flight
+    for each in propList:
+        each.printAttrs()
+        
+    return propList
+        
+        
 
