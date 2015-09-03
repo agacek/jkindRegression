@@ -1,12 +1,14 @@
 
 import xml.dom.minidom
+from data.internaldata import InternalData
 
 
 def getArguments():
 
     argsList = list()
 
-    doc = xml.dom.minidom.parse( 'test_config.xml' )
+    doc = xml.dom.minidom.parse( InternalData().getXmlConfigFile() )
+    # doc = xml.dom.minidom.parse( 'test_config.xml' )
     # doc = xml.dom.minidom.parse( r'C:\Users\prmarti1\smaccm\jkind_test\test_workspace\jkindRegression\test_config.xml' )
 
     groups = doc.getElementsByTagName( 'ArgumentGroup' )

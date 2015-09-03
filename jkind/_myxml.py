@@ -1,6 +1,6 @@
 
 import xml.dom.minidom
-from data import JKindResults
+from data.testdefns import JKindResults
 
 
 def parseXML( filename ):

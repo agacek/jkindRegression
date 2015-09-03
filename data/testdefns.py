@@ -14,14 +14,6 @@ class JKindResults( object ):
         self.K = ''
 
 
-    def printAttrs( self ):
-        print( '\n-------' )
-        print( 'Name:   ' + self.name )
-        print( 'Source: ' + self.source )
-        print( 'Answer: ' + self.answer )
-        print( 'K:      ' + self.K )
-
-
     def toString( self ):
         s = '------\n'
         s += 'Name:   ' + self.name + '\n'

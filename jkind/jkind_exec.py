@@ -1,21 +1,22 @@
 
 import os
+from data.logger import Logger
 from my_os.process import call
 from my_os.dirs import copyFile
 from my_os.dirs import deleteFile
 from ._myxml import parseXML
 
 
+
 def jkind_exec( filename, arg_string = '' ):
     '''
     '''
-
-    # Copy the file to the cwd
+    # Copy the file to the output directory
     dst = os.path.join( os.getcwd(), 'output' )
     newSrc = copyFile( filename, dst )
 
     a = 'jkind ' + newSrc + ' -xml ' + arg_string
-    print( a )
+    Logger().log( a )
     opt, err = call( a )
     # print( 'opt= ' + opt.decode() )
     # print( 'err= ' + err.decode() )
