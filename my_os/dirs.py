@@ -12,8 +12,6 @@ def copyFile( filename, dstDir ):
     
     Returns the new path+filename of the copied file.
     '''
-
-
     try:
         os.mkdir( dstDir )
     except FileExistsError:
@@ -24,3 +22,10 @@ def copyFile( filename, dstDir ):
     rv = os.path.join( dstDir, os.path.basename( filename ) )
 
     return rv
+
+
+def deleteFile( filename ):
+    try:
+        os.remove( filename )
+    except:
+        pass

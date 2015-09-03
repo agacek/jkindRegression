@@ -1,6 +1,6 @@
 
 import xml.dom.minidom
-from data import Property
+from data import JKindResults
 
 
 def parseXML( filename ):
@@ -8,18 +8,18 @@ def parseXML( filename ):
     # Get the top level document
     doc = xml.dom.minidom.parse( filename )
 
-    # Get a list of all the Property elements
+    # Get a list of all the JKindResults elements
     properties = doc.getElementsByTagName( 'Property' )
 
-    # Initialize a list to contain the Property instantiations
+    # Initialize a list to contain the JKindResults instantiations
     propList = list()
 
     for each in properties:
 
         # Instantiate our data
-        theProp = Property()
+        theProp = JKindResults()
 
-        # Get the Name of the Property
+        # Get the Name of the JKindResults
         theProp.name = each.getAttribute( 'name' )
 
         # Get the Answer attribute. From that get the validity and the source
@@ -36,6 +36,3 @@ def parseXML( filename ):
         propList.append( theProp )
 
     return propList
-
-
-
