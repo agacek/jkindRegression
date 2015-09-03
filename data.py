@@ -62,7 +62,8 @@ class FileSuite( object ):
 
 
     def toString( self ):
-        s = ''
+        s = '\n\n***********************************************************\n'
+        s += 'FILE SUITE\n\n'
         for each in self.testList:
             s += each.toString()
         return s
