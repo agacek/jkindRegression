@@ -5,7 +5,7 @@ from data import FileTest
 from data import FileSuite
 from .test_config import getArguments
 
-def go( filename ):
+def runtest( filename ):
 
     # If just a single file as a string, then convert to a list
     if( isinstance( filename, str ) == True ):

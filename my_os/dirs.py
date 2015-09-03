@@ -1,6 +1,7 @@
 
 import os
 import shutil
+import fnmatch
 
 
 def copyFile( filename, dstDir ):
@@ -29,3 +30,43 @@ def deleteFile( filename ):
         os.remove( filename )
     except:
         pass
+
+
+def parseFileArg( arg, recurse = True ):
+
+    # Just see if this even exists
+    assert os.path.exists( arg )
+
+    # If this is a file, then just return it unmodified
+    if( os.path.isfile( arg ) == True ):
+        return arg
+
+    # Otherwise this is a directory, search for the *.lus files and
+    # build a list of the files.
+    l = list()
+    for filename in _walk( arg, recurse, '*.lus' ):
+        l.append( filename )
+    return l
+
+
+def _walk( root = '.', recurse = True, pattern = '*' ):
+    '''
+    Private Function:
+    
+    Arguments:
+    root - the top folder path to walk through
+    recurse - if True will go through sub-folders
+    patter - file extension to look for (i.e. *.c)
+    
+    Description:
+    Generator for walking a directory tree.
+    Starts at specified root folder, returning files
+    that match our pattern. Optionally will also
+    recurse through sub-folders.
+    '''
+    for path, subdirs, files in os.walk( root ):
+        for name in files:
+            if fnmatch.fnmatch( name, pattern ):
+                yield os.path.join( path, name )
+        if not recurse:
+            break
