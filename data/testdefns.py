@@ -1,7 +1,7 @@
 from .internaldata import InternalData
 
 
-class JKindResults( object ):
+class XmlProperties( object ):
     '''
     classdocs
     '''
@@ -24,14 +24,25 @@ class JKindResults( object ):
         return s
 
 
-class FileTest( object ):
+    def equal( self, arg ):
+        if( ( arg.name == self.name ) and ( arg.answer == self.answer ) ):
+            return True
+        return False
+
+
+class FileResults( object ):
     '''
     blah blah blah 
     '''
-    def __init__( self, filename = '', argumentString = '', resultList = list() ):
+    def __init__( self, filename, argumentString, propertyList ):
         self.filename = filename
         self.argumentString = argumentString
-        self.resultList = resultList
+
+        # Convert the property list to a dictionary, key being the name
+        # of the property and the value being the property itself.
+        self.resultDict = dict()
+        for each in propertyList:
+            self.resultDict[each.name] = each
 
 
     def toString( self ):
@@ -39,9 +50,32 @@ class FileTest( object ):
         s += 'Filename:  ' + self.filename + '\n'
         s += 'Arguments: ' + self.argumentString + '\n'
         if ( InternalData().isVerbose() == True ):
-            for each in self.resultList:
-                s += each.toString()
+            for key in self.resultDict:
+                s += self.resultDict[key].toString()
+
         return s
+
+
+    def count( self ):
+        return len( self.resultDict )
+
+
+    def dict( self ):
+        return self.resultDict
+
+
+    def equal( self, arg ):
+
+        # Test that the length of the results are the same
+        if( ( arg.count() < 1 ) or ( arg.count() != self.count() ) ):
+            return False
+
+        # Test that each variable result was the same
+        for key in arg.dict():
+            if( arg.dict()[key].equal( self.resultDict[key] ) == False ):
+                return False
+
+        return True
 
 
 class FileSuite( object ):
@@ -68,3 +102,20 @@ class FileSuite( object ):
 
     def validate( self ):
         self.suiteResult = 'PASS'
+
+        tmp = self.testList.copy()
+        key = tmp.pop()
+
+        for each in tmp:
+            if( key.equal( each ) == False ):
+                self.suiteResult = 'FAIL'
+                return False
+
+        return True
+
+
+
+
+
+
+

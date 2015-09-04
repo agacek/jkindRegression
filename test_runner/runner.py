@@ -2,7 +2,6 @@
 from itertools import product
 from jkind.jkind_exec import jkind_exec
 from data.logger import Logger
-from data.testdefns import FileTest
 from data.testdefns import FileSuite
 
 from test_runner._test_config import getArguments
@@ -34,12 +33,11 @@ def runtest( filenames ):
                 argStr += ' '
 
             # Run jkind
-            resultList = jkind_exec( thefile, argStr )
+            results = jkind_exec( thefile, argStr )
 
             # Compile the results of this run and add it to the
             # file test suite.
-            fileTest = FileTest( thefile, argStr, resultList )
-            suite.addFileTest( fileTest )
+            suite.addFileTest( results )
 
         # All done iterating through the arguments.
         # Now let's validate the results
