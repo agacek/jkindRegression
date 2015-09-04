@@ -11,6 +11,7 @@ class InternalData( object ):
     # Define shared data
     _xml_config_file = DEFAULT_XML_FILE
     _output_dir = os.path.join( os.getcwd(), 'output' )
+    _verbose = False
 
     def __init__( self ):
 
@@ -28,4 +29,10 @@ class InternalData( object ):
 
     def setOutputDir( self, newDir ):
         self._output_dir = newDir
+
+    def setVerbose( self, TorF ):
+        self._verbose = TorF
+
+    def isVerbose( self ):
+        return self._verbose
 

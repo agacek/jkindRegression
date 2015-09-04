@@ -1,3 +1,4 @@
+from .internaldata import InternalData
 
 
 class JKindResults( object ):
@@ -15,7 +16,7 @@ class JKindResults( object ):
 
 
     def toString( self ):
-        s = '------\n'
+        s = ' \n'
         s += 'Name:   ' + self.name + '\n'
         s += 'Source: ' + self.source + '\n'
         s += 'Answer: ' + self.answer + '\n'
@@ -34,19 +35,22 @@ class FileTest( object ):
 
 
     def toString( self ):
-        s = '\n------------\n'
+        s = '\n-----------------------\n'
         s += 'Filename:  ' + self.filename + '\n'
         s += 'Arguments: ' + self.argumentString + '\n'
-        for each in self.resultList:
-            s += each.toString()
+        if ( InternalData().isVerbose() == True ):
+            for each in self.resultList:
+                s += each.toString()
         return s
 
 
 class FileSuite( object ):
     '''
     '''
-    def __init__( self ):
+    def __init__( self, filenameUnderTest ):
         self.testList = list()
+        self.filename = filenameUnderTest
+        self.suiteResult = 'NOT VALIDATED'
 
 
     def addFileTest( self, filetest ):
@@ -55,11 +59,12 @@ class FileSuite( object ):
 
     def toString( self ):
         s = '\n\n***********************************************************\n'
-        s += 'FILE SUITE\n\n'
+        s += 'FILE SUITE: ' + self.filename + '\n'
+        s += self.suiteResult + '\n\n'
         for each in self.testList:
             s += each.toString()
         return s
 
 
     def validate( self ):
-        pass
+        self.suiteResult = 'PASS'

@@ -27,6 +27,9 @@ if __name__ == '__main__':
     parser.add_argument( '-recur',
                         action = 'store_true',
                         help = 'Flag to look for files in subdirectories when Directory is specified' )
+    parser.add_argument( '-verbose',
+                         action = 'store_true',
+                         help = 'Enable verbose log and shell outputs' )
 
     args = parser.parse_args()
 
@@ -40,6 +43,12 @@ if __name__ == '__main__':
     if( args.dest ):
         assert os.path.exists( args.dest )
         InternalData().setOutputDir( args.dest )
+
+    # Verbose?
+    if( args.verbose ):
+        InternalData().setVerbose( True )
+    else:
+        InternalData().setVerbose( False )
 
     # Check if a specific file was specified or if a directory was specified.
     # This will throw an exception if the file or directory does not exist

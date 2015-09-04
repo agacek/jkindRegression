@@ -7,16 +7,19 @@ from data.testdefns import FileSuite
 
 from test_runner._test_config import getArguments
 
-def runtest( filename ):
+def runtest( filenames ):
 
     # If just a single file as a string, then convert to a list
-    if( isinstance( filename, str ) == True ):
-        filename = [filename]
+    if( isinstance( filenames, str ) == True ):
+        filenames = [filenames]
+
+    # Open the logger
+    Logger().open()
 
     # Iterate through the filenames as top level for the Tests
-    for thefile in filename:
+    for thefile in filenames:
 
-        suite = FileSuite()
+        suite = FileSuite( thefile )
 
         # Read the arguments from the test configuration xml file.
         # A list-of-lists will be returned. Each sub-list is a series of
@@ -43,3 +46,6 @@ def runtest( filename ):
         suite.validate()
         s = suite.toString()
         Logger().log( s )
+
+    # Close the logger
+    Logger().close()
