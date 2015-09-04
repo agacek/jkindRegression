@@ -1,6 +1,6 @@
 
 from itertools import product
-from jkind.jkind_exec import jkind_exec
+from test_runner.jkind import jkind_exec
 from data.logger import Logger
 from data.testdefns import FileSuite
 
@@ -12,8 +12,9 @@ def runtest( filenames ):
     if( isinstance( filenames, str ) == True ):
         filenames = [filenames]
 
-    # Open the logger
+    # Open the logger and initialize the number of files
     Logger().open()
+    Logger().fileCount( len( filenames ) )
 
     # Iterate through the filenames as top level for the Tests
     for thefile in filenames:

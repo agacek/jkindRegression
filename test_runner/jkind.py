@@ -4,7 +4,7 @@ from data.logger import Logger
 from my_os.process import call
 from my_os.dirs import copyFile
 from my_os.dirs import deleteFile
-from ._myxml import parseXML
+from ._jkind_xml import parseXML
 from data.testdefns import FileResults
 
 
@@ -15,6 +15,7 @@ def jkind_exec( filename, arg_string = '' ):
     a = 'jkind ' + filename + ' -xml ' + arg_string
     Logger().log( a )
     opt, err = call( a )
+    Logger().incrementFileIdx()
     # print( 'opt= ' + opt.decode() )
     # print( 'err= ' + err.decode() )
 
