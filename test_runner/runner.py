@@ -1,6 +1,6 @@
 
 from itertools import product
-from test_runner.jkind import jkind_exec
+from ._jkind import jkind_exec
 from data.logger import Logger
 from data.testdefns import FileSuite
 
