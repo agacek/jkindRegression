@@ -1,6 +1,6 @@
 
 import os
-from data.logger import Logger
+# from data.logger import Logger
 from my_os.process import call
 from my_os.dirs import copyFile
 from my_os.dirs import deleteFile
@@ -13,9 +13,9 @@ def jkind_exec( filename, arg_string = '' ):
     '''
     '''
     a = 'jkind ' + filename + ' -xml ' + arg_string
-    Logger().log( a )
+    # Logger().log( a )
     opt, err = call( a )
-    Logger().incrementFileIdx()
+    # Logger().incrementFileIdx()
     # print( 'opt= ' + opt.decode() )
     # print( 'err= ' + err.decode() )
 

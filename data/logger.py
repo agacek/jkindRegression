@@ -1,6 +1,9 @@
 
 import os
+from .events import Events
+from .events import EventTypes
 from .internaldata import InternalData
+
 
 
 class Logger( object ):
@@ -12,6 +15,12 @@ class Logger( object ):
     _file = None
     _count = 0
     _fileIdx = 0
+    _fileUnderTest = ''
+    _argumentUnderTest = ''
+    _passCount = 0
+    _failCount = 0
+
+
 
 
     def __init__( self ):
@@ -26,10 +35,15 @@ class Logger( object ):
         self._file = open( filename, 'w' )
         self._count = 0
         self._fileIdx = 0
+        self._fileUnderTest = ''
+        self._argumentUnderTest = ''
+        self._passCount = 0
+        self._failCount = 0
 
 
     def close( self ):
         self._file.close()
+        Events().update( EventTypes.TEST_DONE )
 
 
     def fileCount( self, count = None ):
@@ -38,11 +52,53 @@ class Logger( object ):
         return self._count
 
 
-    def incrementFileIdx( self ):
+    def fileIdx( self ):
+        return self._fileIdx
+
+
+    def fileUnderTest( self ):
+        return self._fileUnderTest
+
+
+    def argumentUnderTest( self ):
+        return self._argumentUnderTest
+
+
+    def passCount( self ):
+        return self._passCount
+
+
+    def failCount( self ):
+        return self._failCount
+
+
+    def logFile( self, filename ):
         self._fileIdx += 1
+        s = '\n\n***********************************************************\n'
+        s += 'File ' + str( self._fileIdx ) + '/' + str( self.fileCount() )
+        s += ': ' + filename
+        self.logString( s )
+
+        self._fileUnderTest = filename
+        Events().update( EventTypes.GUI_UPDATE )
 
 
-    def log( self, logstr ):
+    def logArguments( self, args ):
+        self.logString( args )
+        self._argumentUnderTest = args
+        Events().update( EventTypes.GUI_UPDATE )
+
+
+    def logResult( self, resultBool, logString = '' ):
+        if( resultBool == True ):
+            self._passCount += 1
+        else:
+            self._failCount += 1
+        self.logString( logString )
+        Events().update( EventTypes.GUI_UPDATE )
+
+
+    def logString( self, logstr ):
 
         print( logstr )
 

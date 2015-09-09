@@ -1,8 +1,8 @@
 import os
 import argparse
 from test_runner.runner import runtest
-from my_os.dirs import parseFileArg
 from data.internaldata import InternalData
+from gui.launch import launchGUI
 # from my_os.env_vars import checkEnvVars
 
 
@@ -30,6 +30,9 @@ if __name__ == '__main__':
     parser.add_argument( '-verbose',
                          action = 'store_true',
                          help = 'Enable verbose log and shell outputs' )
+    parser.add_argument( '-gui',
+                         action = 'store_true',
+                         help = 'Display GUI' )
 
     args = parser.parse_args()
 
@@ -50,9 +53,7 @@ if __name__ == '__main__':
     else:
         InternalData().setVerbose( False )
 
-    # Check if a specific file was specified or if a directory was specified.
-    # This will throw an exception if the file or directory does not exist
-    # Check the recursion flag, but will be a don't-care if a file was specified.
-    testfiles = parseFileArg( args.files, args.recur )
-
-    runtest( testfiles )
+    if( args.gui ):
+        launchGUI( args.files, args.recur )
+    else:
+        runtest( args.files, args.recur )
