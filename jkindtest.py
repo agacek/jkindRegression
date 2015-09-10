@@ -36,6 +36,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
 
+    # Add the path and the recursion flag to our Internal Data
+    InternalData().setTestPath( args.files )
+    InternalData().setRecurseFlag( args.recur )
+
     # Check if an alternate xml configuration file was specified.
     if( args.config ):
         assert os.path.exists( args.config )
@@ -52,7 +56,9 @@ if __name__ == '__main__':
     else:
         InternalData().setVerbose( False )
 
+
+    # Launch either the command line or GUI
     if( args.gui ):
-        launchGUI( args.files, args.recur )
+        launchGUI()
     else:
-        runtest( args.files, args.recur )
+        runtest()

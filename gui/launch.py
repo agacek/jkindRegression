@@ -3,7 +3,7 @@ from tkinter import Tk
 from .mainframe import MainFrameGUI
 
 
-def launchGUI( path, recurse ):
+def launchGUI():
     root = Tk()
     MainFrameGUI( parentFrame = root, root = root )
     root.mainloop()

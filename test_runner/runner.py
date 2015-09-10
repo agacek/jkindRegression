@@ -2,8 +2,13 @@
 from .logger import Logger
 from my_os.dirs import parseFileArg
 from .test_case import TestCase
+from .internaldata import InternalData
 
-def runtest( path, recurse ):
+def runtest():
+
+    # Get the path and the recursion flag from the command line arguments
+    path = InternalData().getTestPath()
+    recurse = InternalData().getRecurseFlag()
 
     # Check if a specific file was specified or if a directory was specified.
     # This will throw an exception if the file or directory does not exist

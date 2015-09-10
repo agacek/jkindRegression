@@ -103,4 +103,4 @@ class MainFrameGUI( tk.Frame ):
 
 class ExecThread( threading.Thread ):
     def run( self ):
-        runner.runtest( 'c:/temp', False )
+        runner.runtest()

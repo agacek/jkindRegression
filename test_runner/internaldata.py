@@ -12,11 +12,25 @@ class InternalData( object ):
     _xml_config_file = DEFAULT_XML_FILE
     _output_dir = os.path.join( os.getcwd(), 'output' )
     _verbose = False
+    _path = None
+    _recur = False
 
     def __init__( self ):
 
         # Set the shared state - Borg DP
         self.__dict__ = self.__we_are_the_borg_we_are_one
+
+    def getTestPath( self ):
+        return self._path
+
+    def setTestPath( self, path ):
+        self._path = path
+
+    def getRecurseFlag( self ):
+        return self._recurse
+
+    def setRecurseFlag( self, recur ):
+        self._recurse = recur
 
     def getXmlConfigFile( self ):
         return self._xml_config_file
