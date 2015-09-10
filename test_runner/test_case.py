@@ -3,8 +3,9 @@ import xml.dom.minidom
 from itertools import product
 from my_os.process import call
 from my_os.dirs import deleteFile
-from data.testdefns import XmlProperties, FileResults
-from data.internaldata import InternalData
+from .testdata import FileResults
+from .testdata import XmlProperties
+from .internaldata import InternalData
 from .logger import Logger
 
 

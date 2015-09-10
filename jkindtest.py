@@ -1,12 +1,8 @@
 import os
 import argparse
 from test_runner.runner import runtest
-from data.internaldata import InternalData
-try:
-    from gui.launch import launchGUI
-except Exception:
-    pass
-# from my_os.env_vars import checkEnvVars
+from test_runner.internaldata import InternalData
+from gui.launch import launchGUI
 
 
 

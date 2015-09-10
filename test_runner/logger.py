@@ -1,8 +1,8 @@
 
 import os
-from data.events import Events
-from data.events import EventTypes
-from data.internaldata import InternalData
+from .events import Events
+from .events import EventTypes
+from .internaldata import InternalData
 
 
 

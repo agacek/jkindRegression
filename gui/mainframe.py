@@ -1,9 +1,9 @@
 import tkinter as tk
 import threading
 from test_runner import runner
-from data.logger import Logger
-from data.events import Events
-from data.events import EventTypes
+from test_runner.logger import Logger
+from test_runner.events import Events
+from test_runner.events import EventTypes
 
 
 class MainFrameGUI( tk.Frame ):
