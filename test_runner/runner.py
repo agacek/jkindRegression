@@ -24,10 +24,14 @@ def runtest():
     Logger().fileCount( len( filenames ) )
 
     # Iterate through the filenames as top level for the Tests
-    for thefile in filenames:
+    for theFile in filenames:
 
-        tc = TestCase( thefile )
+        tc = TestCase( theFile )
         result = tc.runTest()
+        Logger().logResult( result, theFile )
+
+    # Check the Logger for the Summary
+    Logger().summary()
 
     # Close the logger
     Logger().close()

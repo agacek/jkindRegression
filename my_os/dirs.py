@@ -34,6 +34,9 @@ def deleteFile( filename ):
 
 def parseFileArg( arg, recurse = True ):
 
+    # Format the path argument slashes
+    arg = os.path.abspath( arg )
+
     # Just see if this even exists
     assert os.path.exists( arg )
 

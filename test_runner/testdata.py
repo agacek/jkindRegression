@@ -15,28 +15,19 @@ class XmlProperties( object ):
         self.K = ''
 
 
-    def toString( self ):
-        s = ' \n'
-        s += 'Name:   ' + self.name + '\n'
-        s += 'Source: ' + self.source + '\n'
-        s += 'Answer: ' + self.answer + '\n'
-        s += 'K:      ' + self.K + '\n'
-        return s
-
-
     def equal( self, arg ):
         if( ( arg.name == self.name ) and ( arg.answer == self.answer ) ):
             return True
         return False
 
 
-class FileResults( object ):
+class RunResult( object ):
     '''
     blah blah blah 
     '''
     def __init__( self, filename, argumentString, propertyList ):
-        self.filename = filename
-        self.argumentString = argumentString
+        self._filename = filename
+        self._argumentString = argumentString
 
         # Convert the property list to a dictionary, key being the name
         # of the property and the value being the property itself.
@@ -45,15 +36,8 @@ class FileResults( object ):
             self.resultDict[each.name] = each
 
 
-    def toString( self ):
-        s = '\n-----------------------\n'
-        s += 'Filename:  ' + self.filename + '\n'
-        s += 'Arguments: ' + self.argumentString + '\n'
-        if ( InternalData().isVerbose() == True ):
-            for key in self.resultDict:
-                s += self.resultDict[key].toString()
-
-        return s
+    def argumentStr( self ):
+        return self._argumentString
 
 
     def count( self ):

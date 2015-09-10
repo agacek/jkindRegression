@@ -1,5 +1,6 @@
 
 import os
+import time
 from .events import Events
 from .events import EventTypes
 from .internaldata import InternalData
@@ -19,6 +20,9 @@ class Logger( object ):
     _argumentUnderTest = ''
     _passCount = 0
     _failCount = 0
+    _failedFileList = None
+    _startTime = 0
+    _endTime = 0
 
 
     def __init__( self ):
@@ -37,6 +41,9 @@ class Logger( object ):
         self._argumentUnderTest = ''
         self._passCount = 0
         self._failCount = 0
+        self._failedFileList = list()
+        self._startTime = time.time()
+
 
 
     def close( self ):
@@ -72,7 +79,7 @@ class Logger( object ):
 
     def logFile( self, filename ):
         self._fileIdx += 1
-        s = '\n\n***********************************************************\n'
+        s = '\n\n-----------------------------------------\n'
         s += 'File ' + str( self._fileIdx ) + '/' + str( self.fileCount() )
         s += ': ' + filename
         self.logString( s )
@@ -87,14 +94,15 @@ class Logger( object ):
         Events().update( EventTypes.GUI_UPDATE )
 
 
-    def logResult( self, resultBool, logString = '' ):
+    def logResult( self, resultBool, filename ):
         if( resultBool == True ):
             self._passCount += 1
             s = 'PASS'
         else:
             self._failCount += 1
+            self._failedFileList.append( filename )
             s = 'FAIL'
-        self.logString( s + ': ' + logString )
+        self.logString( s )
         Events().update( EventTypes.GUI_UPDATE )
 
 
@@ -108,3 +116,30 @@ class Logger( object ):
             self._logfile.write( logstr )
         except:
             pass
+
+
+    def summary( self ):
+
+        self.logString( '\n\nTEST SUMMARY:' )
+
+        # Find the rough execution time
+        self._endTime = time.time()
+        secs = int( self._endTime - self._startTime )
+        s = str( self.fileCount() ) + ' files executed in ' + str( secs ) + ' seconds'
+        self.logString( s )
+
+        # Pass/Fail count
+        self.logString( 'PASS: ' + str( self.passCount() ) )
+        self.logString( 'FAIL: ' + str( self.failCount() ) )
+
+        # Print any files that may have failed
+        if( len( self._failedFileList ) > 0 ):
+            self.logString( '\nFAILED FILES:' )
+            for each in self._failedFileList:
+                self.logString( each )
+
+
+
+
+
+

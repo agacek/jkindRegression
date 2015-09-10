@@ -3,7 +3,7 @@ import xml.dom.minidom
 from itertools import product
 from my_os.process import call
 from my_os.dirs import deleteFile
-from .testdata import FileResults
+from .testdata import RunResult
 from .testdata import XmlProperties
 from .internaldata import InternalData
 from .logger import Logger
@@ -54,7 +54,7 @@ class TestCase( object ):
         xmlProps = self._parseXML( xmlFile )
 
         # Instantiate the File Results and add the properties we just got.
-        results = FileResults( self._fileUnderTest, arguments, xmlProps )
+        results = RunResult( self._fileUnderTest, arguments, xmlProps )
 
         # Add the results to our internal list for later validation
         self._fileResults.append( results )
@@ -68,6 +68,10 @@ class TestCase( object ):
         # Check that all the results are the same
         tmpList = self._fileResults.copy()
         key = tmpList.pop()
+
+        if( InternalData().isVerbose() == True ):
+            Logger().logString( '\nVALIDATE' )
+
         for each in tmpList:
             if( key.equal( each ) == False ):
                 self._testPass = False
@@ -75,7 +79,12 @@ class TestCase( object ):
             else:
                 self._testPass = True
 
-        Logger().logResult( self._testPass )
+            if( InternalData().isVerbose() == True ):
+                s = key.argumentStr() + ' <- COMPARE TO -> ' + each.argumentStr()
+                s += '  : ' + str( self._testPass )
+                Logger().logString( s )
+
+        # Logger().logResult( self._testPass )
 
         return self._testPass
 
