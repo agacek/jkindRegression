@@ -84,8 +84,6 @@ class TestCase( object ):
                 s += '  : ' + str( self._testPass )
                 Logger().logString( s )
 
-        # Logger().logResult( self._testPass )
-
         return self._testPass
 
 
@@ -115,8 +113,8 @@ class TestCase( object ):
             theProp.source = answerAttr.getAttribute( 'source' )
 
             # Get the K attribute and fill in the value
-            kAttr = each.getElementsByTagName( 'K' )[0]
-            theProp.K = kAttr.firstChild.data
+            # kAttr = each.getElementsByTagName( 'K' )[0]
+            # theProp.K = kAttr.firstChild.data
 
             # Add to our list of Properties
             propList.append( theProp )

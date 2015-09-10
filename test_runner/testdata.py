@@ -12,7 +12,7 @@ class XmlProperties( object ):
         self.name = ''
         self.source = ''
         self.answer = ''
-        self.K = ''
+        # self.K = ''
 
 
     def equal( self, arg ):
