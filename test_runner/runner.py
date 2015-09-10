@@ -1,10 +1,7 @@
 
-from itertools import product
-from ._jkind import jkind_exec
-from data.logger import Logger
-from data.testdefns import FileSuite
+from .logger import Logger
 from my_os.dirs import parseFileArg
-from test_runner._test_config import getArguments
+from .test_case import TestCase
 
 def runtest( path, recurse ):
 
@@ -24,38 +21,8 @@ def runtest( path, recurse ):
     # Iterate through the filenames as top level for the Tests
     for thefile in filenames:
 
-        suite = FileSuite( thefile )
-
-        # Read the arguments from the test configuration xml file.
-        # A list-of-lists will be returned. Each sub-list is a series of
-        # related arguments to be individually used in the iterations.
-        argLists = getArguments()
-
-        # Log the file
-        Logger().logFile( thefile )
-
-        for args in product( *argLists ):
-            # Convert the args tuple to a single string
-            argStr = ''
-            for each in args:
-                argStr += each
-                argStr += ' '
-
-            # Run jkind
-            Logger().logArguments( argStr )
-            results = jkind_exec( thefile, argStr )
-
-            # Compile the results of this run and add it to the
-            # file test suite.
-            suite.addFileTest( results )
-
-        # All done iterating through the arguments.
-        # Now let's validate the results
-        result = suite.validate()
-        s = suite.toString()
-        Logger().logResult( result, s )
-
-        # Logger().logString( s )
+        tc = TestCase( thefile )
+        result = tc.runTest()
 
     # Close the logger
     Logger().close()

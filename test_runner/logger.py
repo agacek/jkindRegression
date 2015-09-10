@@ -1,8 +1,8 @@
 
 import os
-from .events import Events
-from .events import EventTypes
-from .internaldata import InternalData
+from data.events import Events
+from data.events import EventTypes
+from data.internaldata import InternalData
 
 
 
@@ -21,8 +21,6 @@ class Logger( object ):
     _failCount = 0
 
 
-
-
     def __init__( self ):
 
         # Set the shared state - Borg DP
@@ -32,7 +30,7 @@ class Logger( object ):
     def open( self ):
         # Open the log file
         filename = os.path.join( InternalData().getOutputDir(), 'jkind_test.log' )
-        self._file = open( filename, 'w' )
+        self._logfile = open( filename, 'w' )
         self._count = 0
         self._fileIdx = 0
         self._fileUnderTest = ''
@@ -42,7 +40,7 @@ class Logger( object ):
 
 
     def close( self ):
-        self._file.close()
+        self._logfile.close()
         Events().update( EventTypes.TEST_DONE )
 
 
@@ -92,9 +90,11 @@ class Logger( object ):
     def logResult( self, resultBool, logString = '' ):
         if( resultBool == True ):
             self._passCount += 1
+            s = 'PASS'
         else:
             self._failCount += 1
-        self.logString( logString )
+            s = 'FAIL'
+        self.logString( s + ': ' + logString )
         Events().update( EventTypes.GUI_UPDATE )
 
 
@@ -105,6 +105,6 @@ class Logger( object ):
         try:
             if( logstr.endswith( '\n' ) == False ):
                 logstr += '\n'
-            self._file.write( logstr )
+            self._logfile.write( logstr )
         except:
             pass
