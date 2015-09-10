@@ -1,14 +1,19 @@
 
 import os
+import platform
 from test_runner.internaldata import InternalData
 from test_runner.runner import runtest
 
 # Need to set the current working directory
-os.chdir( 'c:/users/prmarti1/smaccm/jkind_test/test_workspace/jkindregression' )
+if( platform.system() == 'Darwin' ):
+    wdir = '/Users/paul/code/jkind_test/test_workspace/jkindRegression'
+else:
+    wdir = 'c:/users/prmarti1/smaccm/jkind_test/test_workspace/jkindregression'
+os.chdir( wdir )
+assert os.path.exists( wdir )
 
 file = './unit_test/test_files/tuple.lus'
 print( os.path.abspath( file ) )
-
 assert os.path.exists( os.path.abspath( file ) ) == True, 'Assert File Exists'
 
 InternalData().setTestPath( file )
