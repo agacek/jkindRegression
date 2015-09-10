@@ -15,7 +15,7 @@ class TestCase( object ):
         self._fileUnderTest = fileUnderTest
         assert os.path.exists( self._fileUnderTest ) == True, 'File Under Test Exists?'
 
-        self._testPass = False
+        self._testPass = True
         self._fileResults = list()
         Logger().logFile( self._fileUnderTest )
 
@@ -73,15 +73,13 @@ class TestCase( object ):
             Logger().logString( '\nVALIDATE' )
 
         for each in tmpList:
-            if( key.equal( each ) == False ):
-                self._testPass = False
-                break
-            else:
-                self._testPass = True
+
+            thisRunPass = key.equal( each )
+            self._testPass = self._testPass and thisRunPass
 
             if( InternalData().isVerbose() == True ):
-                s = key.argumentStr() + ' <- COMPARE TO -> ' + each.argumentStr()
-                s += '  : ' + str( self._testPass )
+                s = key.argumentStr() + ' <COMPARE TO> ' + each.argumentStr()
+                s += '  : ' + str( thisRunPass )
                 Logger().logString( s )
 
         return self._testPass

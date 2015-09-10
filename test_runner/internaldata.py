@@ -13,7 +13,7 @@ class InternalData( object ):
     _output_dir = os.path.join( os.getcwd(), 'output' )
     _verbose = False
     _path = None
-    _recur = False
+    _recurse = False
 
     def __init__( self ):
 
