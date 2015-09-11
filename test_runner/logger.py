@@ -23,6 +23,7 @@ class Logger( object ):
     _failedFileList = None
     _startTime = 0
     _endTime = 0
+    _enableStdOut = True
 
 
     def __init__( self ):
@@ -77,6 +78,10 @@ class Logger( object ):
         return self._failCount
 
 
+    def enableStdOut( self, TorF ):
+        self._enableStdOut = TorF
+
+
     def logFile( self, filename ):
         self._fileIdx += 1
         s = '\n\n-----------------------------------------\n'
@@ -108,7 +113,8 @@ class Logger( object ):
 
     def logString( self, logstr ):
 
-        print( logstr )
+        if( self._enableStdOut == True ):
+            print( logstr )
 
         try:
             if( logstr.endswith( '\n' ) == False ):
@@ -137,6 +143,12 @@ class Logger( object ):
             self.logString( '\nFAILED FILES:' )
             for each in self._failedFileList:
                 self.logString( each )
+
+        # Give an overall pass/fail indicator
+        if( self.failCount() == 0 ):
+            return True
+        else:
+            return False
 
 
 

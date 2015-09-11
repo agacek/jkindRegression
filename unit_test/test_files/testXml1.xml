@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<Results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">  
+  <Property name="var1">
+    <Runtime unit="sec">1.0</Runtime>
+    <Answer source="k-induction">valid</Answer>
+    <K>0</K>
+  </Property>
+  <Property name="var2">
+    <Runtime unit="sec">2.0</Runtime>
+    <Answer source="k-induction">valid</Answer>
+    <K>0</K>
+  </Property>
+  <Property name="var3">
+    <Runtime unit="sec">3.0</Runtime>
+    <Answer source="k-induction">valid</Answer>
+    <K>0</K>
+  </Property>  
+  <Property name="var4">
+    <Runtime unit="sec">4.0</Runtime>
+    <Answer source="k-induction">unknown</Answer>
+    <K>1</K>
+  </Property>
+  <Property name="var5">
+    <Runtime unit="sec">5.0</Runtime>
+    <Answer source="bmc">falsifiable</Answer>
+    <K>6</K>
+      <Signal name="cex1" type="bool">
+        <Value time="0">1</Value>
+        <Value time="1">1</Value>
+        <Value time="2">1</Value>
+        <Value time="3">1</Value>
+        <Value time="4">1</Value>
+        <Value time="5">0</Value>
+      </Signal>
+      <Signal name="w" type="int">
+        <Value time="0">1</Value>
+        <Value time="1">2</Value>
+        <Value time="2">3</Value>
+        <Value time="3">4</Value>
+        <Value time="4">5</Value>
+        <Value time="5">6</Value>
+      </Signal>
+      <Signal name="~flatten1" type="int">
+        <Value time="0">5</Value>
+        <Value time="1">6</Value>
+        <Value time="2">6</Value>
+        <Value time="3">6</Value>
+        <Value time="4">6</Value>
+        <Value time="5">6</Value>
+      </Signal>
+      <Signal name="~flatten2" type="int">
+        <Value time="0">4</Value>
+        <Value time="1">5</Value>
+        <Value time="2">6</Value>
+        <Value time="3">6</Value>
+        <Value time="4">6</Value>
+        <Value time="5">6</Value>
+      </Signal>
+      <Signal name="~flatten3" type="int">
+        <Value time="0">3</Value>
+        <Value time="1">4</Value>
+        <Value time="2">5</Value>
+        <Value time="3">6</Value>
+        <Value time="4">6</Value>
+        <Value time="5">6</Value>
+      </Signal>
+      <Signal name="~flatten4" type="int">
+        <Value time="0">2</Value>
+        <Value time="1">3</Value>
+        <Value time="2">4</Value>
+        <Value time="3">5</Value>
+        <Value time="4">6</Value>
+        <Value time="5">6</Value>
+      </Signal>
+    </Counterexample>
+  </Property>
+</Results>

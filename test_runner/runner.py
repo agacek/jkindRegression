@@ -31,7 +31,10 @@ def runtest():
         Logger().logResult( result, theFile )
 
     # Check the Logger for the Summary
-    Logger().summary()
+    ok = Logger().summary()
 
     # Close the logger
     Logger().close()
+
+    # Return the overall pass/fail flag.
+    return ok
