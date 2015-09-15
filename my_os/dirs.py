@@ -32,7 +32,7 @@ def deleteFile( filename ):
         pass
 
 
-def parseFileArg( arg, recurse = True ):
+def parseFiles( arg, recurse = True ):
 
     # Format the path argument slashes
     arg = os.path.abspath( arg )
@@ -40,9 +40,9 @@ def parseFileArg( arg, recurse = True ):
     # Just see if this even exists
     assert os.path.exists( arg )
 
-    # If this is a file, then just return it unmodified
+    # If this is a file, then just return it as a list
     if( os.path.isfile( arg ) == True ):
-        return arg
+        return [arg]
 
     # Otherwise this is a directory, search for the *.lus files and
     # build a list of the files.

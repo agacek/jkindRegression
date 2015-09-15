@@ -2,7 +2,7 @@
 import unittest
 import os
 from test_runner.runner import runtest
-from test_runner.internaldata import InternalData
+from test_runner.internaldata import ConfigData
 
 
 class TC_TupleFile( unittest.TestCase ):
@@ -26,7 +26,7 @@ class TC_TupleFile( unittest.TestCase ):
         '''
         Run the pre.lus file. Expect this to fail
         '''
-        InternalData().setTestPath( self.testFile )
+        ConfigData().setTestPath( self.testFile )
         rv = runtest()
         self.assertFalse( rv, 'tuple.lus file Fails?' )
 

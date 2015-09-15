@@ -1,9 +1,11 @@
 import os
 import argparse
-from test_runner.runner import runtest
-from test_runner.internaldata import InternalData
-from gui.launch import launchGUI
+from newtest.runner import runtest
+from newtest.configdata import ConfigData
+# from gui.launch import launchGUI
 
+
+DEFAULT_ARGUMENT_FILE = 'test_arguments.xml'
 
 
 if __name__ == '__main__':
@@ -18,8 +20,8 @@ if __name__ == '__main__':
     parser.add_argument( 'files', help = 'Filename to run or Directory to search for *.lus files' )
 
     # Optional arguments
-    parser.add_argument( '-config', help = 'Alternate Config XML file <default is test_config.xml>' )
-    parser.add_argument( '-dest', help = 'Alternate log destination <default is ./output>' )
+    parser.add_argument( '-argfile', help = 'Alternate Config XML file <default is test_config.xml>' )
+    parser.add_argument( '-logfile', help = 'Log to file, supply filename' )
 
 
     # Flags
@@ -36,29 +38,31 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
 
-    # Add the path and the recursion flag to our Internal Data
-    InternalData().setTestPath( args.files )
-    InternalData().setRecurseFlag( args.recur )
+    # Parse the files to test
+    ConfigData().setTestFiles( args.files, args.recur )
 
     # Check if an alternate xml configuration file was specified.
-    if( args.config ):
-        assert os.path.exists( args.config )
-        InternalData().setXmlConfigFile( args.config )
+    if( args.argfile ):
+        assert os.path.exists( os.path.dirname( args.argfile ) )
+        ConfigData().setTestArguments( args.argfile )
+    else:
+        ConfigData().setTestArguments( DEFAULT_ARGUMENT_FILE )
 
     # Check if an alternate log destination was specified
-    if( args.dest ):
-        assert os.path.exists( args.dest )
-        InternalData().setOutputDir( args.dest )
+    if( args.logfile ):
+        assert os.path.exists( os.path.dirname( args.logfile ) )
+        ConfigData().setLogFile( args.logfile )
 
     # Verbose?
     if( args.verbose ):
-        InternalData().setVerbose( True )
+        ConfigData().setVerbose( True )
     else:
-        InternalData().setVerbose( False )
+        ConfigData().setVerbose( False )
 
 
     # Launch either the command line or GUI
     if( args.gui ):
-        launchGUI()
+        # launchGUI()
+        pass
     else:
         runtest()

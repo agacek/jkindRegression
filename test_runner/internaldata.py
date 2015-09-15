@@ -3,7 +3,7 @@ import os
 DEFAULT_XML_FILE = 'test_config.xml'
 
 
-class InternalData( object ):
+class ConfigData( object ):
 
     # Define the shared state - Borg DP
     __we_are_the_borg_we_are_one = {}

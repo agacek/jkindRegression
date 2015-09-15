@@ -8,7 +8,7 @@
   </ArgumentGroup>
   
   <ArgumentGroup>
-    <arg></arg> <!-- blank argument -->
+    <arg></arg>
     <arg>-no_k_induction</arg>
     <arg>-pdr_max 0</arg>
   </ArgumentGroup>
