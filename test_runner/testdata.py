@@ -1,4 +1,4 @@
-from .internaldata import ConfigData
+from .internaldata import SetupConfig
 
 
 class XmlProperties( object ):

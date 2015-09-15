@@ -3,7 +3,7 @@ import os
 import time
 from .events import Events
 from .events import EventTypes
-from .internaldata import ConfigData
+from .internaldata import SetupConfig
 
 
 
@@ -34,7 +34,7 @@ class Logger( object ):
 
     def open( self ):
         # Open the log file
-        filename = os.path.join( ConfigData().getOutputDir(), 'jkind_test.log' )
+        filename = os.path.join( SetupConfig().getOutputDir(), 'jkind_test.log' )
         self._logfile = open( filename, 'w' )
         self._count = 0
         self._fileIdx = 0

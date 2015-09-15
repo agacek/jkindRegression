@@ -6,7 +6,7 @@ from itertools import product
 DEFAULT_ARGS_FILE = 'test_config.xml'
 
 
-class ConfigData( object ):
+class SetupConfig( object ):
 
     # Define the shared state - Borg DP
     __we_are_the_borg_we_are_one = {}
@@ -49,7 +49,6 @@ class ConfigData( object ):
                 argStr += each
                 argStr += ' '
             self._args.append( argStr )
-            print( argStr )
 
 
     def getTestArguments( self ):
@@ -100,7 +99,7 @@ class ConfigData( object ):
         Arguments:
         root - the top folder path to walk through
         recurse - if True will go through sub-folders
-        patter - file extension to look for (i.e. *.c)
+        pattern - file extension to look for (i.e. *.c)
         
         Description:
         Generator for walking a directory tree.
@@ -114,3 +113,44 @@ class ConfigData( object ):
                     yield os.path.join( path, name )
             if not recurse:
                 break
+
+
+
+
+
+class TestConfig( object ):
+
+    # Define the shared state - Borg DP
+    __we_are_the_borg_we_are_one = {}
+
+    # Define shared data
+    _fileList = None
+    _argsList = None
+
+
+    def __init__( self ):
+
+        # Set the shared state - Borg DP
+        self.__dict__ = self.__we_are_the_borg_we_are_one
+
+
+    def setFiles( self, fileList ):
+        self._fileList = fileList
+
+
+    def popFile( self ):
+        return self._fileList.pop()
+
+
+    def fileCount( self ):
+        return len( self._fileList )
+
+
+    def setArguments( self, argumentsList ):
+        self._argsList = argumentsList
+
+
+    def getArguments( self ):
+        return self._argsList
+
+

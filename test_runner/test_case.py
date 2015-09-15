@@ -5,7 +5,7 @@ from my_os.process import call
 from my_os.dirs import deleteFile
 from .testdata import RunResult
 from .testdata import XmlProperties
-from .internaldata import ConfigData
+from .internaldata import SetupConfig
 from .logger import Logger
 
 
@@ -69,7 +69,7 @@ class TestCase( object ):
         tmpList = self._fileResults.copy()
         key = tmpList.pop()
 
-        if( ConfigData().isVerbose() == True ):
+        if( SetupConfig().isVerbose() == True ):
             Logger().logString( '\nVALIDATE' )
 
         for each in tmpList:
@@ -77,7 +77,7 @@ class TestCase( object ):
             thisRunPass = key.equal( each )
             self._testPass = self._testPass and thisRunPass
 
-            if( ConfigData().isVerbose() == True ):
+            if( SetupConfig().isVerbose() == True ):
                 s = key.argumentStr() + ' <COMPARE TO> ' + each.argumentStr()
                 s += '  : ' + str( thisRunPass )
                 Logger().logString( s )
@@ -123,7 +123,7 @@ class TestCase( object ):
     def _getArguments( self ):
 
         argsList = list()
-        doc = xml.dom.minidom.parse( ConfigData().getXmlConfigFile() )
+        doc = xml.dom.minidom.parse( SetupConfig().getXmlConfigFile() )
         groups = doc.getElementsByTagName( 'ArgumentGroup' )
 
         for eachGroup in groups:

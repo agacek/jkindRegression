@@ -1,7 +1,7 @@
 
 import os
 import platform
-from test_runner.internaldata import ConfigData
+from test_runner.internaldata import SetupConfig
 from test_runner.runner import runtest
 
 # Need to set the current working directory
@@ -16,6 +16,6 @@ file = './unit_test/test_files/tuple.lus'
 print( os.path.abspath( file ) )
 assert os.path.exists( os.path.abspath( file ) ) == True, 'Assert File Exists'
 
-ConfigData().setTestPath( file )
+SetupConfig().setTestPath( file )
 
 runtest()

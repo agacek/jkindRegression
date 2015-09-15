@@ -1,7 +1,7 @@
 import os
 import argparse
 from newtest.runner import runtest
-from newtest.configdata import ConfigData
+from newtest.config import SetupConfig
 # from gui.launch import launchGUI
 
 
@@ -39,25 +39,25 @@ if __name__ == '__main__':
 
 
     # Parse the files to test
-    ConfigData().setTestFiles( args.files, args.recur )
+    SetupConfig().setTestFiles( args.files, args.recur )
 
     # Check if an alternate xml configuration file was specified.
     if( args.argfile ):
         assert os.path.exists( os.path.dirname( args.argfile ) )
-        ConfigData().setTestArguments( args.argfile )
+        SetupConfig().setTestArguments( args.argfile )
     else:
-        ConfigData().setTestArguments( DEFAULT_ARGUMENT_FILE )
+        SetupConfig().setTestArguments( DEFAULT_ARGUMENT_FILE )
 
     # Check if an alternate log destination was specified
     if( args.logfile ):
         assert os.path.exists( os.path.dirname( args.logfile ) )
-        ConfigData().setLogFile( args.logfile )
+        SetupConfig().setLogFile( args.logfile )
 
     # Verbose?
     if( args.verbose ):
-        ConfigData().setVerbose( True )
+        SetupConfig().setVerbose( True )
     else:
-        ConfigData().setVerbose( False )
+        SetupConfig().setVerbose( False )
 
 
     # Launch either the command line or GUI
