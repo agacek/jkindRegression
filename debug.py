@@ -1,8 +1,8 @@
 
 import os
 import platform
-from test_runner.internaldata import SetupConfig
-from test_runner.runner import runtest
+from jktest.config import SetupConfig
+from jktest.runner import runtest
 
 # Need to set the current working directory
 if( platform.system() == 'Darwin' ):
@@ -12,10 +12,14 @@ else:
 os.chdir( wdir )
 assert os.path.exists( wdir )
 
+
+SetupConfig().setTestArguments( 'test_arguments.xml' )
+
+
 file = './unit_test/test_files/tuple.lus'
 print( os.path.abspath( file ) )
 assert os.path.exists( os.path.abspath( file ) ) == True, 'Assert File Exists'
 
-SetupConfig().setTestPath( file )
+SetupConfig().setTestFiles( file, False )
 
 runtest()

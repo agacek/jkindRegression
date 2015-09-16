@@ -31,6 +31,8 @@ class JKind( object ):
         except:
             pass
 
+        self._results.sort()
+
         return self._results
 
 

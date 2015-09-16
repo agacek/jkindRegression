@@ -15,13 +15,24 @@ class JKindResult( object ):
     def __getitem__( self, key ):
         return self.d[key]
 
+    def __lt__( self, other ):
+        return self.d['name'] < other.d['name']
+
+    def __ne__( self, other ):
+        return not self.__eq__( other )
+
     def __eq__( self, other ):
         self.other = other
-        self.failLog = list()
+        # self.failLog = list()
 
         if isinstance( other, self.__class__ ):
-            a = sorted( self.d.keys() )
-            b = sorted( other.d.keys() )
+
+            # if( self.d != other.d ):
+            #    self._logFailure( 'd doesnt match' )
+
+            a = self.d.keys()
+            b = other.d.keys()
+
             if( a != b ):
                 err = 'Unequal number of Properties: {} != {}'.format( len( a ), len( b ) )
                 self._logFailure( err )
@@ -43,13 +54,11 @@ class JKindResult( object ):
 
         return ( len( self.failLog ) == 0 )
 
+
     def _logFailure( self, err ):
         s = '{}: <{}> <{}>\n  '.format( self.filename(), self.arguments(), self.other.arguments() )
         s += err
         self.failLog.append( s )
-
-    def __ne__( self, other ):
-        return not self.__eq__( other )
 
     def failures( self ):
         return self.failLog

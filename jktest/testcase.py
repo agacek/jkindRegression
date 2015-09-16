@@ -25,10 +25,11 @@ class MyTestCase( unittest.TestCase ):
         controlList = resultsList.pop()
 
         for each in resultsList:
+
             ok = ( controlList == each )
             if( ok == False ):
+
                 for jkr in controlList:
-                    # print( type( jkr.failures() ) )
                     for line in ( jkr.failures() ):
                         print( line )
 
