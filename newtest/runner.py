@@ -1,10 +1,18 @@
-
+import sys
 import unittest
 from newtest.config import SetupConfig
 from newtest.config import TestConfig
 from .testcase import MyTestCase
 
 def runtest():
+
+    # Try to open the log file, if it even exists. Try to redirect the i/o
+    # to the log file.
+    try:
+        logfile = open( SetupConfig().getLogFile(), 'w' )
+        sys.stdout = logfile
+    except:
+        logfile = None
 
     # Transfer Setup Data to the Test Specific Data store
     TestConfig().setFiles( SetupConfig().getTestFiles() )
@@ -19,6 +27,12 @@ def runtest():
         testCases.append( loader.loadTestsFromTestCase( MyTestCase ) )
 
     suite = unittest.TestSuite( testCases )
-    result = unittest.TextTestRunner( verbosity = 2 ).run( suite )
-
+    result = unittest.TextTestRunner( verbosity = 2, stream = logfile ).run( suite )
     print( result )
+
+    # Try to close the log file
+    try:
+        logfile.close()
+    except:
+        pass
+

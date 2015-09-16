@@ -3,8 +3,6 @@ import fnmatch
 import xml.dom.minidom
 from itertools import product
 
-DEFAULT_ARGS_FILE = 'test_config.xml'
-
 
 class SetupConfig( object ):
 
