@@ -1,7 +1,7 @@
 import os
 import argparse
-from newtest.runner import runtest
-from newtest.config import SetupConfig
+from jktest.runner import runtest
+from jktest.config import SetupConfig
 # from gui.launch import launchGUI
 
 

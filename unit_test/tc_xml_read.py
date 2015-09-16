@@ -1,8 +1,6 @@
 
 import unittest
 import os
-from test_runner.runner import runtest
-from test_runner.test_case import TestCase
 
 
 class TC_XmlRead( unittest.TestCase ):

@@ -1,7 +1,7 @@
 import sys
 import unittest
-from newtest.config import SetupConfig
-from newtest.config import TestConfig
+from .config import SetupConfig
+from .config import TestConfig
 from .testcase import MyTestCase
 
 def runtest():
