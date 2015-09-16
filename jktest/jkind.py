@@ -3,6 +3,7 @@ import os
 import subprocess
 import xml.dom.minidom
 from .results import JKindResult
+from .results import ResultList
 
 
 class JKind( object ):
@@ -10,7 +11,8 @@ class JKind( object ):
     def __init__( self, fname, arg ):
         self._file = fname
         self._arg = arg
-        self._results = list()
+        # self._results = list()
+        self._results = ResultList()
 
 
     def run( self ):

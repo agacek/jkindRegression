@@ -2,6 +2,7 @@
 from .config import TestConfig
 import unittest
 from .jkind import JKind
+from .results import ResultList
 
 
 class MyTestCase( unittest.TestCase ):
@@ -12,7 +13,8 @@ class MyTestCase( unittest.TestCase ):
     def setUp( self ):
         self.file = TestConfig().popFile()
         self.args = TestConfig().getArguments()
-        self.results = list()
+        # self.results = list()
+        self.results = ResultList()
 
         for arg in self.args:
             self.results.append( JKind( self.file, arg ).run() )
@@ -24,6 +26,8 @@ class MyTestCase( unittest.TestCase ):
         resultsList = self.results.copy()
         controlList = resultsList.pop()
 
+        print( str( type( resultsList ) ) )
+
         for each in resultsList:
 
             ok = ( controlList == each )
@@ -32,6 +36,18 @@ class MyTestCase( unittest.TestCase ):
                 for jkr in controlList:
                     for line in ( jkr.failures() ):
                         print( line )
+
+            # ok = True
+            # for ( res, tst ) in zip( controlList, each ):
+            #    if( res != tst ):
+            #        ok = False
+            #
+            # if( ok == False ):
+            #    for jkr in controlList:
+            #        for line in ( jkr.failures() ):
+            #            print( line )
+
+
 
 
             # msg = 'Test {} Args <{}> <{}>'.format()

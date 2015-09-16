@@ -1,5 +1,38 @@
 
 
+class ResultList( list ):
+
+    def __eq__( self, other ):
+
+        ok = True
+
+        if isinstance( other, self.__class__ ):
+            for ( x, y ) in zip( self, other ):
+                if( x != y ):
+                    ok = False
+
+            if( len( self ) != len( other ) ):
+                print( 'Mismatch Property Counts' )
+                ok = False
+
+            return ok
+        else:
+            raise AssertionError( 'Invalid class type for equality' )
+
+    def __ne__( self, other ):
+        return not self.__eq__( other )
+
+    def copy( self ):
+        rv = ResultList()
+        for each in self:
+            rv.append( each )
+        return rv
+
+    def pop( self ):
+        rv = self[len( self ) - 1]
+        self.__delitem__( len( self ) - 1 )
+        return rv
+
 
 class JKindResult( object ):
 
@@ -33,22 +66,28 @@ class JKindResult( object ):
             a = self.d.keys()
             b = other.d.keys()
 
-            if( a != b ):
-                err = 'Unequal number of Properties: {} != {}'.format( len( a ), len( b ) )
-                self._logFailure( err )
-
-            for key in a:
-                try:
-                    if( ( self.d[key] != 'unknown' ) and ( other.d[key] != 'unknown' ) ):
-                        if( self.d[key] != other.d[key] ):
-                            err = 'Key/Value mismatch: {}:{} {}:{}'.format( key,
-                                                                            self.d[key],
-                                                                            key,
-                                                                            other.d[key] )
-                            self._logFailure( err )
-                except KeyError as e:
-                    err = 'Missing field {}'.format( str( e ) )
+            try:
+                if( a != b ):
+                    err = 'Unequal number of Properties: {} != {}'.format( len( a ), len( b ) )
                     self._logFailure( err )
+
+                elif( self.d['name'] != self.other.d['name'] ):
+                    err = 'Name mismatch:  {} != {}'.format( self.d['name'], self.other.d['name'] )
+                    self._logFailure( err )
+
+                elif( self.d['answer'] != self.other.d['answer'] ):
+                    if( not ( ( self.d['answer'] == 'unknown' ) or ( self.other.d['answer'] == 'unknown' ) ) ):
+                        err = 'Answer mismatch: {} != {}'.format( self.d['answer'], self.other.d['answer'] )
+                        self._logFailure( err )
+
+                elif( ( self.d['answer'] == 'falsifiable' ) and ( self.other.d['answer'] == 'falsifiable' ) ):
+                    if( self.d['K'] != self.other.d['K'] ):
+                        err = 'K mismatch: {} != {}'.format( self.d['K'], self.other.d['K'] )
+                        self._logFailure( err )
+
+            except KeyError as e:
+                err = 'Key Error Exception: Missing field {}'.format( str( e ) )
+                self._logFailure( err )
         else:
             raise AssertionError( 'Invalid class type for equality' )
 
