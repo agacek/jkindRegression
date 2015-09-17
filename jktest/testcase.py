@@ -20,14 +20,19 @@ class JKTestCase( unittest.TestCase ):
         self.results = ResultList()
         self.file = TestConfig().popFile()
 
+        # Print test header for nicer output formatting
+        print( '\n**********************************************' )
+        print( 'BEGIN TEST OF: ' + str( self.file ) )
+
         for arg in TestConfig().nextArg():
             self.results.append( JKind( self.file, arg ).run() )
 
     def tearDown( self ):
-        pass
+        print( '\nEND TEST OF ' + str( self.file ) )
 
 
-    def test1( self ):
+
+    def test_result( self ):
         resultsList = self.results.copy()
         controlList = resultsList.pop()
 
