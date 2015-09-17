@@ -27,7 +27,7 @@ def runtest():
         testCases.append( loader.loadTestsFromTestCase( MyTestCase ) )
 
     suite = unittest.TestSuite( testCases )
-    result = unittest.TextTestRunner( verbosity = 2, stream = logfile ).run( suite )
+    result = unittest.TextTestRunner( verbosity=2, stream=logfile ).run( suite )
     print( result )
 
     # Try to close the log file

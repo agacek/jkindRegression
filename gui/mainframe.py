@@ -1,9 +1,8 @@
 import tkinter as tk
 import threading
-from test_runner import runner
-from test_runner.logger import Logger
-from test_runner.events import Events
-from test_runner.events import EventTypes
+from jktest import runner
+from .events import Events
+from .events import EventTypes
 
 
 class MainFrameGUI( tk.Frame ):
@@ -22,44 +21,44 @@ class MainFrameGUI( tk.Frame ):
         root - The Tkinter root.
         '''
 
-        tk.Frame.__init__( self, master = parentFrame )
+        tk.Frame.__init__( self, master=parentFrame )
         parentFrame.title( 'JKind Regression Test' )
         self._root = root
 
         py = 5
         row = 0
 
-        tk.Label( self, text = 'FileCounter' ).grid( column = 0, row = row, sticky = tk.W )
-        self._fileCounterEdit = tk.Entry( self, width = 10 )
-        self._fileCounterEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
+        tk.Label( self, text='FileCounter' ).grid( column=0, row=row, sticky=tk.W )
+        self._fileCounterEdit = tk.Entry( self, width=10 )
+        self._fileCounterEdit.grid( column=1, row=row, sticky=tk.W, pady=py )
         row += 1
 
-        tk.Label( self, text = 'Current File' ).grid( column = 0, row = row, sticky = tk.W )
-        self._currFileEdit = tk.Entry( self, width = 80 )
-        self._currFileEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
+        tk.Label( self, text='Current File' ).grid( column=0, row=row, sticky=tk.W )
+        self._currFileEdit = tk.Entry( self, width=80 )
+        self._currFileEdit.grid( column=1, row=row, sticky=tk.W, pady=py )
         row += 1
 
-        tk.Label( self, text = 'Arguments' ).grid( column = 0, row = row, sticky = tk.W )
-        self._argsEdit = tk.Entry( self, width = 80 )
-        self._argsEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
+        tk.Label( self, text='Arguments' ).grid( column=0, row=row, sticky=tk.W )
+        self._argsEdit = tk.Entry( self, width=80 )
+        self._argsEdit.grid( column=1, row=row, sticky=tk.W, pady=py )
         row += 1
 
-        tk.Label( self, text = 'Pass Count' ).grid( column = 0, row = row, sticky = tk.W )
-        self._passEdit = tk.Entry( self, width = 10 )
-        self._passEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
+        tk.Label( self, text='Pass Count' ).grid( column=0, row=row, sticky=tk.W )
+        self._passEdit = tk.Entry( self, width=10 )
+        self._passEdit.grid( column=1, row=row, sticky=tk.W, pady=py )
         row += 1
 
-        tk.Label( self, text = 'Fail Count' ).grid( column = 0, row = row, sticky = tk.W )
-        self._failEdit = tk.Entry( self, width = 10 )
-        self._failEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
+        tk.Label( self, text='Fail Count' ).grid( column=0, row=row, sticky=tk.W )
+        self._failEdit = tk.Entry( self, width=10 )
+        self._failEdit.grid( column=1, row=row, sticky=tk.W, pady=py )
         row += 1
 
-        self._execButton = tk.Button( master = self,
-                                      text = 'Execute',
-                                      width = 15,
-                                      bg = 'light green',
-                                      command = self._onExecButton )
-        self._execButton.grid( column = 0, row = row, pady = py, sticky = tk.S )
+        self._execButton = tk.Button( master=self,
+                                      text='Execute',
+                                      width=15,
+                                      bg='light green',
+                                      command=self._onExecButton )
+        self._execButton.grid( column=0, row=row, pady=py, sticky=tk.S )
 
 
         # Register the update methods
@@ -70,17 +69,17 @@ class MainFrameGUI( tk.Frame ):
         self.update()
 
         # Pack this frame to the parent root
-        self.pack( side = tk.TOP )
+        self.pack( side=tk.TOP )
 
 
     def _onExecButton( self ):
         # runner.runtest( 'c:/temp', False )
-        self._execButton.configure( state = 'disabled', bg = 'light gray' )
+        self._execButton.configure( state='disabled', bg='light gray' )
         ExecThread().start()
 
 
     def _enableExecButton( self ):
-        self._execButton.configure( state = 'normal', bg = 'light green' )
+        self._execButton.configure( state='normal', bg='light green' )
 
 
     def _updateGui( self ):

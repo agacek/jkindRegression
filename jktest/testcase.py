@@ -7,13 +7,12 @@ from .results import ResultList
 
 class MyTestCase( unittest.TestCase ):
 
-    def __init__( self, methodName = 'runTest' ):
-        unittest.TestCase.__init__( self, methodName = methodName )
+    def __init__( self, methodName='runTest' ):
+        unittest.TestCase.__init__( self, methodName=methodName )
 
     def setUp( self ):
         self.file = TestConfig().popFile()
         self.args = TestConfig().getArguments()
-        # self.results = list()
         self.results = ResultList()
 
         for arg in self.args:
@@ -26,8 +25,6 @@ class MyTestCase( unittest.TestCase ):
         resultsList = self.results.copy()
         controlList = resultsList.pop()
 
-        print( str( type( resultsList ) ) )
-
         for each in resultsList:
 
             ok = ( controlList == each )
@@ -37,21 +34,7 @@ class MyTestCase( unittest.TestCase ):
                     for line in ( jkr.failures() ):
                         print( line )
 
-            # ok = True
-            # for ( res, tst ) in zip( controlList, each ):
-            #    if( res != tst ):
-            #        ok = False
-            #
-            # if( ok == False ):
-            #    for jkr in controlList:
-            #        for line in ( jkr.failures() ):
-            #            print( line )
-
-
-
-
-            # msg = 'Test {} Args <{}> <{}>'.format()
-            self.assertTrue( ok, 'test equality' )
+            self.assertTrue( ok, 'Test File: ' + self.file )
 
 
 

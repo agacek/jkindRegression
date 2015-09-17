@@ -12,7 +12,14 @@ class ResultList( list ):
                     ok = False
 
             if( len( self ) != len( other ) ):
-                print( 'Mismatch Property Counts' )
+                s = '\nMismatch Property Counts'
+                try:
+                    a = self[0].arguments()
+                    b = other[0].arguments()
+                    s += ' between: <{} == {}> <{} == {}>'.format( a, len( self ), b, len( other ) )
+                except:
+                    pass
+                print( s )
                 ok = False
 
             return ok
