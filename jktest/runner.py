@@ -1,8 +1,13 @@
+import os
 import sys
 import unittest
-from .config import SetupConfig
-from .config import TestConfig
-from .testcase import MyTestCase
+from jktest.config import SetupConfig
+from jktest.config import TestConfig
+from jktest.testcase import MyTestCase
+
+
+DEFAULT_ARGUMENT_FILE = 'test_arguments.xml'
+
 
 def runtest():
 
@@ -13,6 +18,12 @@ def runtest():
         sys.stdout = logfile
     except:
         logfile = None
+
+    # If a test arguments XML file wasn't specified, then set the default.
+    if ( SetupConfig().getTestArguments() == None ):
+        assert os.path.exists( DEFAULT_ARGUMENT_FILE )
+        SetupConfig().setTestArguments( DEFAULT_ARGUMENT_FILE )
+
 
     # Transfer Setup Data to the Test Specific Data store
     TestConfig().setFiles( SetupConfig().getTestFiles() )
@@ -27,7 +38,7 @@ def runtest():
         testCases.append( loader.loadTestsFromTestCase( MyTestCase ) )
 
     suite = unittest.TestSuite( testCases )
-    result = unittest.TextTestRunner( verbosity=2, stream=logfile ).run( suite )
+    result = unittest.TextTestRunner( verbosity = 2, stream = logfile ).run( suite )
     print( result )
 
     # Try to close the log file

@@ -1,22 +1,21 @@
 
 from .config import TestConfig
 import unittest
-from .jkind import JKind
-from .results import ResultList
+from jktest.jkind import JKind
+from jktest.results import ResultList
 
 
 class MyTestCase( unittest.TestCase ):
 
-    def __init__( self, methodName='runTest' ):
-        unittest.TestCase.__init__( self, methodName=methodName )
+    def __init__( self, methodName = 'runTest' ):
+        unittest.TestCase.__init__( self, methodName = methodName )
 
     def setUp( self ):
-        self.file = TestConfig().popFile()
-        self.args = TestConfig().getArguments()
         self.results = ResultList()
+        self.file = TestConfig().popFile()
 
-        for arg in self.args:
-            self.results.append( JKind( self.file, arg ).run() )
+        for i in range( TestConfig().argCount() ):
+            self.results.append( JKind( self.file, TestConfig().popArgument() ).run() )
 
     def tearDown( self ):
         pass

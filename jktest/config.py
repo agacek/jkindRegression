@@ -2,6 +2,7 @@ import os
 import fnmatch
 import xml.dom.minidom
 from itertools import product
+from jktest.guiIF import GuiIF
 
 
 class SetupConfig( object ):
@@ -23,6 +24,7 @@ class SetupConfig( object ):
 
 
     def setTestArguments( self, argumentsXmlFile ):
+        assert os.path.exists( argumentsXmlFile )
         argsListList = list()
         doc = xml.dom.minidom.parse( argumentsXmlFile )
         groups = doc.getElementsByTagName( 'ArgumentGroup' )
@@ -123,7 +125,9 @@ class TestConfig( object ):
 
     # Define shared data
     _fileList = None
+    _fileCount = None
     _argsList = None
+    _argCount = None
 
 
     def __init__( self ):
@@ -134,21 +138,33 @@ class TestConfig( object ):
 
     def setFiles( self, fileList ):
         self._fileList = fileList
+        self._fileCount = len( fileList )
+        GuiIF().setFileCount( self._fileCount )
 
 
     def popFile( self ):
-        return self._fileList.pop()
+        f = self._fileList.pop()
+        GuiIF().setFileUnderTest( f )
+        GuiIF().setFileCount( self._fileCount )
+        return f
 
 
     def fileCount( self ):
-        return len( self._fileList )
+        return self._fileCount
 
 
     def setArguments( self, argumentsList ):
         self._argsList = argumentsList
+        self._argCount = len( argumentsList )
 
 
-    def getArguments( self ):
-        return self._argsList
+    def popArgument( self ):
+        arg = self._argsList.pop()
+        self._argCount = len( self._argsList )
+        GuiIF().setArgUnderTest( arg )
+        return arg
+
+    def argCount( self ):
+        return self._argCount
 
 

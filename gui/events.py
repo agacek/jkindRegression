@@ -4,8 +4,9 @@ class EventTypes( object ):
     '''
     Public Class
     '''
-    GUI_UPDATE = 1
-    TEST_DONE = 2
+    FILE_UPDATE = 1
+    ARG_UPDATE = 2
+    TEST_DONE = 3
 
 
 class Events( object ):
@@ -19,7 +20,8 @@ class Events( object ):
     # Define shared data
     # _updateMethods = None
     _dict = {
-             EventTypes.GUI_UPDATE : list(),
+             EventTypes.FILE_UPDATE : list(),
+             EventTypes.ARG_UPDATE : list(),
              EventTypes.TEST_DONE : list()
              }
 
