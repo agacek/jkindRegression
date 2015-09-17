@@ -16,6 +16,8 @@ class GuiIF( object ):
     _fileIdx = 0
     _fileUnderTest = None
     _argUnderTest = None
+    _passCount = 0
+    _failCount = 0
 
 
 
@@ -62,3 +64,27 @@ class GuiIF( object ):
 
     def getArgUnderTest( self ):
         return self._argUnderTest
+
+
+    def incrTestPass( self ):
+        self._passCount += 1
+        try:
+            Events().update( EventTypes.RESULT_UPDATE )
+        except:
+            pass
+
+
+    def getTestPass( self ):
+        return self._passCount
+
+
+    def incrTestFail( self ):
+        self._failCount += 1
+        try:
+            Events().update( EventTypes.RESULT_UPDATE )
+        except:
+            pass
+
+
+    def getTestFail( self ):
+        return self._failCount

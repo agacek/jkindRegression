@@ -1,49 +1,15 @@
-import os
-import sys
+
 import unittest
-from jktest.config import SetupConfig
-from jktest.config import TestConfig
-from jktest.testcase import MyTestCase
+from jktest.guiIF import GuiIF
 
 
-DEFAULT_ARGUMENT_FILE = 'test_arguments.xml'
+class MyTextTestRunner( unittest.TextTestRunner ):
 
+    def run( self, test ):
+        res = super( MyTextTestRunner, self ).run( test )
+        if( res == True ):
+            GuiIF().incrTestPass()
+        else:
+            GuiIF().incrTestFail()
 
-def runtest():
-
-    # Try to open the log file, if it even exists. Try to redirect the i/o
-    # to the log file.
-    try:
-        logfile = open( SetupConfig().getLogFile(), 'w' )
-        sys.stdout = logfile
-    except:
-        logfile = None
-
-    # If a test arguments XML file wasn't specified, then set the default.
-    if ( SetupConfig().getTestArguments() == None ):
-        assert os.path.exists( DEFAULT_ARGUMENT_FILE )
-        SetupConfig().setTestArguments( DEFAULT_ARGUMENT_FILE )
-
-
-    # Transfer Setup Data to the Test Specific Data store
-    TestConfig().setFiles( SetupConfig().getTestFiles() )
-    TestConfig().setArguments( SetupConfig().getTestArguments() )
-
-    # Build a Test Suite made of the Generic test functions. The specific file and
-    # arguments run in the tests are determined at execution time.
-    testCases = []
-    loader = unittest.TestLoader()
-
-    for i in range( TestConfig().fileCount() ):
-        testCases.append( loader.loadTestsFromTestCase( MyTestCase ) )
-
-    suite = unittest.TestSuite( testCases )
-    result = unittest.TextTestRunner( verbosity = 2, stream = logfile ).run( suite )
-    print( result )
-
-    # Try to close the log file
-    try:
-        logfile.close()
-    except:
-        pass
-
+        return res

@@ -1,11 +1,17 @@
 
-from .config import TestConfig
 import unittest
+from jktest.config import TestConfig
 from jktest.jkind import JKind
 from jktest.results import ResultList
 
+class TestCase( unittest.TestCase ):
+    def assertTrue( self, expr, msg = None ):
+        super( TestCase, self ).assertTrue( expr, msg )
 
-class MyTestCase( unittest.TestCase ):
+
+
+class JKTestCase( unittest.TestCase ):
+# class JKTestCase( TestCase ):
 
     def __init__( self, methodName = 'runTest' ):
         unittest.TestCase.__init__( self, methodName = methodName )
@@ -14,11 +20,12 @@ class MyTestCase( unittest.TestCase ):
         self.results = ResultList()
         self.file = TestConfig().popFile()
 
-        for i in range( TestConfig().argCount() ):
-            self.results.append( JKind( self.file, TestConfig().popArgument() ).run() )
+        for arg in TestConfig().nextArg():
+            self.results.append( JKind( self.file, arg ).run() )
 
     def tearDown( self ):
         pass
+
 
     def test1( self ):
         resultsList = self.results.copy()
@@ -34,6 +41,8 @@ class MyTestCase( unittest.TestCase ):
                         print( line )
 
             self.assertTrue( ok, 'Test File: ' + self.file )
+
+
 
 
 

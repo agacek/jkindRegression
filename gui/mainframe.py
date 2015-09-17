@@ -1,9 +1,10 @@
 import tkinter as tk
 import threading
-from jktest import runner
+from jktest import testsuite
 from jktest.guiIF import GuiIF
 from gui.events import Events
 from gui.events import EventTypes
+from gui.menu import MyMenu
 
 
 class MainFrameGUI( tk.Frame ):
@@ -26,9 +27,14 @@ class MainFrameGUI( tk.Frame ):
         parentFrame.title( 'JKind Regression Test' )
         self._root = root
 
+        # Create the Menu
+        parentFrame.config( menu = MyMenu( self, root ) )
+
+        # Set the default padding values
         py = 5
         row = 0
 
+        # Add our widgets...
         tk.Label( self, text = 'FileCounter' ).grid( column = 0, row = row, sticky = tk.W )
         self._fileCounterEdit = tk.Entry( self, width = 10 )
         self._fileCounterEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
@@ -65,6 +71,7 @@ class MainFrameGUI( tk.Frame ):
         # Register the update methods
         Events().registerUpdateMethod( EventTypes.FILE_UPDATE, self._updateFile )
         Events().registerUpdateMethod( EventTypes.ARG_UPDATE, self._updateArgs )
+        Events().registerUpdateMethod( EventTypes.RESULT_UPDATE, self._updateResults )
         Events().registerUpdateMethod( EventTypes.TEST_DONE, self._enableExecButton )
 
         # Initial GUI update
@@ -72,6 +79,9 @@ class MainFrameGUI( tk.Frame ):
 
         # Pack this frame to the parent root
         self.pack( side = tk.TOP )
+
+        # Initialize the Pass/Fail counts
+        self._updateResults()
 
 
     def _onExecButton( self ):
@@ -98,15 +108,14 @@ class MainFrameGUI( tk.Frame ):
         self._argsEdit.insert( 0, str( GuiIF().getArgUnderTest() ) )
 
 
-    # def _updateGui( self ):
-    #
-    #    self._passEdit.delete( 0, tk.END )
-    #    self._passEdit.insert( 0, str( Logger().passCount() ) )
-    #
-    #    self._failEdit.delete( 0, tk.END )
-    #    self._failEdit.insert( 0, str( Logger().failCount() ) )
+    def _updateResults( self ):
+        self._passEdit.delete( 0, tk.END )
+        self._passEdit.insert( 0, str( GuiIF().getTestPass() ) )
+
+        self._failEdit.delete( 0, tk.END )
+        self._failEdit.insert( 0, str( GuiIF().getTestFail() ) )
 
 
 class ExecThread( threading.Thread ):
     def run( self ):
-        runner.runtest()
+        testsuite.runsuite()

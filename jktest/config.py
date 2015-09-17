@@ -158,6 +158,14 @@ class TestConfig( object ):
         self._argCount = len( argumentsList )
 
 
+    def next( self ):
+        return self.nextArg()
+
+
+    def nextArg( self ):
+        return ( arg for arg in self._argsList )
+
+
     def popArgument( self ):
         arg = self._argsList.pop()
         self._argCount = len( self._argsList )

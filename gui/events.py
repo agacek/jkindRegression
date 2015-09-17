@@ -6,7 +6,8 @@ class EventTypes( object ):
     '''
     FILE_UPDATE = 1
     ARG_UPDATE = 2
-    TEST_DONE = 3
+    RESULT_UPDATE = 3
+    TEST_DONE = 4
 
 
 class Events( object ):
@@ -22,6 +23,7 @@ class Events( object ):
     _dict = {
              EventTypes.FILE_UPDATE : list(),
              EventTypes.ARG_UPDATE : list(),
+             EventTypes.RESULT_UPDATE : list(),
              EventTypes.TEST_DONE : list()
              }
 
