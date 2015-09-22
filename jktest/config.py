@@ -56,11 +56,12 @@ class SetupConfig( object ):
 
 
     def setTestFiles( self, fileOrPath, recurse ):
-        # Format the path argument slashes
-        fileOrPath = os.path.abspath( fileOrPath )
 
         # Just see if this even exists
-        assert os.path.exists( fileOrPath )
+        assert os.path.exists( fileOrPath ), 'User specified file/path does not exist'
+
+        # Format the path argument slashes
+        fileOrPath = os.path.abspath( fileOrPath )
 
         # If this is a file, then just return it as a list
         if( os.path.isfile( fileOrPath ) == True ):
@@ -113,8 +114,6 @@ class SetupConfig( object ):
                     yield os.path.join( path, name )
             if not recurse:
                 break
-
-
 
 
 

@@ -85,7 +85,6 @@ class MainFrameGUI( tk.Frame ):
 
 
     def _onExecButton( self ):
-        # runner.runtest( 'c:/temp', False )
         self._execButton.configure( state = 'disabled', bg = 'light gray' )
         ExecThread().start()
 
