@@ -66,6 +66,13 @@ class GuiIF( object ):
         return self._argUnderTest
 
 
+    def logTestResult( self, PassOrFail ):
+        if( PassOrFail == True ):
+            self.incrTestPass()
+        else:
+            self.incrTestFail()
+
+
     def incrTestPass( self ):
         self._passCount += 1
         try:

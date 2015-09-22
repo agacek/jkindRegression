@@ -162,16 +162,20 @@ class TestConfig( object ):
 
 
     def nextArg( self ):
-        return ( arg for arg in self._argsList )
+        # return ( arg for arg in self._argsList )
+        for arg in self._argsList:
+            GuiIF().setArgUnderTest( arg )
+            yield arg
 
 
-    def popArgument( self ):
-        arg = self._argsList.pop()
-        self._argCount = len( self._argsList )
-        GuiIF().setArgUnderTest( arg )
-        return arg
-
-    def argCount( self ):
-        return self._argCount
+    # def popArgument( self ):
+    #    arg = self._argsList.pop()
+    #    self._argCount = len( self._argsList )
+    #    GuiIF().setArgUnderTest( arg )
+    #    return arg
+    #
+    #
+    # def argCount( self ):
+    #    return self._argCount
 
 

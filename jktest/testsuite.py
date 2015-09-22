@@ -38,7 +38,7 @@ def runsuite():
         testCases.append( loader.loadTestsFromTestCase( JKTestCase ) )
 
     suite = unittest.TestSuite( testCases )
-    result = MyTextTestRunner( verbosity = 2, stream = logfile ).run( suite )
+    result = unittest.TextTestRunner( verbosity = 0, stream = logfile ).run( suite )
     print( result )
 
     # Try to close the log file

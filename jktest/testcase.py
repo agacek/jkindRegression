@@ -3,15 +3,10 @@ import unittest
 from jktest.config import TestConfig
 from jktest.jkind import JKind
 from jktest.results import ResultList
-
-class TestCase( unittest.TestCase ):
-    def assertTrue( self, expr, msg = None ):
-        super( TestCase, self ).assertTrue( expr, msg )
-
+from jktest.guiIF import GuiIF
 
 
 class JKTestCase( unittest.TestCase ):
-# class JKTestCase( TestCase ):
 
     def __init__( self, methodName = 'runTest' ):
         unittest.TestCase.__init__( self, methodName = methodName )
@@ -24,11 +19,13 @@ class JKTestCase( unittest.TestCase ):
         print( '\n**********************************************' )
         print( 'BEGIN TEST OF: ' + str( self.file ) )
 
-        for arg in TestConfig().nextArg():
+        for arg in TestConfig().next():
             self.results.append( JKind( self.file, arg ).run() )
 
     def tearDown( self ):
         print( '\nEND TEST OF ' + str( self.file ) )
+
+        # print( str( self.wasSuccessful() ) )
 
 
 
@@ -39,8 +36,8 @@ class JKTestCase( unittest.TestCase ):
         for each in resultsList:
 
             ok = ( controlList == each )
+            GuiIF().logTestResult( ok )
             if( ok == False ):
-
                 for jkr in controlList:
                     for line in ( jkr.failures() ):
                         print( line )
