@@ -7,9 +7,6 @@ class ResultList( list ):
         ok = True
 
         if isinstance( other, self.__class__ ):
-            for ( x, y ) in zip( self, other ):
-                if( x != y ):
-                    ok = False
 
             if( len( self ) != len( other ) ):
                 s = '\nMismatch Property Counts'
@@ -21,6 +18,12 @@ class ResultList( list ):
                     pass
                 print( s )
                 ok = False
+
+            else:
+                # If we have matching number of property counts then test equality
+                for ( x, y ) in zip( self, other ):
+                    if( x != y ):
+                        ok = False
 
             return ok
         else:

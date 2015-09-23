@@ -14,7 +14,7 @@ class TC_XmlRead( unittest.TestCase ):
         # Instantiate the JKind class.
         self.jk = JKind( 'dummy', 'dummy' )
 
-        # Don't actually run JKind, but rather sneak our knonw XML file
+        # Don't actually run JKind, but rather sneak our known XML file
         # in through the private read method.
         self.jk._parseXML( self.testFile )
 

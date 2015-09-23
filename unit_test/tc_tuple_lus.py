@@ -29,7 +29,7 @@ class TC_TupleFile( unittest.TestCase ):
         SetupConfig().setTestFiles( self.testFile, False )
 
         try:
-            ok = runsuite()
+            ok = runsuite( verbose = False )
         except:
             pass
 

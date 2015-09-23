@@ -9,7 +9,7 @@ from jktest.testcase import JKTestCase
 DEFAULT_ARGUMENT_FILE = 'test_arguments.xml'
 
 
-def runsuite():
+def runsuite( verbose = True ):
 
     # Try to open the log file, if it even exists. Try to redirect the i/o
     # to the log file.
@@ -37,8 +37,12 @@ def runsuite():
         testCases.append( loader.loadTestsFromTestCase( JKTestCase ) )
 
     suite = unittest.TestSuite( testCases )
-    result = unittest.TextTestRunner( verbosity = 0, stream = logfile ).run( suite )
-    print( result )
+    result = unittest.TextTestRunner( verbosity = 2, stream = logfile ).run( suite )
+
+    if( verbose == True ):
+        print( '\n\n\n*****************************************' )
+        print( 'Overall TestSuite Result:' )
+        print( result )
 
     # Try to close the log file
     try:

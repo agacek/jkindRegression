@@ -30,11 +30,13 @@ class JKTestCase( unittest.TestCase ):
     def test_result( self ):
         resultsList = self.results.copy()
         controlList = resultsList.pop()
+        controlList.sort()
 
         for each in resultsList:
 
             with self.subTest( 'subtest' ):
 
+                each.sort()
                 ok = ( controlList == each )
                 GuiIF().logTestResult( ok )
                 if( ok == False ):

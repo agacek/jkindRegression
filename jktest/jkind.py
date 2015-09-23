@@ -42,6 +42,8 @@ class JKind( object ):
         # Get the top level document
         doc = xml.dom.minidom.parse( xmlFile )
 
+        # print( 'READ XML: ' + xmlFile )
+
         # Get a list of all the XmlProperties elements
         properties = doc.getElementsByTagName( 'Property' )
 
