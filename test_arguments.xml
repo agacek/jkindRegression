@@ -11,6 +11,12 @@
     <arg></arg>
     <arg>-no_k_induction</arg>
     <arg>-pdr_max 0</arg>
+    <arg>-smooth</arg>
+    <arg>-interval</arg>
+    <arg>-reduce_inv</arg>
+    <arg>-no_bmc</arg>
+    <arg>-no_inv_gen</arg>
+    <arg>-induct_cex</arg>
   </ArgumentGroup>
 
 </Configuration>

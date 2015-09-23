@@ -22,18 +22,25 @@ class JKind( object ):
         proc = subprocess.Popen( cmdLine, stdout = subprocess.PIPE, shell = True )
         ( out, err ) = proc.communicate()
 
-        # Get the xml file that was generated and parse it for the attributes.
-        # The xml parser will return an instance of the properties class
-        xmlFile = self._file + '.xml'
-        assert os.path.exists( xmlFile ) == True, 'XML File Exists?'
-        self._parseXML( xmlFile )
-        try:
-            os.remove( xmlFile )
-        except:
-            pass
+        # Check that jkind ran. Some flags aren't compatible with some solvers.
+        if( out.decode().lower().startswith( 'error' ) == True ):
+            self._results = None
+            print( '    >> Skipped: Incompatible argument combination' )
 
-        self._results.sort()
+        # Happy path...
+        else:
+            # Get the xml file that was generated and parse it for the attributes.
+            # The xml parser will return an instance of the properties class
+            xmlFile = self._file + '.xml'
+            assert os.path.exists( xmlFile ) == True, 'XML File Exists?'
+            self._parseXML( xmlFile )
+            try:
+                os.remove( xmlFile )
+            except:
+                pass
+            self._results.sort()
 
+        # Give back our results
         return self._results
 
 

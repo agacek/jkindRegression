@@ -20,7 +20,10 @@ class JKTestCase( unittest.TestCase ):
         print( 'BEGIN TEST OF: ' + str( self.file ) )
 
         for arg in TestConfig().next():
-            self.results.append( JKind( self.file, arg ).run() )
+            rv = JKind( self.file, arg ).run()
+            if( rv != None ):
+                self.results.append( rv )
+            # self.results.append( JKind( self.file, arg ).run() )
 
 
     def tearDown( self ):

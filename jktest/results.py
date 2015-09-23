@@ -26,6 +26,10 @@ class ResultList( list ):
                         ok = False
 
             return ok
+
+        elif( isinstance( other, type( None ) ) ):
+            super.__eq__( self, other )
+
         else:
             raise AssertionError( 'Invalid class type for equality' )
 
