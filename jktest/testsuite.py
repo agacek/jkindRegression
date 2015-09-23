@@ -4,7 +4,6 @@ import unittest
 from jktest.config import SetupConfig
 from jktest.config import TestConfig
 from jktest.testcase import JKTestCase
-from jktest.runner import MyTextTestRunner
 
 
 DEFAULT_ARGUMENT_FILE = 'test_arguments.xml'
@@ -47,3 +46,4 @@ def runsuite():
     except:
         pass
 
+    return result.wasSuccessful()

@@ -8,21 +8,22 @@
   <Property name="var2">
     <Runtime unit="sec">2.0</Runtime>
     <Answer source="k-induction">valid</Answer>
-    <K>0</K>
+    <K>1</K>
   </Property>
   <Property name="var3">
     <Runtime unit="sec">3.0</Runtime>
     <Answer source="k-induction">valid</Answer>
-    <K>0</K>
+    <K>2</K>
   </Property>  
   <Property name="var4">
     <Runtime unit="sec">4.0</Runtime>
     <Answer source="k-induction">unknown</Answer>
-    <K>1</K>
+    <K>3</K>
   </Property>
   <Property name="var5">
     <Runtime unit="sec">5.0</Runtime>
     <Answer source="bmc">falsifiable</Answer>
+    <Counterexample>
     <K>6</K>
       <Signal name="cex1" type="bool">
         <Value time="0">1</Value>

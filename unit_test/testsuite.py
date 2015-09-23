@@ -3,7 +3,7 @@ import unittest
 
 # from unit_test.tc_pre_lus import TC_PreFile
 # from unit_test.tc_tuple_lus import TC_TupleFile
-from .tc_jkind_result import TC_JKind_Result
+from unit_test.tc_xml_read import TC_XmlRead
 
 
 
@@ -16,7 +16,10 @@ class TestSuite():
 
         # testCases.append( loader.loadTestsFromTestCase( TC_PreFile ) )
         # testCases.append( loader.loadTestsFromTestCase( TC_TupleFile ) )
-        testCases.append( loader.loadTestsFromTestCase( TC_JKind_Result ) )
+        testCases.append( loader.loadTestsFromTestCase( TC_XmlRead ) )
+
+
+        # testCases.append( loader.loadTestsFromTestCase( TC_JKind_Result ) )
 
         suite = unittest.TestSuite( testCases )
 

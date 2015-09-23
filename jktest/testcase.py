@@ -22,11 +22,9 @@ class JKTestCase( unittest.TestCase ):
         for arg in TestConfig().next():
             self.results.append( JKind( self.file, arg ).run() )
 
+
     def tearDown( self ):
         print( '\nEND TEST OF ' + str( self.file ) )
-
-        # print( str( self.wasSuccessful() ) )
-
 
 
     def test_result( self ):
@@ -35,14 +33,16 @@ class JKTestCase( unittest.TestCase ):
 
         for each in resultsList:
 
-            ok = ( controlList == each )
-            GuiIF().logTestResult( ok )
-            if( ok == False ):
-                for jkr in controlList:
-                    for line in ( jkr.failures() ):
-                        print( line )
+            with self.subTest( 'subtest' ):
 
-            self.assertTrue( ok, 'Test File: ' + self.file )
+                ok = ( controlList == each )
+                GuiIF().logTestResult( ok )
+                if( ok == False ):
+                    for jkr in controlList:
+                        for line in ( jkr.failures() ):
+                            print( line )
+
+                self.assertTrue( ok, 'Test File: ' + self.file )
 
 
 

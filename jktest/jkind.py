@@ -11,7 +11,6 @@ class JKind( object ):
     def __init__( self, fname, arg ):
         self._file = fname
         self._arg = arg
-        # self._results = list()
         self._results = ResultList()
 
 
