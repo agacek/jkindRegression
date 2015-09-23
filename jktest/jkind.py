@@ -29,22 +29,20 @@ class JKind( object ):
 
         # Happy path...
         else:
-            # Get the xml file that was generated and parse it for the attributes.
-            # The xml parser will return an instance of the properties class
-            xmlFile = self._file + '.xml'
-            assert os.path.exists( xmlFile ) == True, 'XML File Exists?'
-            self._parseXML( xmlFile )
-            try:
-                os.remove( xmlFile )
-            except:
-                pass
-            self._results.sort()
+            # Parse the XML file that was generated for this test. The results
+            # are stored in class member data
+            self._parseXML()
 
         # Give back our results
         return self._results
 
 
-    def _parseXML( self, xmlFile ):
+    def _parseXML( self ):
+
+        # The XML file should be the same name as our *.lus file, just with
+        # the xml extension.
+        xmlFile = self._file + '.xml'
+        assert os.path.exists( xmlFile ) == True, 'XML File Exists?'
 
         # Get the top level document
         doc = xml.dom.minidom.parse( xmlFile )
@@ -79,4 +77,12 @@ class JKind( object ):
             # Add to our list of Properties
             self._results.append( res )
 
+        # Delete the XML file we generated for this run so we don't get fooled
+        # later by a stale file when a jkind run failed.
+        try:
+            os.remove( xmlFile )
+        except:
+            pass
 
+        # Sort the list to make equality testing easier later on
+        self._results.sort()
