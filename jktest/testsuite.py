@@ -19,6 +19,7 @@ def runsuite( verbose = True ):
         sys.stdout = logfile
     except:
         logfile = None
+        sys.stdout = sys.__stdout__
 
     # If a test arguments XML file wasn't specified, then set the default.
     if ( SetupConfig().getTestArguments() == None ):

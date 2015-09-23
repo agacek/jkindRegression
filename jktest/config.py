@@ -65,6 +65,8 @@ class SetupConfig( object ):
         if( isinstance( fileOrPath, list ) == True ):
             self._files = list( fileOrPath )
 
+            assert len( fileOrPath ) > 0  # Make sure this insn't an empty list
+
             # Test that the files exist
             for each in self._files:
                 assert os.path.exists( each ), 'User specified file/path does not exist'
