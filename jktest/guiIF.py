@@ -29,6 +29,13 @@ class GuiIF( object ):
         self.__dict__ = self.__we_are_the_borg_we_are_one
 
 
+    def reset( self ):
+        self._fileCount = 0
+        self._fileIdx = 0
+        self._passCount = 0
+        self._failCount = 0
+
+
     def setFileCount( self, count ):
         self._fileCount = count
 
@@ -66,32 +73,26 @@ class GuiIF( object ):
         return self._argUnderTest
 
 
-    def logTestResult( self, PassOrFail ):
+    def logSubTestResult( self, PassOrFail ):
         if( PassOrFail == True ):
-            self.incrTestPass()
+            self._passCount += 1
+            # self.incrTestPass()
         else:
-            self.incrTestFail()
-
-
-    def incrTestPass( self ):
-        self._passCount += 1
-        try:
-            Events().update( EventTypes.RESULT_UPDATE )
-        except:
-            pass
+            self._failCount += 1
+            # self.incrTestFail()
+        Events().update( EventTypes.RESULT_UPDATE )
 
 
     def getTestPass( self ):
         return self._passCount
 
 
-    def incrTestFail( self ):
-        self._failCount += 1
-        try:
-            Events().update( EventTypes.RESULT_UPDATE )
-        except:
-            pass
-
-
     def getTestFail( self ):
         return self._failCount
+
+
+    def signalSuiteComplete( self ):
+        try:
+            Events().update( EventTypes.TEST_DONE )
+        except:
+            pass

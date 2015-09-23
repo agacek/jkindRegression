@@ -46,8 +46,15 @@ if __name__ == '__main__':
     if not ( args.files or args.gui ):
         parser.error( 'Must specify -files, --gui, or both' )
 
-    # Parse the files to test
-    SetupConfig().setTestFiles( args.files, args.recur )
+    # Parse the files to test. If gui was specified without files this is ok.
+    # Otherwise re-throw the file(s) not found exception.
+    try:
+        SetupConfig().setTestFiles( args.files, args.recur )
+    except Exception as ex:
+        if( args.gui ):
+            pass
+        else:
+            raise Exception( ex )
 
     # Check if an alternate xml configuration file was specified.
     if( args.argfile ):

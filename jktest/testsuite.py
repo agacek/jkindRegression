@@ -4,6 +4,7 @@ import unittest
 from jktest.config import SetupConfig
 from jktest.config import TestConfig
 from jktest.testcase import JKTestCase
+from jktest.guiIF import GuiIF
 
 
 DEFAULT_ARGUMENT_FILE = 'test_arguments.xml'
@@ -50,4 +51,9 @@ def runsuite( verbose = True ):
     except:
         pass
 
+    # Try to tell the GUI that all is finished
+    GuiIF().signalSuiteComplete()
+
+    # Return an overall boolean pass/fail. Typically used for the self unittests.
     return result.wasSuccessful()
+

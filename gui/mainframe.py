@@ -50,12 +50,12 @@ class MainFrameGUI( tk.Frame ):
         self._argsEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
         row += 1
 
-        tk.Label( self, text = 'Pass Count' ).grid( column = 0, row = row, sticky = tk.W )
+        tk.Label( self, text = 'SubTest Pass Count' ).grid( column = 0, row = row, sticky = tk.W )
         self._passEdit = tk.Entry( self, width = 10 )
         self._passEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
         row += 1
 
-        tk.Label( self, text = 'Fail Count' ).grid( column = 0, row = row, sticky = tk.W )
+        tk.Label( self, text = 'SubTest Fail Count' ).grid( column = 0, row = row, sticky = tk.W )
         self._failEdit = tk.Entry( self, width = 10 )
         self._failEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
         row += 1
@@ -86,6 +86,8 @@ class MainFrameGUI( tk.Frame ):
 
     def _onExecButton( self ):
         self._execButton.configure( state = 'disabled', bg = 'light gray' )
+        GuiIF().reset()
+        self._updateResults()
         ExecThread().start()
 
 

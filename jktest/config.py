@@ -52,33 +52,52 @@ class SetupConfig( object ):
 
 
     def getTestArguments( self ):
-        return self._args
+        if( isinstance( self._args, list ) == True ):
+            return list( self._args )
+        else:
+            return None
 
 
     def setTestFiles( self, fileOrPath, recurse ):
 
-        # Just see if this even exists
-        assert os.path.exists( fileOrPath ), 'User specified file/path does not exist'
+        # Test to see if this is list-type. If so assume that it's a list of filenames.
+        # We DO NOT support a list of directories.
+        if( isinstance( fileOrPath, list ) == True ):
+            self._files = list( fileOrPath )
 
-        # Format the path argument slashes
-        fileOrPath = os.path.abspath( fileOrPath )
+            # Test that the files exist
+            for each in self._files:
+                assert os.path.exists( each ), 'User specified file/path does not exist'
 
-        # If this is a file, then just return it as a list
-        if( os.path.isfile( fileOrPath ) == True ):
-            self._files = [fileOrPath]
-
+        # Otherwise we believe we've received either a single file name or a
+        # directory for us to search for *.lus files.
         else:
-            # Otherwise this is a directory, search for the *.lus files and
-            # build a list of the files.
-            l = list()
-            for filename in self._walk( fileOrPath, recurse, '*.lus' ):
-                l.append( filename )
+            # Make sure this even exists
+            assert os.path.exists( fileOrPath ), 'User specified file/path does not exist'
 
-            self._files = l
+            # Format the path argument slashes
+            fileOrPath = os.path.abspath( fileOrPath )
+
+            # If this is a file, then just return it as a list
+            if( os.path.isfile( fileOrPath ) == True ):
+                self._files = [fileOrPath]
+
+            else:
+                # Otherwise this is a directory, search for the *.lus files and
+                # build a list of the files.
+                l = list()
+                for filename in self._walk( fileOrPath, recurse, '*.lus' ):
+                    l.append( filename )
+
+                self._files = l
 
 
     def getTestFiles( self ):
-        return self._files
+        if( isinstance( self._files, list ) == True ):
+            return list( self._files )
+        else:
+            return None
+
 
     def getLogFile( self ):
         return self._logfile

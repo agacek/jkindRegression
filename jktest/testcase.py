@@ -38,7 +38,7 @@ class JKTestCase( unittest.TestCase ):
 
                 each.sort()
                 ok = ( controlList == each )
-                GuiIF().logTestResult( ok )
+                GuiIF().logSubTestResult( ok )
                 if( ok == False ):
                     for jkr in controlList:
                         for line in ( jkr.failures() ):
