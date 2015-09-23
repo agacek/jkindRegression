@@ -50,9 +50,28 @@ class TC_XmlOrder( unittest.TestCase ):
         self.assertEqual( EXP_LIST_LEN, listLen, "Results List is Length?" )
 
 
+    def testFail( self ):
+        testlst1 = self.jk1._results
+        testlst2 = self.jk2._results
+
+        ok = ( testlst1 == testlst2 )
+
+        self.assertFalse( ok, 'Results should not be equal' )
+
+        # The second and third Properties in the XML files are out of order
+        # and should've generated a failure string. Check that this is true.
+        a = testlst1[1].failures()
+        self.assertEqual( len( a ), 1, 'Second Property should have failure string' )
+
+        b = testlst1[2].failures()
+        self.assertEqual( len( b ), 1, 'Third Property should have failure string' )
+
+
     def testSuccess( self ):
         '''
-        Test that the Properties (Variables) match what we expect
+        Test that the Properties (Variables) match what we expect.
+        The order of the Properties are intentionally out of order in the XML file.
+        This checks that our ResultsList can be sorted prior to equality testing.
         '''
 
         # This is a list of JKind Results read from the file
