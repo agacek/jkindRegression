@@ -20,7 +20,6 @@ class GuiIF( object ):
     _failCount = 0
 
 
-
     def __init__( self ):
         '''
         Constructor
@@ -76,10 +75,8 @@ class GuiIF( object ):
     def logSubTestResult( self, PassOrFail ):
         if( PassOrFail == True ):
             self._passCount += 1
-            # self.incrTestPass()
         else:
             self._failCount += 1
-            # self.incrTestFail()
         Events().update( EventTypes.RESULT_UPDATE )
 
 

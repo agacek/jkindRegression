@@ -1,16 +1,15 @@
 
 import unittest
-# from jktest.config import TestConfig
+from jktest.guiIF import GuiIF
 from jktest.jkind import JKind
 from jktest.results import ResultList
-from jktest.guiIF import GuiIF
 
 
 def testCaseFactory( filename, argsList ):
 
-    tc_name = filename.split( '.' )[0]
+    className = filename
     testargs = list( argsList )
-    return type( tc_name, ( __JKTestCase__, ), {'file' : filename, 'args' : testargs} )
+    return type( className, ( __JKTestCase__, ), {'file' : filename, 'args' : testargs} )
 
 
 
@@ -22,7 +21,6 @@ class __JKTestCase__( unittest.TestCase ):
 
     def setUp( self ):
         self.results = ResultList()
-        # self.file = TestConfig().popFile()
         GuiIF().setFileUnderTest( self.file )
 
         # Print test header for nicer output formatting
@@ -30,12 +28,10 @@ class __JKTestCase__( unittest.TestCase ):
         print( 'BEGIN TEST OF: ' + str( self.file ) )
 
         for arg in self.args:
-        # for arg in TestConfig().next():
             GuiIF().setArgUnderTest( arg )
             rv = JKind( self.file, arg ).run()
             if( rv != None ):
                 self.results.append( rv )
-            # self.results.append( JKind( self.file, arg ).run() )
 
 
     def tearDown( self ):

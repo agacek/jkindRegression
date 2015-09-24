@@ -70,12 +70,8 @@ class JKindResult( object ):
 
     def __eq__( self, other ):
         self.other = other
-        # self.failLog = list()
 
         if isinstance( other, self.__class__ ):
-
-            # if( self.d != other.d ):
-            #    self._logFailure( 'd doesnt match' )
 
             a = self.d.keys()
             b = other.d.keys()

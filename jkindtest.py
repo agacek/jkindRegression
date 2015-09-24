@@ -1,7 +1,7 @@
 import os
 import argparse
-from jktest.testsuite import runsuite
 from jktest.config import SetupConfig
+from jktest.testsuite import runsuite
 try:
     from gui.launch import launchGUI
 except:
@@ -34,7 +34,6 @@ if __name__ == '__main__':
     # Optional arguments
     parser.add_argument( '-argfile', help = 'Alternate Config XML file <default is test_config.xml>' )
     parser.add_argument( '-logfile', help = 'Log to file, supply filename' )
-
 
     # Optional Flags
     parser.add_argument( '--recur',

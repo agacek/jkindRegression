@@ -2,10 +2,8 @@ import os
 import sys
 import unittest
 from jktest.config import SetupConfig
-# from jktest.config import TestConfig
-# from jktest.testcase import JKTestCase
-from jktest.testcase import testCaseFactory
 from jktest.guiIF import GuiIF
+from jktest.testcase import testCaseFactory
 
 
 DEFAULT_ARGUMENT_FILE = 'test_arguments.xml'
@@ -27,22 +25,16 @@ def runsuite( verbose = True ):
         assert os.path.exists( DEFAULT_ARGUMENT_FILE )
         SetupConfig().setTestArguments( DEFAULT_ARGUMENT_FILE )
 
-    # Transfer Setup Data to the Test Specific Data store
-    # TestConfig().setFiles( SetupConfig().getTestFiles() )
-    # TestConfig().setArguments( SetupConfig().getTestArguments() )
-
     # Build a Test Suite made of the Generic test functions. The specific file and
     # arguments run in the tests are determined at execution time.
     testCases = []
     loader = unittest.TestLoader()
 
-    # for i in range( TestConfig().fileCount() ):
-        # testCases.append( loader.loadTestsFromTestCase( JKTestCase ) )
-
     GuiIF().setFileCount( len( SetupConfig().getTestFiles() ) )
 
     for filename in SetupConfig().getTestFiles():
-        testCases.append( loader.loadTestsFromTestCase( testCaseFactory( filename, SetupConfig().getTestArguments() ) ) )
+        testClass = testCaseFactory( filename, SetupConfig().getTestArguments() )
+        testCases.append( loader.loadTestsFromTestCase( testClass ) )
 
     suite = unittest.TestSuite( testCases )
     result = unittest.TextTestRunner( verbosity = 2, stream = logfile ).run( suite )
