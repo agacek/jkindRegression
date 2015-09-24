@@ -1,25 +1,37 @@
 
 import unittest
-from jktest.config import TestConfig
+# from jktest.config import TestConfig
 from jktest.jkind import JKind
 from jktest.results import ResultList
 from jktest.guiIF import GuiIF
 
 
-class JKTestCase( unittest.TestCase ):
+def testCaseFactory( filename, argsList ):
+
+    tc_name = filename.split( '.' )[0]
+    testargs = list( argsList )
+    return type( tc_name, ( __JKTestCase__, ), {'file' : filename, 'args' : testargs} )
+
+
+
+class __JKTestCase__( unittest.TestCase ):
 
     def __init__( self, methodName = 'runTest' ):
         unittest.TestCase.__init__( self, methodName = methodName )
 
+
     def setUp( self ):
         self.results = ResultList()
-        self.file = TestConfig().popFile()
+        # self.file = TestConfig().popFile()
+        GuiIF().setFileUnderTest( self.file )
 
         # Print test header for nicer output formatting
         print( '\n**********************************************' )
         print( 'BEGIN TEST OF: ' + str( self.file ) )
 
-        for arg in TestConfig().next():
+        for arg in self.args:
+        # for arg in TestConfig().next():
+            GuiIF().setArgUnderTest( arg )
             rv = JKind( self.file, arg ).run()
             if( rv != None ):
                 self.results.append( rv )

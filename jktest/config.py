@@ -138,55 +138,55 @@ class SetupConfig( object ):
 
 
 
-class TestConfig( object ):
-
-    # Define the shared state - Borg DP
-    __we_are_the_borg_we_are_one = {}
-
-    # Define shared data
-    _fileList = None
-    _fileCount = None
-    _argsList = None
-    _argCount = None
-
-
-    def __init__( self ):
-
-        # Set the shared state - Borg DP
-        self.__dict__ = self.__we_are_the_borg_we_are_one
-
-
-    def setFiles( self, fileList ):
-        self._fileList = fileList
-        self._fileCount = len( fileList )
-        GuiIF().setFileCount( self._fileCount )
-
-
-    def popFile( self ):
-        f = self._fileList.pop()
-        GuiIF().setFileUnderTest( f )
-        GuiIF().setFileCount( self._fileCount )
-        return f
-
-
-    def fileCount( self ):
-        return self._fileCount
-
-
-    def setArguments( self, argumentsList ):
-        self._argsList = argumentsList
-        self._argCount = len( argumentsList )
-
-
-    def next( self ):
-        return self.nextArg()
-
-
-    def nextArg( self ):
-        # return ( arg for arg in self._argsList )
-        for arg in self._argsList:
-            GuiIF().setArgUnderTest( arg )
-            yield arg
+# class TestConfig( object ):
+#
+#    # Define the shared state - Borg DP
+#    __we_are_the_borg_we_are_one = {}
+#
+#    # Define shared data
+#    _fileList = None
+#    _fileCount = None
+#    _argsList = None
+#    _argCount = None
+#
+#
+#    def __init__( self ):
+#
+#        # Set the shared state - Borg DP
+#        self.__dict__ = self.__we_are_the_borg_we_are_one
+#
+#
+#    def setFiles( self, fileList ):
+#        self._fileList = fileList
+#        self._fileCount = len( fileList )
+#        GuiIF().setFileCount( self._fileCount )
+#
+#
+#    def popFile( self ):
+#        f = self._fileList.pop()
+#        GuiIF().setFileUnderTest( f )
+#        GuiIF().setFileCount( self._fileCount )
+#        return f
+#
+#
+#    def fileCount( self ):
+#        return self._fileCount
+#
+#
+#    def setArguments( self, argumentsList ):
+#        self._argsList = argumentsList
+#        self._argCount = len( argumentsList )
+#
+#
+#    def next( self ):
+#        return self.nextArg()
+#
+#
+#    def nextArg( self ):
+#        # return ( arg for arg in self._argsList )
+#        for arg in self._argsList:
+#            GuiIF().setArgUnderTest( arg )
+#            yield arg
 
 
     # def popArgument( self ):
