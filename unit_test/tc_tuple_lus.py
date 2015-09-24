@@ -1,8 +1,7 @@
-
 import unittest
 import os
-from test_runner.runner import runtest
-from test_runner.internaldata import InternalData
+from jktest.config import SetupConfig
+from jktest.testsuite import runsuite
 
 
 class TC_TupleFile( unittest.TestCase ):
@@ -10,13 +9,14 @@ class TC_TupleFile( unittest.TestCase ):
     def setUp( self ):
         self.testFile = './unit_test/test_files/tuple.lus'
 
+
     def tearDown( self ):
         pass
 
 
     def testFileExists( self ):
         '''
-        First make sure the path is correct for the tuple.lus file
+        First make sure the path is correct for the pre.lus file
         '''
         exists = os.path.exists( os.path.abspath( self.testFile ) )
         self.assertTrue( exists, 'File Under Test Exists?' )
@@ -24,9 +24,13 @@ class TC_TupleFile( unittest.TestCase ):
 
     def testResult( self ):
         '''
-        Run the pre.lus file. Expect this to fail
+        Run the pre.lus file. Expect this to pass
         '''
-        InternalData().setTestPath( self.testFile )
-        rv = runtest()
-        self.assertFalse( rv, 'tuple.lus file Fails?' )
+        SetupConfig().setTestFiles( self.testFile, False )
 
+        try:
+            ok = runsuite( verbose = False )
+        except:
+            pass
+
+        self.assertFalse( ok, 'tuple.lus file Should Fail?' )

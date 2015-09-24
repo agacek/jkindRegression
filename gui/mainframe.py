@@ -1,9 +1,10 @@
 import tkinter as tk
 import threading
-from test_runner import runner
-from test_runner.logger import Logger
-from test_runner.events import Events
-from test_runner.events import EventTypes
+from jktest import testsuite
+from jktest.guiIF import GuiIF
+from gui.events import Events
+from gui.events import EventTypes
+from gui.menu import MyMenu
 
 
 class MainFrameGUI( tk.Frame ):
@@ -26,9 +27,14 @@ class MainFrameGUI( tk.Frame ):
         parentFrame.title( 'JKind Regression Test' )
         self._root = root
 
+        # Create the Menu
+        parentFrame.config( menu = MyMenu( self, root ) )
+
+        # Set the default padding values
         py = 5
         row = 0
 
+        # Add our widgets...
         tk.Label( self, text = 'FileCounter' ).grid( column = 0, row = row, sticky = tk.W )
         self._fileCounterEdit = tk.Entry( self, width = 10 )
         self._fileCounterEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
@@ -44,12 +50,12 @@ class MainFrameGUI( tk.Frame ):
         self._argsEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
         row += 1
 
-        tk.Label( self, text = 'Pass Count' ).grid( column = 0, row = row, sticky = tk.W )
+        tk.Label( self, text = 'SubTest Pass Count' ).grid( column = 0, row = row, sticky = tk.W )
         self._passEdit = tk.Entry( self, width = 10 )
         self._passEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
         row += 1
 
-        tk.Label( self, text = 'Fail Count' ).grid( column = 0, row = row, sticky = tk.W )
+        tk.Label( self, text = 'SubTest Fail Count' ).grid( column = 0, row = row, sticky = tk.W )
         self._failEdit = tk.Entry( self, width = 10 )
         self._failEdit.grid( column = 1, row = row, sticky = tk.W, pady = py )
         row += 1
@@ -63,7 +69,9 @@ class MainFrameGUI( tk.Frame ):
 
 
         # Register the update methods
-        Events().registerUpdateMethod( EventTypes.GUI_UPDATE, self._updateGui )
+        Events().registerUpdateMethod( EventTypes.FILE_UPDATE, self._updateFile )
+        Events().registerUpdateMethod( EventTypes.ARG_UPDATE, self._updateArgs )
+        Events().registerUpdateMethod( EventTypes.RESULT_UPDATE, self._updateResults )
         Events().registerUpdateMethod( EventTypes.TEST_DONE, self._enableExecButton )
 
         # Initial GUI update
@@ -72,10 +80,14 @@ class MainFrameGUI( tk.Frame ):
         # Pack this frame to the parent root
         self.pack( side = tk.TOP )
 
+        # Initialize the Pass/Fail counts
+        self._updateResults()
+
 
     def _onExecButton( self ):
-        # runner.runtest( 'c:/temp', False )
         self._execButton.configure( state = 'disabled', bg = 'light gray' )
+        GuiIF().reset()
+        self._updateResults()
         ExecThread().start()
 
 
@@ -83,24 +95,28 @@ class MainFrameGUI( tk.Frame ):
         self._execButton.configure( state = 'normal', bg = 'light green' )
 
 
-    def _updateGui( self ):
-        s = str( Logger().fileIdx() ) + ' / ' + str( Logger().fileCount() )
+    def _updateFile( self ):
+        s = str( GuiIF().getFileIdx() ) + ' / ' + str( GuiIF().getFileCount() )
         self._fileCounterEdit.delete( 0, tk.END )
         self._fileCounterEdit.insert( 0, s )
 
-        self._argsEdit.delete( 0, tk.END )
-        self._argsEdit.insert( 0, str( Logger().argumentUnderTest() ) )
-
         self._currFileEdit.delete( 0, tk.END )
-        self._currFileEdit.insert( 0, str( Logger().fileUnderTest() ) )
+        self._currFileEdit.insert( 0, str( GuiIF().getFileUnderTest() ) )
 
+
+    def _updateArgs( self ):
+        self._argsEdit.delete( 0, tk.END )
+        self._argsEdit.insert( 0, str( GuiIF().getArgUnderTest() ) )
+
+
+    def _updateResults( self ):
         self._passEdit.delete( 0, tk.END )
-        self._passEdit.insert( 0, str( Logger().passCount() ) )
+        self._passEdit.insert( 0, str( GuiIF().getTestPass() ) )
 
         self._failEdit.delete( 0, tk.END )
-        self._failEdit.insert( 0, str( Logger().failCount() ) )
+        self._failEdit.insert( 0, str( GuiIF().getTestFail() ) )
 
 
 class ExecThread( threading.Thread ):
     def run( self ):
-        runner.runtest()
+        testsuite.runsuite()

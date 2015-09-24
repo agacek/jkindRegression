@@ -1,26 +1,26 @@
-import sys
+
 import unittest
 
 from unit_test.tc_pre_lus import TC_PreFile
 from unit_test.tc_tuple_lus import TC_TupleFile
-from test_runner.logger import Logger
+from unit_test.tc_xml_read import TC_XmlRead
+from unit_test.tc_xml_order import TC_XmlOrder
 
 
+def runTestSuite():
 
-class TestSuite():
+    loader = unittest.TestLoader()
+    testCases = []
 
-    def execute( self, verbose = True ):
+    testCases.append( loader.loadTestsFromTestCase( TC_PreFile ) )
+    testCases.append( loader.loadTestsFromTestCase( TC_TupleFile ) )
+    testCases.append( loader.loadTestsFromTestCase( TC_XmlRead ) )
+    testCases.append( loader.loadTestsFromTestCase( TC_XmlOrder ) )
 
-        loader = unittest.TestLoader()
-        testCases = []
+    suite = unittest.TestSuite( testCases )
 
-        testCases.append( loader.loadTestsFromTestCase( TC_PreFile ) )
-        testCases.append( loader.loadTestsFromTestCase( TC_TupleFile ) )
+    result = unittest.TextTestRunner( verbosity = 2 ).run( suite )
 
-        Logger().enableStdOut( verbose )
-        suite = unittest.TestSuite( testCases )
-
-        result = unittest.TextTestRunner( verbosity = 2 ).run( suite )
-        Logger().enableStdOut( True )
-
-        print( result )
+    print( '\n\n\n*****************************************' )
+    print( 'Overall TestSuite Result:' )
+    print( result )

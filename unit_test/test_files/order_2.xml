@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">  
+  <Property name="var1">
+    <Runtime unit="sec">1.0</Runtime>
+    <Answer source="k-induction">valid</Answer>
+    <K>0</K>
+  </Property>
+  <Property name="var3">
+    <Runtime unit="sec">3.0</Runtime>
+    <Answer source="k-induction">valid</Answer>
+    <K>2</K>
+  </Property>
+  <Property name="var2">
+    <Runtime unit="sec">2.0</Runtime>
+    <Answer source="k-induction">valid</Answer>
+    <K>1</K>
+  </Property>
+  <Property name="var4">
+    <Runtime unit="sec">4.0</Runtime>
+    <Answer source="k-induction">unknown</Answer>
+    <K>3</K>
+  </Property>
+</Results>

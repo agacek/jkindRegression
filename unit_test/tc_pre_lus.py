@@ -1,14 +1,15 @@
 
 import unittest
 import os
-from test_runner.runner import runtest
-from test_runner.internaldata import InternalData
+from jktest.config import SetupConfig
+from jktest.testsuite import runsuite
 
 
 class TC_PreFile( unittest.TestCase ):
 
     def setUp( self ):
         self.testFile = './unit_test/test_files/pre.lus'
+
 
     def tearDown( self ):
         pass
@@ -26,6 +27,11 @@ class TC_PreFile( unittest.TestCase ):
         '''
         Run the pre.lus file. Expect this to pass
         '''
-        InternalData().setTestPath( self.testFile )
-        rv = runtest()
-        self.assertTrue( rv, 'pre.lus file Passes?' )
+        SetupConfig().setTestFiles( self.testFile, False )
+
+        try:
+            ok = runsuite( verbose = False )
+        except:
+            pass
+
+        self.assertTrue( ok, 'pre.lus file Passes?' )

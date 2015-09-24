@@ -1,14 +1,22 @@
 
 import unittest
 import os
-from test_runner.runner import runtest
-from test_runner.test_case import TestCase
+from jktest.jkind import JKind
+from jktest.results import JKindResult
+from jktest.results import ResultList
 
 
 class TC_XmlRead( unittest.TestCase ):
 
     def setUp( self ):
-        self.testFile = './unit_test/test_files/testXml1.xml'
+        self.testFile = './unit_test/test_files/tc_xml_read.xml'
+
+        # Instantiate the JKind class.
+        self.jk = JKind( 'dummy', 'dummy' )
+
+        # Don't actually run JKind, but rather sneak our known XML file
+        # in through the private read method.
+        self.jk._parseXML( self.testFile )
 
 
     def tearDown( self ):
@@ -23,8 +31,327 @@ class TC_XmlRead( unittest.TestCase ):
         self.assertTrue( exists, 'File Under Test Exists?' )
 
 
-    def testResult( self ):
+    def testResultsLength( self ):
         '''
-        Read the Properties from the XML File and validate
+        Test that the Length of the Results list matches our expectation
         '''
-        pass
+        listLen = len( self.jk._results )
+        EXP_LIST_LEN = 5
+        self.assertEqual( EXP_LIST_LEN, listLen, "Results List is Length?" )
+
+
+    def testReadSuccess( self ):
+        '''
+        Test that the Properties (Variables) match what we expect
+        '''
+
+        # This is a list of JKind Results read from the file
+        testlst = self.jk._results
+
+        # Create a specialized results list for testing
+        explst = ResultList()
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var1'
+        res['answer'] = 'valid'
+        res['K'] = '0'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var2'
+        res['answer'] = 'valid'
+        res['K'] = '1'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var3'
+        res['answer'] = 'valid'
+        res['K'] = '2'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var4'
+        res['answer'] = 'valid'
+        res['K'] = '3'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var5'
+        res['answer'] = 'falsifiable'
+        res['K'] = '6'
+        explst.append( res )
+
+
+        self.assertEqual( testlst, explst, 'Test the read and expected lists' )
+
+
+    def testFailName( self ):
+        '''
+        Test expected to Fail
+        '''
+
+        # This is a list of JKind Results read from the file
+        testlst = self.jk._results
+
+        # Create a specialized results list for testing
+        explst = ResultList()
+
+
+        # This first name is intentionally incorrect
+        res = JKindResult( '', '' )
+        res['name'] = 'var'  # << WRONG on purpose
+        res['answer'] = 'valid'
+        res['K'] = '0'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var2'
+        res['answer'] = 'valid'
+        res['K'] = '1'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var3'
+        res['answer'] = 'valid'
+        res['K'] = '2'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var4'
+        res['answer'] = 'valid'
+        res['K'] = '3'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var5'
+        res['answer'] = 'falsifiable'
+        res['K'] = '6'
+        explst.append( res )
+
+        self.assertNotEqual( testlst, explst, 'Test exepected to fail' )
+
+
+    def testFailAnswer( self ):
+        '''
+        Test expected to Fail
+        '''
+
+        # This is a list of JKind Results read from the file
+        testlst = self.jk._results
+
+        # Create a specialized results list for testing
+        explst = ResultList()
+
+
+        # This first name is intentionally incorrect
+        res = JKindResult( '', '' )
+        res['name'] = 'var1'
+        res['answer'] = 'valid'
+        res['K'] = '0'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var2'
+        res['answer'] = 'valid'
+        res['K'] = '1'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var3'
+        res['answer'] = 'falsifiable'  # << Intentionally Wrong
+        res['K'] = '2'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var4'
+        res['answer'] = 'valid'
+        res['K'] = '3'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var5'
+        res['answer'] = 'falsifiable'
+        res['K'] = '6'
+        explst.append( res )
+
+        self.assertNotEqual( testlst, explst, 'Test exepected to fail' )
+
+
+    def testFailK( self ):
+        '''
+        Test expected to Fail.
+        '''
+
+        # This is a list of JKind Results read from the file
+        testlst = self.jk._results
+
+        # Create a specialized results list for testing
+        explst = ResultList()
+
+
+        # This first name is intentionally incorrect
+        res = JKindResult( '', '' )
+        res['name'] = 'var1'
+        res['answer'] = 'valid'
+        res['K'] = '0'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var2'
+        res['answer'] = 'valid'
+        res['K'] = '1'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var3'
+        res['answer'] = 'valid'
+        res['K'] = '2'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var4'
+        res['answer'] = 'valid'
+        res['K'] = '3'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var5'
+        res['answer'] = 'falsifiable'
+        res['K'] = '99'  # << Intentionally Wrong
+        explst.append( res )
+
+        self.assertNotEqual( testlst, explst, 'Test exepected to fail' )
+
+
+    def testPassK( self ):
+        '''
+        Test expected to Fail.
+        '''
+
+        # This is a list of JKind Results read from the file
+        testlst = self.jk._results
+
+        # Create a specialized results list for testing
+        explst = ResultList()
+
+
+        # This first name is intentionally incorrect
+        res = JKindResult( '', '' )
+        res['name'] = 'var1'
+        res['answer'] = 'valid'
+        res['K'] = '0'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var2'
+        res['answer'] = 'valid'
+        res['K'] = '1'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var3'
+        res['answer'] = 'valid'
+        res['K'] = '99'  # << Intentionally set K to different value
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var4'
+        res['answer'] = 'valid'
+        res['K'] = '3'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var5'
+        res['answer'] = 'falsifiable'
+        res['K'] = '6'
+        explst.append( res )
+
+        self.assertEqual( testlst, explst, 'Test exepected to fail' )
+
+
+    def testPassUnknown( self ):
+        '''
+        Test expected to Pass
+        '''
+
+        # This is a list of JKind Results read from the file
+        testlst = self.jk._results
+
+        # Create a specialized results list for testing
+        explst = ResultList()
+
+
+        # This first name is intentionally incorrect
+        res = JKindResult( '', '' )
+        res['name'] = 'var1'
+        res['answer'] = 'valid'
+        res['K'] = '0'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var2'
+        res['answer'] = 'valid'
+        res['K'] = '1'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var3'
+        res['answer'] = 'valid'
+        res['K'] = '2'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var4'
+        res['answer'] = 'unknown'  # << Intentionally set to unknown
+        res['K'] = '3'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var5'
+        res['answer'] = 'falsifiable'
+        res['K'] = '6'
+        explst.append( res )
+
+        self.assertEqual( testlst, explst, 'Test exepected to fail' )
+
+
+    def testBadLen( self ):
+        '''
+        Test that our Results List class can deal with mis-matching count of 
+        results.
+        '''
+
+        # This is a list of JKind Results read from the file
+        testlst = self.jk._results
+
+        # Create a specialized results list for testing
+        explst = ResultList()
+
+        # The hand-coded Results are correct, except left out the 'var2' entry
+        # to see that the Results list class will detect this.
+        res = JKindResult( '', '' )
+        res['name'] = 'var1'
+        res['answer'] = 'valid'
+        res['K'] = '0'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var3'
+        res['answer'] = 'valid'
+        res['K'] = '2'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var4'
+        res['answer'] = 'valid'
+        res['K'] = '3'
+        explst.append( res )
+
+        res = JKindResult( '', '' )
+        res['name'] = 'var5'
+        res['answer'] = 'falsifiable'
+        res['K'] = '6'
+        explst.append( res )
+
+        self.assertNotEqual( testlst, explst, 'Test expected to fail' )
+
