@@ -1,6 +1,6 @@
 
-import unittest
 import os
+import unittest
 from jktest.jkind import JKind
 from jktest.results import JKindResult
 from jktest.results import ResultList

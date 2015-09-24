@@ -1,5 +1,5 @@
-import unittest
 import os
+import unittest
 from jktest.config import SetupConfig
 from jktest.testsuite import runsuite
 

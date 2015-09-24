@@ -56,9 +56,3 @@ class __JKTestCase__( unittest.TestCase ):
                             print( line )
 
                 self.assertTrue( ok, 'Test File: ' + self.file )
-
-
-
-
-
-

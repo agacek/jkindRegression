@@ -49,5 +49,4 @@ class Events( object ):
             for each in l:
                 each()
         except KeyError:
-            # print( 'Invalid Event Key Update: ' + str( key ) )
             pass
