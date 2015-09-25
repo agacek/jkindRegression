@@ -1,8 +1,18 @@
-
+'''
+This file contains the classes to trigger "events" to the tk GUI.
+These really aren't true events, but rather a layer between the JKind tests
+and the tk GUI. In most cases these are kinda recursive in that the "event"
+calls a registered GUI method and that GUI method in turn calls in to the
+JKind test modules to get data.
+'''
 
 class EventTypes( object ):
     '''
     Public Class
+    
+    This class defines the "Constants" for the update types.
+    The GUI will use these definitions to register an update method.
+    The JKind test modules use these to trigger the registered GUI methods.
     '''
     FILE_UPDATE = 1
     ARG_UPDATE = 2

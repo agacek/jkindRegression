@@ -26,10 +26,11 @@ if __name__ == '__main__':
     # Mandatory-ish arguments. User must specify either -files (with file or path), or
     # specify -gui to launch the GUI, or the may specify both to load the files and
     # launch the GUI.
-    parser.add_argument( '-files', help = 'Filename to run or Directory to search for *.lus files. Use with or in lieu of --gui' )
+    parser.add_argument( '-file', help = 'Filename to run.' )
+    parser.add_argument( '-dir', help = 'Directory to search for *.lus files.' )
     parser.add_argument( '--gui',
                          action = 'store_true',
-                         help = 'Display GUI - may be used with or in lieu of -files' )
+                         help = 'Display GUI - may be used with or in lieu of -file or -dir' )
 
     # Optional arguments
     parser.add_argument( '-argfile', help = 'Alternate Config XML file <default is test_config.xml>' )
@@ -42,13 +43,21 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    if not ( args.files or args.gui ):
-        parser.error( 'Must specify -files, --gui, or both' )
+
+    if( args.dir and args.file ):
+        parser.error( '-file and -dir are mutually exclusive' )
+
+    if not ( ( args.file or args.dir ) or args.gui ):
+        parser.error( 'Must specify -file, -dir, or --gui' )
 
     # Parse the files to test. If gui was specified without files this is ok.
     # Otherwise re-throw the file(s) not found exception.
+    if( args.file ):
+        test = args.file
+    else:
+        test = args.dir
     try:
-        SetupConfig().setTestFiles( args.files, args.recur )
+        SetupConfig().setTestFiles( test, args.recur )
     except Exception as ex:
         if( args.gui ):
             pass
