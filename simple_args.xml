@@ -1,0 +1,10 @@
+
+<Configuration>
+
+  <ArgumentGroup>
+    <arg>-solver yices</arg>
+    <arg>-solver smtinterpol</arg>
+    <arg>-solver cvc4</arg>
+  </ArgumentGroup>
+
+</Configuration>
