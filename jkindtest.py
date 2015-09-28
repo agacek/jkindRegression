@@ -13,28 +13,25 @@ if __name__ == '__main__':
     Main command line entry point in to the JKind Regression test suite.
     '''
 
-    s = "JKind Regression Test:\n"
+    s = "JKind Regression Test Tool: "
     s += "This tool is to serve as a regression test suite for the JKind tool as "
-    s += "applied to the *.lustre files.\n"
-    s += "General usage of the tool as follows from command line or shell:\n"
-    s += "> python jkindtest.py <files> <recurse dir flag> <gui flag> <opt xml file> <opt log file>"
-    s += "\nMandatory specification of either -files or --gui flag"
-    s += "Other arguments optional"
+    s += "applied to the desired Lustre files."
+
 
     parser = argparse.ArgumentParser( description = s )
 
     # Mandatory-ish arguments. User must specify either -files (with file or path), or
     # specify -gui to launch the GUI, or the may specify both to load the files and
     # launch the GUI.
-    parser.add_argument( '-file', help = 'Filename to run.' )
-    parser.add_argument( '-dir', help = 'Directory to search for *.lus files.' )
+    parser.add_argument( '-file', help = 'Filename to run. Must specify this or -dir or --gui' )
+    parser.add_argument( '-dir', help = 'Directory to search for *.lus files. Must specify this or -file or --gui' )
     parser.add_argument( '--gui',
                          action = 'store_true',
-                         help = 'Display GUI - may be used with or in lieu of -file or -dir' )
+                         help = 'Display GUI - may be used individually or with all other arguments.' )
 
     # Optional arguments
-    parser.add_argument( '-argfile', help = 'Alternate Config XML file <default is test_config.xml>' )
-    parser.add_argument( '-logfile', help = 'Log to file, supply filename' )
+    parser.add_argument( '-argfile', help = 'Alternate Config XML file <default is test_arguments.xml>' )
+    parser.add_argument( '-logfile', help = 'Log to file, supply filename.' )
 
     # Optional Flags
     parser.add_argument( '--recur',
