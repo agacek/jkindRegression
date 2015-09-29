@@ -12,8 +12,6 @@ Contents:
    :maxdepth: 2
 
 .. automodule:: jkindtest
-   
-.. autofunction:: go
 
 .. automodule:: jktest.jkind
 
