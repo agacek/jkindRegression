@@ -45,6 +45,19 @@
 <dt id="gui.mainframe.ExecThread">
 <em class="property">class </em><code class="descclassname">gui.mainframe.</code><code class="descname">ExecThread</code><span class="sig-paren">(</span><em>group=None</em>, <em>target=None</em>, <em>name=None</em>, <em>args=()</em>, <em>kwargs=None</em>, <em>*</em>, <em>daemon=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.ExecThread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></code></p>
+<p>This constructor should always be called with keyword arguments. Arguments are:</p>
+<p><em>group</em> should be None; reserved for future extension when a ThreadGroup
+class is implemented.</p>
+<p><em>target</em> is the callable object to be invoked by the run()
+method. Defaults to None, meaning nothing is called.</p>
+<p><em>name</em> is the thread name. By default, a unique name is constructed of
+the form &#8220;Thread-N&#8221; where N is a small decimal number.</p>
+<p><em>args</em> is the argument tuple for the target invocation. Defaults to ().</p>
+<p><em>kwargs</em> is a dictionary of keyword arguments for the target
+invocation. Defaults to {}.</p>
+<p>If a subclass overrides the constructor, it must make sure to invoke
+the base class constructor (Thread.__init__()) before doing anything
+else to the thread.</p>
 <dl class="method">
 <dt id="gui.mainframe.ExecThread.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.ExecThread.run" title="Permalink to this definition">¶</a></dt>
@@ -57,6 +70,38 @@
 <em class="property">class </em><code class="descclassname">gui.mainframe.</code><code class="descname">MainFrameGUI</code><span class="sig-paren">(</span><em>parentFrame</em>, <em>root</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tkinter.Frame</span></code></p>
 <p>This is the Main Window Frame for the Coding Standards GUI</p>
+<p>Constructor</p>
+<p>Arguments:
+parentFrame - The parent Frame of this window. If this is stand - alone</p>
+<blockquote>
+<div>application then this would be root. If this is part
+of a larger application then would be another frame</div></blockquote>
+<p>root - The Tkinter root.</p>
+<dl class="method">
+<dt id="gui.mainframe.MainFrameGUI._enableExecButton">
+<code class="descname">_enableExecButton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._enableExecButton" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gui.mainframe.MainFrameGUI._onExecButton">
+<code class="descname">_onExecButton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._onExecButton" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gui.mainframe.MainFrameGUI._updateArgs">
+<code class="descname">_updateArgs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._updateArgs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gui.mainframe.MainFrameGUI._updateFile">
+<code class="descname">_updateFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._updateFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gui.mainframe.MainFrameGUI._updateResults">
+<code class="descname">_updateResults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._updateResults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -70,7 +115,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="modules.html">jktest</a><ul>
+  <li><a href="modules.html">jkindRegression</a><ul>
   <li><a href="gui.html">gui package</a><ul>
       <li>Previous: <a href="gui.launch.html" title="previous chapter">gui.launch module</a></li>
       <li>Next: <a href="gui.menu.html" title="next chapter">gui.menu module</a></li>

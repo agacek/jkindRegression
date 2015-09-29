@@ -45,6 +45,46 @@
 <dt id="jktest.config.SetupConfig">
 <em class="property">class </em><code class="descclassname">jktest.config.</code><code class="descname">SetupConfig</code><a class="headerlink" href="#jktest.config.SetupConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="jktest.config.SetupConfig._SetupConfig__we_are_the_borg_we_are_one">
+<code class="descname">_SetupConfig__we_are_the_borg_we_are_one</code><em class="property"> = {}</em><a class="headerlink" href="#jktest.config.SetupConfig._SetupConfig__we_are_the_borg_we_are_one" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="jktest.config.SetupConfig._args">
+<code class="descname">_args</code><em class="property"> = None</em><a class="headerlink" href="#jktest.config.SetupConfig._args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="jktest.config.SetupConfig._files">
+<code class="descname">_files</code><em class="property"> = None</em><a class="headerlink" href="#jktest.config.SetupConfig._files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="jktest.config.SetupConfig._logfile">
+<code class="descname">_logfile</code><em class="property"> = None</em><a class="headerlink" href="#jktest.config.SetupConfig._logfile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="jktest.config.SetupConfig._verbose">
+<code class="descname">_verbose</code><em class="property"> = False</em><a class="headerlink" href="#jktest.config.SetupConfig._verbose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="jktest.config.SetupConfig._walk">
+<code class="descname">_walk</code><span class="sig-paren">(</span><em>root='.'</em>, <em>recurse=True</em>, <em>pattern='*'</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig._walk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private Function:</p>
+<p>Arguments:
+root - the top folder path to walk through
+recurse - if True will go through sub-folders
+pattern - file extension to look for (i.e. <a href="#id1"><span class="problematic" id="id2">*</span></a>.c)</p>
+<p>Description:
+Generator for walking a directory tree.
+Starts at specified root folder, returning files
+that match our pattern. Optionally will also
+recurse through sub-folders.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="jktest.config.SetupConfig.getLogFile">
 <code class="descname">getLogFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.getLogFile" title="Permalink to this definition">¶</a></dt>
@@ -98,7 +138,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="modules.html">jktest</a><ul>
+  <li><a href="modules.html">jkindRegression</a><ul>
   <li><a href="jktest.html">jktest package</a><ul>
       <li>Previous: <a href="jktest.html" title="previous chapter">jktest package</a></li>
       <li>Next: <a href="jktest.guiIF.html" title="next chapter">jktest.guiIF module</a></li>

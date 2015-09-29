@@ -287,3 +287,13 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+# PRM Added - try to get Sphinx to autodocument class __init__ methods.
+autoclass_content = 'both'
+
+# PRM Added - list undocumented and private methods for all by default
+autodoc_default_flags = ['members',
+                         'undoc-members',
+                         'private-members',
+                         'show-inheritence',
+                        ]

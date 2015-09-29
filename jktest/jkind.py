@@ -9,17 +9,22 @@ from .results import ResultList
 
 class JKind( object ):
     '''
-    Public Class
+    **Public Class**
+    
+    This class performs the command line call to execute JKind on the desired
+    file and argument set and collects the results.
+
     '''
 
     def __init__( self, fname, arg ):
         '''
-        Constructor
+        **Constructor**
         
         :param fname: lustre filename to run
-        :type name: str
+        :type fname: str
         :param arg: arguments to execute
         :type arg: str
+
         '''
         self._file = fname
         self._arg = arg
@@ -28,9 +33,18 @@ class JKind( object ):
 
     def run( self ):
         '''
-        Public Method
+        **Public Method**
         
-        :returns: ResultsList -- A list of JKindResult objects containing each Property generated in the JKind execution
+        Constructs the command line string to run JKind on the file with the
+        argument set. Calls _parseXML to read and collect the results.
+        
+        :returns: ResultList --  If JKind executed properly, a ResultList of 
+                                 JKindResult objects containing each 
+                                 Property generated in the JKind execution
+
+        :returns: None -- If JKind did not execute and returned a string
+                          beginning with "error"
+
         '''
 
         # Execute JKind from the command line
@@ -55,6 +69,18 @@ class JKind( object ):
 
 
     def _parseXML( self ):
+        '''
+        **Private Method**
+
+        Constructs the XML results filename from the lustre filename. Opens the
+        XML file and reads each of the "Property" elements. Instantiates a
+        JKindResult object and stores the "name", "Answer", and "K" value for
+        each Property. Appends each JKindResult object to the ResultList 
+        member.
+
+        :returns: n/a:
+
+        '''
 
         # The XML file should be the same name as our *.lus file, just with
         # the xml extension.
