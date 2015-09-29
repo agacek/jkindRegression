@@ -12,22 +12,6 @@ Contents:
    :maxdepth: 2
 
    modules.rst
-   
-   jktest.rst
-   jktest.config.rst
-   jktest.guiIF.rst
-   jktest.jkind.rst
-   jktest.results.rst
-   jktest.testcase.rst
-   jktest.testsuite.rst
-   
-   gui.rst
-   gui.events.rst
-   gui.launch.rst
-   gui.mainframe.rst
-   gui.menu.rst
-
-
 
 
 Indices and tables
