@@ -1,4 +1,5 @@
 
+
 import os
 import subprocess
 import xml.dom.minidom
@@ -7,14 +8,30 @@ from .results import ResultList
 
 
 class JKind( object ):
+    '''
+    Public Class
+    '''
 
     def __init__( self, fname, arg ):
+        '''
+        Constructor
+        
+        :param fname: lustre filename to run
+        :type name: str
+        :param arg: arguments to execute
+        :type arg: str
+        '''
         self._file = fname
         self._arg = arg
         self._results = ResultList()
 
 
     def run( self ):
+        '''
+        Public Method
+        
+        :returns: ResultsList -- A list of JKindResult objects containing each Property generated in the JKind execution
+        '''
 
         # Execute JKind from the command line
         cmdLine = 'jkind ' + self._file + ' -xml ' + self._arg
