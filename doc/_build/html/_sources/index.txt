@@ -11,14 +11,23 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-.. automodule:: jkindtest
+   modules.rst
    
-.. autofunction:: go
+   jktest.rst
+   jktest.config.rst
+   jktest.guiIF.rst
+   jktest.jkind.rst
+   jktest.results.rst
+   jktest.testcase.rst
+   jktest.testsuite.rst
+   
+   gui.rst
+   gui.events.rst
+   gui.launch.rst
+   gui.mainframe.rst
+   gui.menu.rst
 
-.. automodule:: jktest.jkind
 
-.. autoclass:: JKind
-    :members: __init__, run
 
 
 Indices and tables
