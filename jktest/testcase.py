@@ -50,9 +50,4 @@ class __JKTestCase__( unittest.TestCase ):
                 each.sort()
                 ok = ( controlList == each )
                 GuiIF().logSubTestResult( ok )
-                if( ok == False ):
-                    for jkr in controlList:
-                        for line in ( jkr.failures() ):
-                            print( line )
-
                 self.assertTrue( ok, 'Test File: ' + self.file )

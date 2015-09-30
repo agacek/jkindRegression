@@ -54,7 +54,7 @@ class JKindResult( object ):
         self.d = dict()
         self.fname = filename
         self.args = argString
-        self.failLog = list()
+        self._equal = False
 
     def __setitem__( self, key, val ):
         self.d[key] = val
@@ -70,6 +70,7 @@ class JKindResult( object ):
 
     def __eq__( self, other ):
         self.other = other
+        self._equal = True
 
         if isinstance( other, self.__class__ ):
 
@@ -101,19 +102,11 @@ class JKindResult( object ):
         else:
             raise AssertionError( 'Invalid class type for equality' )
 
-        return ( len( self.failLog ) == 0 )
+        return ( self._equal )
 
 
     def _logFailure( self, err ):
-        s = '{}: <{}> <{}>\n  '.format( self.filename(), self.arguments(), self.other.arguments() )
+        s = '{}: <{}> <{}>\n  '.format( self.fname, self.args, self.other.args )
         s += err
-        self.failLog.append( s )
-
-    def failures( self ):
-        return self.failLog
-
-    def filename( self ):
-        return self.fname
-
-    def arguments( self ):
-        return self.args
+        print( s )
+        self._equal = False

@@ -80,6 +80,10 @@ class JKind( object ):
         JKindResult object and stores the "name", "Answer", and "K" value for
         each Property. Appends each JKindResult object to the ResultList 
         member.
+        
+        If by chance no Properties are generated, will add an "empty" result,
+        with the 'name' stating as such and the argument string that caused
+        the problem.
 
         :return: n/a:
 
@@ -122,6 +126,15 @@ class JKind( object ):
 
             # Add to our list of Properties
             self._results.append( res )
+
+        # Check that our results list ins't empty. If it is, then add a single
+        # empty result so that downstream tests may pass.
+        if( len( self._results ) < 1 ):
+            empty = JKindResult( self._file, self._arg )
+            empty['name'] = '< NO PROPERTY GENERATED for ' + self._arg + '>'
+            empty['answer'] = ''
+            empty['K'] = ''
+            self._results.append( empty )
 
         # Delete the XML file we generated for this run so we don't get fooled
         # later by a stale file when a jkind run failed.

@@ -1,3 +1,11 @@
+'''
+This module can be used as a debug entry point when using the PyDev Eclipse
+plug-in.
+
+Only retained as a convenience and not intended for general use
+or maintenance.
+
+'''
 
 import os
 import platform
@@ -16,7 +24,7 @@ SetupConfig().setTestArguments( 'test_arguments.xml' )
 
 # file = './unit_test/test_files/tuple.lus'
 # file = 'c:/temp'
-file = 'c:/temp/pre.lus'
+file = 'c:/temp/turing.lus'
 print( os.path.abspath( file ) )
 
 SetupConfig().setTestFiles( file, False )
