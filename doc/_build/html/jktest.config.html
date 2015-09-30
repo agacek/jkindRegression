@@ -41,10 +41,25 @@
             
   <div class="section" id="module-jktest.config">
 <span id="jktest-config-module"></span><h1>jktest.config module<a class="headerlink" href="#module-jktest.config" title="Permalink to this headline">¶</a></h1>
+<p>This module contains the class that is the data store for required information
+to run the JKind Regression Test Suite.</p>
 <dl class="class">
 <dt id="jktest.config.SetupConfig">
 <em class="property">class </em><code class="descclassname">jktest.config.</code><code class="descname">SetupConfig</code><a class="headerlink" href="#jktest.config.SetupConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p><strong>Public Class</strong></p>
+<p>This class processes arguments and inputs required to run the JKind
+Regression Test Suite. It also acts as the data store from which modules
+may retrieve the processed and stored data.</p>
+<p>Typically the &#8220;set&#8221; methods accept inputs from the command line
+arguments or the GUI. However if alternate applications are derived there
+are no restrictions on how or when to access this class.</p>
+<p>This class implements the <strong>Borg</strong> Design Pattern. This DP is similar to a 
+Singleton, except that it is explicitly instantiated and contains shared
+data. Each instantiation is a unique object but all objects share the internal
+__dict__ and thus all share the data.</p>
+<p><strong>Constructor</strong></p>
+<p>Sets the shared state per the Borg Design Pattern.</p>
 <dl class="attribute">
 <dt id="jktest.config.SetupConfig._SetupConfig__we_are_the_borg_we_are_one">
 <code class="descname">_SetupConfig__we_are_the_borg_we_are_one</code><em class="property"> = {}</em><a class="headerlink" href="#jktest.config.SetupConfig._SetupConfig__we_are_the_borg_we_are_one" title="Permalink to this definition">¶</a></dt>
@@ -73,57 +88,187 @@
 <dl class="method">
 <dt id="jktest.config.SetupConfig._walk">
 <code class="descname">_walk</code><span class="sig-paren">(</span><em>root='.'</em>, <em>recurse=True</em>, <em>pattern='*'</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig._walk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Private Function:</p>
-<p>Arguments:
-root - the top folder path to walk through
-recurse - if True will go through sub-folders
-pattern - file extension to look for (i.e. <a href="#id1"><span class="problematic" id="id2">*</span></a>.c)</p>
-<p>Description:
-Generator for walking a directory tree.
+<dd><p><strong>Private Method</strong></p>
+<p>Generator for walking a directory tree.
 Starts at specified root folder, returning files
 that match our pattern. Optionally will also
 recurse through sub-folders.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>root</strong> (<em>str</em>) &#8211; the top folder path to walk through</li>
+<li><strong>recurse</strong> (<em>bool</em>) &#8211; if True will go through sub-folders</li>
+<li><strong>pattern</strong> (<em>str</em>) &#8211; file extension to look for (i.e. *.c, *.py)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yield:</th><td class="field-body"><p class="first">path+filename</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Ytype:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="jktest.config.SetupConfig.getLogFile">
 <code class="descname">getLogFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.getLogFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns the log file path and filename. Initialized to None.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Filename if set, otherwise None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str <em>or</em> None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.config.SetupConfig.getTestArguments">
 <code class="descname">getTestArguments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.getTestArguments" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns a deep-copy of the list of all the possible argument 
+combinations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of argument strings if initialized, otherwise None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list[str...] <em>or</em> None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.config.SetupConfig.getTestFiles">
 <code class="descname">getTestFiles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.getTestFiles" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns a deep-copy of the list of all the files to test.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of files if initialized, otherwise None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list[str...] <em>or</em> None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.config.SetupConfig.isVerbose">
 <code class="descname">isVerbose</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.isVerbose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns if the Verbose flag is set or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if verbose, False otherwise</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.config.SetupConfig.setLogFile">
 <code class="descname">setLogFile</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.setLogFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Sets the log file. No error checking on type of if the path exists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fname</strong> (<em>str</em>) &#8211; path and filename of the log file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.config.SetupConfig.setTestArguments">
 <code class="descname">setTestArguments</code><span class="sig-paren">(</span><em>argumentsXmlFile</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.setTestArguments" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Reads the Arguments XML file and collects all of the
+Argument Group elements. Creates all the possible combinations
+of argument strings between the items in each of the 
+Argument Groups.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>argumentsXmlFile</strong> (<em>str</em>) &#8211; path and filename of the XML Argument File</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Asserts:</th><td class="field-body">argumentsXmlFile file exists</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.config.SetupConfig.setTestFiles">
 <code class="descname">setTestFiles</code><span class="sig-paren">(</span><em>fileOrPath</em>, <em>recurse</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.setTestFiles" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Stores the filenames to test. Accepts either a single filename, a list of
+filenames or a folder to search for Lustre files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fileOrPath</strong> (str <em>or</em> list of str&#8217;s) &#8211; filename(s) or path</li>
+<li><strong>recurse</strong> (<em>bool</em>) &#8211; If folder specified, flag to recursively 
+search sub-folders</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">n/a:</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Asserts:</th><td class="field-body"><ul class="first last simple">
+<li>If list is supplied, list length &gt; 0</li>
+<li>File(s) or folder path exists</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.config.SetupConfig.setVerbose">
 <code class="descname">setVerbose</code><span class="sig-paren">(</span><em>TorF</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.setVerbose" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Sets the Verbosity Flag, intended to be used by other modules to 
+indicate level of text output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>TorF</strong> (<em>bool</em>) &#8211; True for Verbose, False otherwise</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

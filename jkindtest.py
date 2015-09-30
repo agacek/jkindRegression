@@ -1,3 +1,11 @@
+'''
+This module is the command line entry point for the JKind Regression Test
+Suite. For the arguments, see the source code jkindtest.py or execute:
+
+$ python jkindtest.py -h
+
+'''
+
 import os
 import argparse
 from jktest.config import SetupConfig

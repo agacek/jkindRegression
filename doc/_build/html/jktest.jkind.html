@@ -41,6 +41,8 @@
             
   <div class="section" id="module-jktest.jkind">
 <span id="jktest-jkind-module"></span><h1>jktest.jkind module<a class="headerlink" href="#module-jktest.jkind" title="Permalink to this headline">¶</a></h1>
+<p>This module contains the JKind class for execution and 
+collection of the results.</p>
 <dl class="class">
 <dt id="jktest.jkind.JKind">
 <em class="property">class </em><code class="descclassname">jktest.jkind.</code><code class="descname">JKind</code><span class="sig-paren">(</span><em>fname</em>, <em>arg</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.jkind.JKind" title="Permalink to this definition">¶</a></dt>
@@ -90,12 +92,11 @@ argument set. Calls _parseXML to read and collect the results.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">ResultList &#8211;  If JKind executed properly, a ResultList of 
-JKindResult objects containing each 
-Property generated in the JKind execution</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">If JKind executed properly, a ResultList of JKindResult 
+objects containing each Property generated in the JKind
+execution. Otherwise None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None &#8211; If JKind did not execute and returned a string
-beginning with &#8220;error&#8221;</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">ResultList[JKindResult...] <em>or</em> None</td>
 </tr>
 </tbody>
 </table>

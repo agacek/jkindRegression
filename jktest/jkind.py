@@ -1,4 +1,8 @@
+'''
+This module contains the JKind class for execution and 
+collection of the results.
 
+'''
 
 import os
 import subprocess
@@ -38,12 +42,11 @@ class JKind( object ):
         Constructs the command line string to run JKind on the file with the
         argument set. Calls _parseXML to read and collect the results.
         
-        :returns: ResultList --  If JKind executed properly, a ResultList of 
-                                 JKindResult objects containing each 
-                                 Property generated in the JKind execution
+        :return: If JKind executed properly, a ResultList of JKindResult 
+                 objects containing each Property generated in the JKind
+                 execution. Otherwise None.
 
-        :returns: None -- If JKind did not execute and returned a string
-                          beginning with "error"
+        :rtype: ResultList[JKindResult...] *or* None
 
         '''
 
@@ -78,7 +81,7 @@ class JKind( object ):
         each Property. Appends each JKindResult object to the ResultList 
         member.
 
-        :returns: n/a:
+        :return: n/a:
 
         '''
 
