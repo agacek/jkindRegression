@@ -50,8 +50,8 @@ class ResultList( list ):
             if( len( self ) != len( other ) ):
                 s = '\nMismatch Property Counts'
                 try:
-                    a = self[0].arguments()
-                    b = other[0].arguments()
+                    a = self[0].getArguments()
+                    b = other[0].getArguments()
                     s += ' between: <{} == {}> <{} == {}>'.format( a, len( self ), b, len( other ) )
                 except:
                     pass
@@ -251,6 +251,18 @@ class JKindResult( object ):
             raise AssertionError( 'Invalid class type for equality' )
 
         return ( self._equal )
+
+
+    def getArguments( self ):
+        '''
+        **Public Method**
+        
+        Returns the argument string
+        
+        :rtype: str
+        
+        '''
+        return self.args
 
 
     def _logFailure( self, err ):
