@@ -42,6 +42,11 @@ class MyMenu( tk.Menu ):
         logmenu.add_command( label = 'Log to stdout', command = self._logStdOut )
         self.add_cascade( label = 'Log Options', menu = logmenu )
 
+        # View Menu
+        viewmenu = tk.Menu( self, tearoff = 0 )
+        viewmenu.add_command( label = 'Show Test Options', command = self._showOptions )
+        self.add_cascade( label = 'View', menu = viewmenu )
+
 
     def _logStdOut( self ):
         SetupConfig().setLogFile( None )
@@ -93,4 +98,40 @@ class MyMenu( tk.Menu ):
             SetupConfig().setTestFiles( list( files ), recurse = False )
         else:
             messagebox.showerror( 'Uh-oh', 'No lus File(s) Selected' )
+
+
+    def _showOptions( self ):
+        s = 'TEST OPTIONS:\n\n'
+
+        # File(s)
+        s += 'File(s): \n'
+        lst = SetupConfig().getTestFiles()
+        if( isinstance( lst, list ) == True ):
+            for each in lst:
+                if( isinstance( each, str ) == True ):
+                    s += each + '\n'
+        else:
+            s += 'None\n'
+        s += '\n'
+
+        # Arguments
+        s += 'Arguments: \n'
+        lst = SetupConfig().getTestArguments()
+        if( isinstance( lst, list ) == True ):
+            for each in lst:
+                if( isinstance( each, str ) == True ):
+                    s += each + '\n'
+        else:
+            s += 'Default\n'
+        s += '\n'
+
+        # Log File
+        s += 'Log File: \n'
+        logF = SetupConfig().getLogFile()
+        if( isinstance( logF, str ) == True ):
+            s += logF
+        else:
+            s += 'None <console>'
+
+        messagebox.showinfo( 'Config', s )
 

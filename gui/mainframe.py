@@ -1,7 +1,9 @@
 import tkinter as tk
 import threading
+from tkinter import messagebox
 from jktest import testsuite
 from jktest.guiIF import GuiIF
+from jktest.config import SetupConfig
 from gui.events import Events
 from gui.events import EventTypes
 from gui.menu import MyMenu
@@ -97,6 +99,7 @@ class MainFrameGUI( tk.Frame ):
         **Private Method**
         
         Handler for Execute Button pressed.
+        Checks that test file(s) have been selected.
         Resets the data in the GUI Interface class and the GUI fields.
         Disables the Execute Button widget.
         Initiates a new thread to run the Regression Test Suite.
@@ -104,6 +107,16 @@ class MainFrameGUI( tk.Frame ):
         :return: n/a:
         
         '''
+
+        # Test that we have files to test
+        f = SetupConfig().getTestFiles()
+        if( 
+           isinstance( f, list ) == False or
+           len( f ) < 1
+           ):
+            messagebox.showerror( 'Uh-oh', 'No File(s) to test specified' )
+            return
+
         self._execButton.configure( state = 'disabled', bg = 'light gray' )
         GuiIF().reset()
         self._updateResults()
