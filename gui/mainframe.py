@@ -111,10 +111,10 @@ class MainFrameGUI( tk.Frame ):
 
     def _updateResults( self ):
         self._passEdit.delete( 0, tk.END )
-        self._passEdit.insert( 0, str( GuiIF().getTestPass() ) )
+        self._passEdit.insert( 0, str( GuiIF().getPassCount() ) )
 
         self._failEdit.delete( 0, tk.END )
-        self._failEdit.insert( 0, str( GuiIF().getTestFail() ) )
+        self._failEdit.insert( 0, str( GuiIF().getFailCount() ) )
 
 
 class ExecThread( threading.Thread ):

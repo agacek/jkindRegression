@@ -22,8 +22,6 @@ class JKind( object ):
 
     def __init__( self, fname, arg ):
         '''
-        **Constructor**
-        
         :param fname: lustre filename to run
         :type fname: str
         :param arg: arguments to execute

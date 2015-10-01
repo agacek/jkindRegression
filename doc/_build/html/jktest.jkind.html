@@ -50,7 +50,6 @@ collection of the results.</p>
 <p><strong>Public Class</strong></p>
 <p>This class performs the command line call to execute JKind on the desired
 file and argument set and collects the results.</p>
-<p><strong>Constructor</strong></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -72,6 +71,9 @@ XML file and reads each of the &#8220;Property&#8221; elements. Instantiates a
 JKindResult object and stores the &#8220;name&#8221;, &#8220;Answer&#8221;, and &#8220;K&#8221; value for
 each Property. Appends each JKindResult object to the ResultList 
 member.</p>
+<p>If by chance no Properties are generated, will add an &#8220;empty&#8221; result,
+with the &#8216;name&#8217; stating as such and the argument string that caused
+the problem.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

@@ -191,6 +191,20 @@ class GuiIF( object ):
 
 
     def logSubTestResult( self, PassOrFail ):
+        '''
+        **Public Method**
+        
+        Logs whether a Test Case Sub-Test passed or failed.
+        Increments internal data members for later retrieval.
+                
+        Triggers the GUI update method if registered.
+        
+        :param PassOrFail: flag indicating Pass/Fail status
+        :type PassOrFail: bool
+        
+        :return: n/a:
+        
+        '''
         if( PassOrFail == True ):
             self._passCount += 1
         else:
@@ -198,15 +212,42 @@ class GuiIF( object ):
         Events().update( EventTypes.RESULT_UPDATE )
 
 
-    def getTestPass( self ):
+    def getPassCount( self ):
+        '''
+        **Public Method**
+        
+        Returns the internal count of the number of tests that passed.
+        
+        :rtype: int
+        
+        '''
         return self._passCount
 
 
-    def getTestFail( self ):
+    def getFailCount( self ):
+        '''
+        **Public Method**
+        
+        Returns the internal count of the number of tests that failed.
+        
+        :rtype: int
+        
+        '''
         return self._failCount
 
 
     def signalSuiteComplete( self ):
+        '''
+        **Public Method**
+        
+        Signals to the GUI that the Test Suite has completed.
+        Typically called from the Test Suite itself.
+        
+        Triggers the GUI update method if registered.
+        
+        :return: n/a:
+        
+        '''
         try:
             Events().update( EventTypes.TEST_DONE )
         except:

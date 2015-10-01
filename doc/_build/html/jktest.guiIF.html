@@ -41,11 +41,27 @@
             
   <div class="section" id="module-jktest.guiIF">
 <span id="jktest-guiif-module"></span><h1>jktest.guiIF module<a class="headerlink" href="#module-jktest.guiIF" title="Permalink to this headline">¶</a></h1>
+<p>This module contains the GUI Interface class definition.
+The GUI Interface class is responsible for transferring data between the
+tests running here in the jktest package and the GUI in the gui package.</p>
 <dl class="class">
 <dt id="jktest.guiIF.GuiIF">
 <em class="property">class </em><code class="descclassname">jktest.guiIF.</code><code class="descname">GuiIF</code><a class="headerlink" href="#jktest.guiIF.GuiIF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Constructor</p>
+<p><strong>Public Class</strong></p>
+<p>This class serves as the interface between the tests and the GUI.
+Data pertaining to the test runs are sent to the GUI using the Events
+class. Sending data to the GUI via an Event is somewhat recursive as
+the Events register update methods in the GUI, which in turn call back
+to retrieve data from this class. The GUI and the tests should be 
+running in different threads so that the GUI updates are seen as 
+they occur.</p>
+<p>This class implements the <strong>Borg</strong> Design Pattern. This DP is similar to a 
+Singleton, except that it is explicitly instantiated and contains shared
+data. Each instantiation is a unique object but all objects share the internal
+__dict__ and thus all share the data.</p>
+<p><strong>Constructor</strong></p>
+<p>Sets the shared state per the Borg Design Pattern.</p>
 <dl class="attribute">
 <dt id="jktest.guiIF.GuiIF._GuiIF__we_are_the_borg_we_are_one">
 <code class="descname">_GuiIF__we_are_the_borg_we_are_one</code><em class="property"> = {}</em><a class="headerlink" href="#jktest.guiIF.GuiIF._GuiIF__we_are_the_borg_we_are_one" title="Permalink to this definition">¶</a></dt>
@@ -84,62 +100,208 @@
 <dl class="method">
 <dt id="jktest.guiIF.GuiIF.getArgUnderTest">
 <code class="descname">getArgUnderTest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.getArgUnderTest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns the string of the argument under test.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="jktest.guiIF.GuiIF.getFailCount">
+<code class="descname">getFailCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.getFailCount" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns the internal count of the number of tests that failed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.guiIF.GuiIF.getFileCount">
 <code class="descname">getFileCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.getFileCount" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns the value of the file count previously set in the 
+complementary setter method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Value of the file count</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.guiIF.GuiIF.getFileIdx">
 <code class="descname">getFileIdx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.getFileIdx" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns the File Index. This is a running count of the number of files
+tested to this point.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.guiIF.GuiIF.getFileUnderTest">
 <code class="descname">getFileUnderTest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.getFileUnderTest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns the name of the file under test previously set in the 
+complementary setter method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
-<dt id="jktest.guiIF.GuiIF.getTestFail">
-<code class="descname">getTestFail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.getTestFail" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="jktest.guiIF.GuiIF.getTestPass">
-<code class="descname">getTestPass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.getTestPass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="jktest.guiIF.GuiIF.getPassCount">
+<code class="descname">getPassCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.getPassCount" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns the internal count of the number of tests that passed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.guiIF.GuiIF.logSubTestResult">
 <code class="descname">logSubTestResult</code><span class="sig-paren">(</span><em>PassOrFail</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.logSubTestResult" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Logs whether a Test Case Sub-Test passed or failed.
+Increments internal data members for later retrieval.</p>
+<p>Triggers the GUI update method if registered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>PassOrFail</strong> (<em>bool</em>) &#8211; flag indicating Pass/Fail status</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.guiIF.GuiIF.reset">
 <code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.reset" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Resets the internal shared data to the default state.
+Typically called before starting test execution from the GUI.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.guiIF.GuiIF.setArgUnderTest">
 <code class="descname">setArgUnderTest</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.setArgUnderTest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Sets the string of the argument set under test.
+Typically set in the Test Cases as each argument set is run.</p>
+<p>Triggers the GUI update method if registered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arg</strong> (<em>str</em>) &#8211; argument string under test</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.guiIF.GuiIF.setFileCount">
 <code class="descname">setFileCount</code><span class="sig-paren">(</span><em>count</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.setFileCount" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Sets the file count. Should be the number of files specified
+or discovered.</p>
+<p>Typically set before the TestSuite is run.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>count</strong> (<em>int</em>) &#8211; Number of files specified or discovered</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.guiIF.GuiIF.setFileUnderTest">
-<code class="descname">setFileUnderTest</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.setFileUnderTest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">setFileUnderTest</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.setFileUnderTest" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public Method</strong></p>
+<p>Set the name of the file under test.
+Typically set in the individual Test Cases.</p>
+<p>Increments the File Index data member that serves as an internal
+counter of files run.</p>
+<p>Triggers the GUI update method if registered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fname</strong> (<em>str</em>) &#8211; name of the file under test</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.guiIF.GuiIF.signalSuiteComplete">
 <code class="descname">signalSuiteComplete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.guiIF.GuiIF.signalSuiteComplete" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Signals to the GUI that the Test Suite has completed.
+Typically called from the Test Suite itself.</p>
+<p>Triggers the GUI update method if registered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

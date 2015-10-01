@@ -294,6 +294,6 @@ autoclass_content = 'both'
 # PRM Added - list undocumented and private methods for all by default
 autodoc_default_flags = ['members',
                          'undoc-members',
-                         'private-members',
-                         'show-inheritence',
+                         'show-inheritance',
+                         'private-members'
                         ]

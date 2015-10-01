@@ -41,29 +41,112 @@
             
   <div class="section" id="module-jktest.results">
 <span id="jktest-results-module"></span><h1>jktest.results module<a class="headerlink" href="#module-jktest.results" title="Permalink to this headline">¶</a></h1>
+<p>This module contains the class definitions for the ResultList and 
+the JKindResult.</p>
 <dl class="class">
 <dt id="jktest.results.JKindResult">
 <em class="property">class </em><code class="descclassname">jktest.results.</code><code class="descname">JKindResult</code><span class="sig-paren">(</span><em>filename</em>, <em>argString</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.results.JKindResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class is intended to contain the results of the JKind run. Typically
+the results are read from the output XML file and then used to populate
+an instantiation of this class. Though does not sub-class the built-in dict 
+type, this class implements the __setitem__ and __getitem__ methods so that
+it will act in similar fashion to the dict class. This class is used in 
+lieu of the dict type because the dict does not inherently support sorting
+and we also needed specific equality testing.</p>
+<p>To maintain compatibility with the intended usage of the ResultList class,
+the __lt__, __gt__, __eq__ and __ne__ methods are implemented. These allow
+for sorting and comparisons.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When testing equality, any failures will be printed to stdout.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>When used in the context of the JKind Regression Suite application,
+the assumption is that &#8220;name&#8221;, &#8220;answer&#8221; and &#8220;K&#8221; will be set with
+the values read from the XML output file.
+EX:</p>
+<ul class="last simple">
+<li>jkr = JKindResult( fname, argstr)</li>
+<li>jkr[&#8216;name&#8217;] = &#8216;ok1&#8217;</li>
+<li>jkr[&#8216;answer&#8217;] = &#8216;valid&#8217;</li>
+<li>jkr[&#8216;K&#8217;] = &#8216;1&#8217;</li>
+</ul>
+</div>
+<p class="rubric"><strong>OBJECT METHOD OVERRIDES</strong></p>
+<dl class="docutils">
+<dt>__lt__( self, other )</dt>
+<dd><p class="first">Implements the less-than method. Compares the &#8220;name&#8221; items of the
+dict data members</p>
+<p class="last">Returns bool</p>
+</dd>
+<dt>__gt__( self, other )</dt>
+<dd><p class="first">Implements the greater-than method. Compares the &#8220;name&#8221; items of the
+dict data members</p>
+<p class="last">Returns bool</p>
+</dd>
+<dt>__eq__( self, other )</dt>
+<dd><p class="first">Implements the equality method for the JKindResult class.
+Tests for equality:</p>
+<ul class="simple">
+<li>Each dict data member has the same number of keys, meaning that the
+same number of Property elements were read from the XML output files.</li>
+<li>The &#8220;name&#8221; key/value pairs of the dict data members are the same</li>
+<li>The &#8220;answer&#8221; key/value pairs of the dict data members are the same.
+If one or both of the values are &#8220;unknown&#8221; this is considered
+equal (ok).</li>
+<li>If the &#8220;answer&#8221; key/value pairs are &#8220;falsifiable&#8221;, checks that the
+&#8220;K&#8221; key/value pairs are equal.</li>
+</ul>
+<p class="last">Returns bool</p>
+</dd>
+<dt>__ne__( self, other )</dt>
+<dd><p class="first">Negation of the __eq__ method</p>
+<p class="last">Returns bool</p>
+</dd>
+</dl>
+<p class="rubric"><strong>DICT TYPE METHOD IMPLEMENTATIONS</strong></p>
+<dl class="docutils">
+<dt>__setitem__( key, val )</dt>
+<dd>Allows use of dict type notation to set items.</dd>
+<dt>__getitem__( key )</dt>
+<dd><p class="first">Allows use of dict type notation to get items.</p>
+<p class="last">Returns the value of the supplied key.</p>
+</dd>
+</dl>
+<p><strong>Constructor</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> (<em>str</em>) &#8211; The filename run to generate these results</li>
+<li><strong>argString</strong> (<em>str</em>) &#8211; The arguments run to generate these results</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="jktest.results.JKindResult._logFailure">
 <code class="descname">_logFailure</code><span class="sig-paren">(</span><em>err</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.results.JKindResult._logFailure" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="jktest.results.JKindResult.arguments">
-<code class="descname">arguments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.results.JKindResult.arguments" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="jktest.results.JKindResult.failures">
-<code class="descname">failures</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.results.JKindResult.failures" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="jktest.results.JKindResult.filename">
-<code class="descname">filename</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.results.JKindResult.filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Called to log a failure to stdout. String contains the filename,
+arguments of this result class, arguments of the comparison result
+class and the specific error message from the caller.</p>
+<p>Sets the equal data member to false.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>err</strong> (<em>str</em>) &#8211; Error string to append to report</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -71,15 +154,63 @@
 <dt id="jktest.results.ResultList">
 <em class="property">class </em><code class="descclassname">jktest.results.</code><code class="descname">ResultList</code><a class="headerlink" href="#jktest.results.ResultList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">list</span></code></p>
+<p>This class sub-classes the built-in list class. This was needed so that
+the equal and not-equal methods could be overridden to meet specific
+needs.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Assumes that the list elements are of JKindResult or some other
+sortable type.</p>
+</div>
+<p class="rubric"><strong>OBJECT METHOD OVERRIDES</strong></p>
+<dl class="docutils">
+<dt>__eq__( self, other )</dt>
+<dd><p class="first">Override of the built-in object equality method.</p>
+<p>Checks whether the equality is against a class of this type
+or against the None type. Then checks that the internal list lengths
+match, and if so, will check the equality of the list elements.
+Typically the list elements will be of type JKindResult, but any 
+sortable type will suffice.</p>
+<p>Assumes that the lists have been sorted. This means that the 
+internal list elements must implement the __lt__ and __gt__ methods.</p>
+<p class="last">Return bool True if equal, otherwise False.</p>
+</dd>
+<dt>__ne__( self, other ) </dt>
+<dd><p class="first">Negation of the __eq__ method</p>
+<p class="last">Return bool True if equal, otherwise False.</p>
+</dd>
+</dl>
 <dl class="method">
 <dt id="jktest.results.ResultList.copy">
 <code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.results.ResultList.copy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns a new ResultList object, populated with the internal
+list elements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#jktest.results.ResultList" title="jktest.results.ResultList">ResultList</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="jktest.results.ResultList.pop">
 <code class="descname">pop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.results.ResultList.pop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Override of the Base Class pop method.
+Pops the last item in the internal list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">indeterminate</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
