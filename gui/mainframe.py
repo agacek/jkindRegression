@@ -9,18 +9,26 @@ from gui.menu import MyMenu
 
 class MainFrameGUI( tk.Frame ):
     '''
-    This is the Main Window Frame for the Coding Standards GUI
+    **Public Class**
+    
+    This is the Main Window Frame for the Tkinter GUI
+    
     '''
 
     def __init__( self, parentFrame, root ):
         '''
-        Constructor
+        **Constructor**
         
-        Arguments:
-        parentFrame - The parent Frame of this window. If this is stand - alone
-                      application then this would be root. If this is part
-                      of a larger application then would be another frame
-        root - The Tkinter root.
+        Builds the GUI window and registers update methods with
+        the Events class.
+        
+        :param parentFrame: The parent Frame of this window. If this is
+                            a standalone application then this would be root.
+                            If this is part of a larger application then would
+                            be another frame
+        :type parentFrame: tkinter.Toplevel
+        :param root: The Tkinter root.
+        :type root: tkinter.Tk
         '''
 
         tk.Frame.__init__( self, master = parentFrame )
@@ -85,6 +93,17 @@ class MainFrameGUI( tk.Frame ):
 
 
     def _onExecButton( self ):
+        '''
+        **Private Method**
+        
+        Handler for Execute Button pressed.
+        Resets the data in the GUI Interface class and the GUI fields.
+        Disables the Execute Button widget.
+        Initiates a new thread to run the Regression Test Suite.
+        
+        :return: n/a:
+        
+        '''
         self._execButton.configure( state = 'disabled', bg = 'light gray' )
         GuiIF().reset()
         self._updateResults()
@@ -92,10 +111,28 @@ class MainFrameGUI( tk.Frame ):
 
 
     def _enableExecButton( self ):
+        '''
+        **Private Method**
+        
+        Enables the Execute Button widget.
+        Registered with the Events class and called when the test completes.
+        
+        :return: n/a:
+        
+        '''
         self._execButton.configure( state = 'normal', bg = 'light green' )
 
 
     def _updateFile( self ):
+        '''
+        **Private Method**
+        
+        Updates the File Count and File Under Test widgets.
+        Registered with the Events class and called by the test execution.
+        
+        :return: n/a:
+        
+        '''
         s = str( GuiIF().getFileIdx() ) + ' / ' + str( GuiIF().getFileCount() )
         self._fileCounterEdit.delete( 0, tk.END )
         self._fileCounterEdit.insert( 0, s )
@@ -105,11 +142,29 @@ class MainFrameGUI( tk.Frame ):
 
 
     def _updateArgs( self ):
+        '''
+        **Private Method**
+        
+        Updates the Argument Under Test widget.
+        Registered with the Events class and called by the test execution.
+        
+        :return: n/a:
+        
+        '''
         self._argsEdit.delete( 0, tk.END )
         self._argsEdit.insert( 0, str( GuiIF().getArgUnderTest() ) )
 
 
     def _updateResults( self ):
+        '''
+        **Private Method**
+        
+        Updates the Pass and Fail Count widgets.
+        Registered with the Events class and called by the test execution.
+        
+        :return: n/a:
+        
+        '''
         self._passEdit.delete( 0, tk.END )
         self._passEdit.insert( 0, str( GuiIF().getPassCount() ) )
 
@@ -118,5 +173,17 @@ class MainFrameGUI( tk.Frame ):
 
 
 class ExecThread( threading.Thread ):
+    '''
+    **Public Class**
+    
+    Container to launch a new thread and run the Regression Test Suite.
+    
+    '''
     def run( self ):
+        '''
+        **Public Method**
+        
+        Do not call directly. Started by threading.Thread.start()
+        
+        '''
         testsuite.runsuite()

@@ -45,6 +45,8 @@
 <dt id="gui.mainframe.ExecThread">
 <em class="property">class </em><code class="descclassname">gui.mainframe.</code><code class="descname">ExecThread</code><span class="sig-paren">(</span><em>group=None</em>, <em>target=None</em>, <em>name=None</em>, <em>args=()</em>, <em>kwargs=None</em>, <em>*</em>, <em>daemon=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.ExecThread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></code></p>
+<p><strong>Public Class</strong></p>
+<p>Container to launch a new thread and run the Regression Test Suite.</p>
 <p>This constructor should always be called with keyword arguments. Arguments are:</p>
 <p><em>group</em> should be None; reserved for future extension when a ThreadGroup
 class is implemented.</p>
@@ -61,7 +63,9 @@ else to the thread.</p>
 <dl class="method">
 <dt id="gui.mainframe.ExecThread.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.ExecThread.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Method</strong></p>
+<p>Do not call directly. Started by threading.Thread.start()</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -69,38 +73,107 @@ else to the thread.</p>
 <dt id="gui.mainframe.MainFrameGUI">
 <em class="property">class </em><code class="descclassname">gui.mainframe.</code><code class="descname">MainFrameGUI</code><span class="sig-paren">(</span><em>parentFrame</em>, <em>root</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tkinter.Frame</span></code></p>
-<p>This is the Main Window Frame for the Coding Standards GUI</p>
-<p>Constructor</p>
-<p>Arguments:
-parentFrame - The parent Frame of this window. If this is stand - alone</p>
-<blockquote>
-<div>application then this would be root. If this is part
-of a larger application then would be another frame</div></blockquote>
-<p>root - The Tkinter root.</p>
+<p><strong>Public Class</strong></p>
+<p>This is the Main Window Frame for the Tkinter GUI</p>
+<p><strong>Constructor</strong></p>
+<p>Builds the GUI window and registers update methods with
+the Events class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>parentFrame</strong> (<em>tkinter.Toplevel</em>) &#8211; The parent Frame of this window. If this is
+a standalone application then this would be root.
+If this is part of a larger application then would
+be another frame</li>
+<li><strong>root</strong> (<em>tkinter.Tk</em>) &#8211; The Tkinter root.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="gui.mainframe.MainFrameGUI._enableExecButton">
 <code class="descname">_enableExecButton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._enableExecButton" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Enables the Execute Button widget.
+Registered with the Events class and called when the test completes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gui.mainframe.MainFrameGUI._onExecButton">
 <code class="descname">_onExecButton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._onExecButton" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Handler for Execute Button pressed.
+Resets the data in the GUI Interface class and the GUI fields.
+Disables the Execute Button widget.
+Initiates a new thread to run the Regression Test Suite.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gui.mainframe.MainFrameGUI._updateArgs">
 <code class="descname">_updateArgs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._updateArgs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Updates the Argument Under Test widget.
+Registered with the Events class and called by the test execution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gui.mainframe.MainFrameGUI._updateFile">
 <code class="descname">_updateFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._updateFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Updates the File Count and File Under Test widgets.
+Registered with the Events class and called by the test execution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gui.mainframe.MainFrameGUI._updateResults">
 <code class="descname">_updateResults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._updateResults" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Updates the Pass and Fail Count widgets.
+Registered with the Events class and called by the test execution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
