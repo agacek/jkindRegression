@@ -14,6 +14,13 @@ def testCaseFactory( filename, argsList ):
 
 
 class __JKTestCase__( unittest.TestCase ):
+    '''
+    **Private Class**
+    
+    Think of this as an Abstract Base Class (though this concept doesn't
+    exist in Python).
+    
+    '''
 
     def __init__( self, methodName = 'runTest' ):
         unittest.TestCase.__init__( self, methodName = methodName )
@@ -21,6 +28,7 @@ class __JKTestCase__( unittest.TestCase ):
 
     def setUp( self ):
         self.results = ResultList()
+        self.exceptions = list()
         GuiIF().setFileUnderTest( self.file )
 
         # Print test header for nicer output formatting
@@ -29,9 +37,15 @@ class __JKTestCase__( unittest.TestCase ):
 
         for arg in self.args:
             GuiIF().setArgUnderTest( arg )
-            rv = JKind( self.file, arg ).run()
-            if( rv != None ):
-                self.results.append( rv )
+            jk = JKind( self.file, arg )
+            jk.run()
+
+            # Do not append None-type result returns
+            if( jk.getResults() != None ):
+                self.results.append( jk.getResults() )
+
+            # Ok, and desirable to append None-type exception returns
+            self.exceptions.append( jk.getException() )
 
 
     def tearDown( self ):
@@ -39,15 +53,27 @@ class __JKTestCase__( unittest.TestCase ):
 
 
     def test_result( self ):
+
+        # First test the JKind Results
         resultsList = self.results.copy()
         controlList = resultsList.pop()
         controlList.sort()
 
         for each in resultsList:
 
-            with self.subTest( 'subtest' ):
+            with self.subTest( 'subtest results' ):
 
                 each.sort()
                 ok = ( controlList == each )
                 GuiIF().logSubTestResult( ok )
                 self.assertTrue( ok, 'Test File: ' + self.file )
+
+        # Now check for any Java exceptions that may have occurred
+        for excp in self.exceptions:
+
+            with self.subTest( 'subtest exceptions' ):
+                try:
+                    msg = 'Exception Occurred-> {} {}'.format( excp.text, excp.args )
+                except AttributeError:
+                    msg = 'Exception Occurrred'
+                self.assertIsNone( excp, msg )

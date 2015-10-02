@@ -128,12 +128,14 @@ class MainFrameGUI( tk.Frame ):
         **Private Method**
         
         Enables the Execute Button widget.
+        Pops-up dialog box to indicate test is done.
         Registered with the Events class and called when the test completes.
         
         :return: n/a:
         
         '''
         self._execButton.configure( state = 'normal', bg = 'light green' )
+        messagebox.showinfo( 'Ta-Da', 'Test Execution Complete' )
 
 
     def _updateFile( self ):

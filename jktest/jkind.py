@@ -5,10 +5,12 @@ collection of the results.
 '''
 
 import os
+import re
 import subprocess
 import xml.dom.minidom
 from .results import JKindResult
 from .results import ResultList
+from .results import ExceptionReport
 
 
 class JKind( object ):
@@ -30,7 +32,8 @@ class JKind( object ):
         '''
         self._file = fname
         self._arg = arg
-        self._results = ResultList()
+        self._results = None
+        self._exception = None
 
 
     def run( self ):
@@ -51,22 +54,43 @@ class JKind( object ):
         # Execute JKind from the command line
         cmdLine = 'jkind ' + self._file + ' -xml ' + self._arg
         print( cmdLine )
-        proc = subprocess.Popen( cmdLine, stdout = subprocess.PIPE, shell = True )
+        proc = subprocess.Popen( cmdLine,
+                                 stdout = subprocess.PIPE,
+                                 stderr = subprocess.STDOUT,
+                                 shell = True )
         ( out, err ) = proc.communicate()
 
-        # Check that jkind ran. Some flags aren't compatible with some solvers.
-        if( out.decode().lower().startswith( 'error' ) == True ):
-            self._results = None
-            print( '    >> Skipped: Incompatible argument combination' )
-
-        # Happy path...
-        else:
-            # Parse the XML file that was generated for this test. The results
-            # are stored in class member data
+        if( self._checkOutputErrs( out.decode() ) == True ):
             self._parseXML()
 
-        # Give back our results
+
+    def getResults( self ):
         return self._results
+
+
+    def getException( self ):
+        return self._exception
+
+
+    def _checkOutputErrs( self, string ):
+
+        if( string.lower().startswith( 'error' ) == True ):
+            self._results = None
+            print( '    >> Skipped: Incompatible argument combination' )
+            return False
+
+        try:
+            excp = re.search( 'java.lang.*Exception:', string )
+            print( '    >> ERROR: ' + excp.group() )
+            self._exception = ExceptionReport()
+            self._exception.text = excp.group()
+            self._exception.args = self._arg
+            return False
+        except AttributeError:
+            pass
+
+        # Happy path...
+        return True
 
 
     def _parseXML( self ):
@@ -86,6 +110,9 @@ class JKind( object ):
         :return: n/a:
 
         '''
+
+        # Initialize our Results List
+        self._results = ResultList()
 
         # The XML file should be the same name as our *.lus file, just with
         # the xml extension.

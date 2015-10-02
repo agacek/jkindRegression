@@ -6,6 +6,8 @@ the JKindResult.
 
 class ResultList( list ):
     '''
+    **Public Class**
+    
     This class sub-classes the built-in list class. This was needed so that
     the equal and not-equal methods could be overridden to meet specific
     needs.
@@ -116,6 +118,8 @@ class ResultList( list ):
 
 class JKindResult( object ):
     '''
+    **Public Class**
+    
     This class is intended to contain the results of the JKind run. Typically
     the results are read from the output XML file and then used to populate
     an instantiation of this class. Though does not sub-class the built-in dict 
@@ -285,3 +289,23 @@ class JKindResult( object ):
         s += err
         print( s )
         self._equal = False
+
+
+class ExceptionReport( object ):
+    '''
+    **Public Class**
+    
+    This class is just a simple container for Java Exception Text and the
+    set of arguments that caused it.
+    
+    '''
+
+    def __init__( self ):
+        '''
+        **Constructor**
+        
+        Sets the public data members.
+        
+        '''
+        self.text = ''
+        self.args = ''
