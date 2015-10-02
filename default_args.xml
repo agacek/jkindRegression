@@ -1,0 +1,30 @@
+<Configuration>
+  <!-- Solvers and PDR-only -->
+  <ArgumentGroup>
+    <arg>-solver yices</arg>
+    <arg>-solver yices2</arg>
+    <arg>-solver cvc4</arg>
+    <arg>-solver z3</arg>
+    <arg>-solver smtinterpol</arg>
+    <arg>-no_bmc -no_k_induction -no_inv_gen</arg>
+  </ArgumentGroup>
+
+  <!-- With and without PDR -->
+  <ArgumentGroup>
+    <arg></arg>
+    <arg>-pdr_max 0</arg>
+  </ArgumentGroup>
+
+  <!-- Always produce inductive counter-examples -->
+  <ArgumentGroup>
+    <arg>-induct_cex</arg>
+  </ArgumentGroup>
+
+  <!-- Miscellaneous options -->
+  <ArgumentGroup>
+    <arg></arg>
+    <arg>-smooth</arg>
+    <arg>-interval</arg>
+    <arg>-reduce_inv</arg>
+  </ArgumentGroup>
+</Configuration>
