@@ -44,9 +44,21 @@
 <p>This module contains the class definitions for the ResultList and 
 the JKindResult.</p>
 <dl class="class">
+<dt id="jktest.results.ExceptionReport">
+<em class="property">class </em><code class="descclassname">jktest.results.</code><code class="descname">ExceptionReport</code><a class="headerlink" href="#jktest.results.ExceptionReport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p><strong>Public Class</strong></p>
+<p>This class is just a simple container for Java Exception Text and the
+set of arguments that caused it.</p>
+<p><strong>Constructor</strong></p>
+<p>Sets the public data members.</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="jktest.results.JKindResult">
 <em class="property">class </em><code class="descclassname">jktest.results.</code><code class="descname">JKindResult</code><span class="sig-paren">(</span><em>filename</em>, <em>argString</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.results.JKindResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p><strong>Public Class</strong></p>
 <p>This class is intended to contain the results of the JKind run. Typically
 the results are read from the output XML file and then used to populate
 an instantiation of this class. Though does not sub-class the built-in dict 
@@ -148,12 +160,28 @@ class and the specific error message from the caller.</p>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="jktest.results.JKindResult.getArguments">
+<code class="descname">getArguments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.results.JKindResult.getArguments" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public Method</strong></p>
+<p>Returns the argument string</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="jktest.results.ResultList">
 <em class="property">class </em><code class="descclassname">jktest.results.</code><code class="descname">ResultList</code><a class="headerlink" href="#jktest.results.ResultList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">list</span></code></p>
+<p><strong>Public Class</strong></p>
 <p>This class sub-classes the built-in list class. This was needed so that
 the equal and not-equal methods could be overridden to meet specific
 needs.</p>

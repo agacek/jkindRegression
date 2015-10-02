@@ -1,3 +1,8 @@
+'''
+This module contains the Test Suite.
+
+'''
+
 import os
 import sys
 import unittest
@@ -10,6 +15,24 @@ DEFAULT_ARGUMENT_FILE = 'test_arguments.xml'
 
 
 def runsuite( verbose = True ):
+    '''
+    **Public Function**
+    
+    This function executes the test suite. Performs the following:
+    
+    - If specified, opens the log file. Otherwise defaults stdout to console.
+    - Loads the arguments xml file, either specified or default.
+    - Uses the test case factory to dynamically create the test case classes,
+      loaded with the filename and the argument sets.
+    - Executes the test suite
+    
+    :param verbose: flag to increase verbosity
+    :type verbose: bool
+    
+    :return: flag whether the test was successful or not
+    :rtype: bool
+    
+    '''
 
     # Try to open the log file, if it even exists. Try to redirect the i/o
     # to the log file.

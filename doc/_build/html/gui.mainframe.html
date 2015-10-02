@@ -98,6 +98,7 @@ be another frame</li>
 <code class="descname">_enableExecButton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._enableExecButton" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Private Method</strong></p>
 <p>Enables the Execute Button widget.
+Pops-up dialog box to indicate test is done.
 Registered with the Events class and called when the test completes.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -114,6 +115,7 @@ Registered with the Events class and called when the test completes.</p>
 <code class="descname">_onExecButton</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.MainFrameGUI._onExecButton" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Private Method</strong></p>
 <p>Handler for Execute Button pressed.
+Checks that test file(s) have been selected.
 Resets the data in the GUI Interface class and the GUI fields.
 Disables the Execute Button widget.
 Initiates a new thread to run the Regression Test Suite.</p>

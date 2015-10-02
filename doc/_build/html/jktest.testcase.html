@@ -41,10 +41,85 @@
             
   <div class="section" id="module-jktest.testcase">
 <span id="jktest-testcase-module"></span><h1>jktest.testcase module<a class="headerlink" href="#module-jktest.testcase" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="jktest.testcase._JKTestCase">
+<em class="property">class </em><code class="descclassname">jktest.testcase.</code><code class="descname">_JKTestCase</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.testcase._JKTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
+<p><strong>Private Class</strong></p>
+<p>Think of this as an Abstract Base Class (though this concept doesn&#8217;t
+exist in Python).</p>
+<p>This is the one-and-only test case explicity written for this test suite.
+The class factory sub-classes this and adds the filename and arguments
+to dynamically create the multitude of test cases added to the
+unittest.TestSuite for execution.</p>
+<p><strong>Constructor</strong></p>
+<p>Calls the TestCase super constructor. Passes along the 
+methodName argument.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>methodName</strong> (<em>runner method</em>) &#8211; Defaults to &#8220;runTest&#8221;. Typically not specified
+and letting the default take precedence.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="jktest.testcase._JKTestCase.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.testcase._JKTestCase.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public Method</strong></p>
+<p>The execution of the various JKind permutations are actually
+executed here. The results are stashed away in the internal
+results and exceptions data members for testing later.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jktest.testcase._JKTestCase.tearDown">
+<code class="descname">tearDown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.testcase._JKTestCase.tearDown" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public Method</strong></p>
+<p>Just prints to stdout that the test is done. No other action.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="jktest.testcase._JKTestCase.test_result">
+<code class="descname">test_result</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.testcase._JKTestCase.test_result" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public Method</strong></p>
+<p>This is where the test assertions for the results and exceptions are
+made.</p>
+<p>Iterates through the results of the JKind runs and tests that the 
+results of the individual runs per file do not change based on the
+differing arguments.</p>
+<p>Also checks if any Java Exceptions were raised during the JKind 
+executions.</p>
+<p>All assertions are performed as &#8220;subTest&#8221;, meaning that an assertion
+failure will not end this method.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="function">
 <dt id="jktest.testcase.testCaseFactory">
 <code class="descclassname">jktest.testcase.</code><code class="descname">testCaseFactory</code><span class="sig-paren">(</span><em>filename</em>, <em>argsList</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.testcase.testCaseFactory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Function</strong></p>
+<p>This is a class factory, returning a class definition sub-classed from 
+the JKTestCase &#8220;Abstract&#8221; Base Class. The arguments to this function
+are added to the class definition by adding to the __dict__.</p>
+<p>This class factory is the magic that allows us to define Test Cases
+for all the file and argument combinations and still only having to 
+write a single unittest.TestCase.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> (<em>str</em>) &#8211; The qualified filename to run with JKind</li>
+<li><strong>argsList</strong> (<em>list[str, str, ...]</em>) &#8211; The list of all the possible arugment strings to run</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 
