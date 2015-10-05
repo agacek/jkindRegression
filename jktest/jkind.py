@@ -76,7 +76,8 @@ class JKind( object ):
 
         if( string.lower().startswith( 'error' ) == True ):
             self._results = None
-            print( '    >> Skipped: Incompatible argument combination' )
+            # print( '    >> Skipped: Incompatible argument combination' )
+            print( '    >> ' + string )
             return False
 
         try:

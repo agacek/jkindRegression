@@ -11,7 +11,7 @@ from jktest.guiIF import GuiIF
 from jktest.testcase import testCaseFactory
 
 
-DEFAULT_ARGUMENT_FILE = 'test_arguments.xml'
+DEFAULT_ARGUMENT_FILE = 'default_args.xml'
 
 
 def runsuite( verbose = True ):
