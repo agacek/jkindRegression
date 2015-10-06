@@ -41,12 +41,13 @@
             
   <div class="section" id="module-gui.mainframe">
 <span id="gui-mainframe-module"></span><h1>gui.mainframe module<a class="headerlink" href="#module-gui.mainframe" title="Permalink to this headline">¶</a></h1>
+<p>This module defines the GUI frame and its associated handlers.</p>
 <dl class="class">
 <dt id="gui.mainframe.ExecThread">
 <em class="property">class </em><code class="descclassname">gui.mainframe.</code><code class="descname">ExecThread</code><span class="sig-paren">(</span><em>group=None</em>, <em>target=None</em>, <em>name=None</em>, <em>args=()</em>, <em>kwargs=None</em>, <em>*</em>, <em>daemon=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.ExecThread" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></code></p>
 <p><strong>Public Class</strong></p>
-<p>Container to launch a new thread and run the Regression Test Suite.</p>
+<p>Container to spawn a new thread and run the Regression Test Suite.</p>
 <p>This constructor should always be called with keyword arguments. Arguments are:</p>
 <p><em>group</em> should be None; reserved for future extension when a ThreadGroup
 class is implemented.</p>

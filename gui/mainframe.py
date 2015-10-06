@@ -1,3 +1,8 @@
+'''
+This module defines the GUI frame and its associated handlers.
+
+'''
+
 import tkinter as tk
 import threading
 from tkinter import messagebox
@@ -191,7 +196,7 @@ class ExecThread( threading.Thread ):
     '''
     **Public Class**
     
-    Container to launch a new thread and run the Regression Test Suite.
+    Container to spawn a new thread and run the Regression Test Suite.
     
     '''
     def run( self ):

@@ -41,10 +41,27 @@
             
   <div class="section" id="module-gui.launch">
 <span id="gui-launch-module"></span><h1>gui.launch module<a class="headerlink" href="#module-gui.launch" title="Permalink to this headline">¶</a></h1>
+<p>This module provides the entry point to launch the GUI.</p>
 <dl class="function">
 <dt id="gui.launch.launchGUI">
 <code class="descclassname">gui.launch.</code><code class="descname">launchGUI</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.launch.launchGUI" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Public Function</strong></p>
+<p>Instantiates Tkinter and creats the GUI</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This function directly calls the Tkinter mainloop() method, which does
+not exit. You must create your own thread and then call this function
+if desired.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 

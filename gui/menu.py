@@ -1,3 +1,7 @@
+'''
+This module defines the Menu for the GUI.
+
+'''
 
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
@@ -10,13 +14,23 @@ import os
 
 class MyMenu( tk.Menu ):
     '''
-    classdocs
+    **Public Class**
+    
+    Subclassed tk.Menu to add to our GUI.
     '''
 
 
     def __init__( self, masterFrame, root ):
         '''
-        Constructor
+        **Constructor**
+        
+        Creates the various Menu labels and commands. Registers a handler with
+        each command.
+        
+        :param masterFrame: Parent/Master frame that this is attached to.
+        :type masterFrame: tk.Frame
+        :param root: The Tkinter root instantiation.
+        :type root: TK
         '''
         tk.Menu.__init__( self, masterFrame )
 
@@ -49,9 +63,27 @@ class MyMenu( tk.Menu ):
 
 
     def _logStdOut( self ):
+        '''
+        **Private Method**
+        
+        Sets the application's Setup Config to log to None. This will typically
+        indicate to the application to log to the console (sys.__stdout__).
+        
+        :return: n/a:
+        
+        '''
         SetupConfig().setLogFile( None )
 
+
     def _setLogFile( self ):
+        '''
+        **Private Method**
+        
+        Opens a Save-As File Dialog to choose a log file.
+        
+        :return: n/a:
+        
+        '''
         opt = {}
         opt['filetypes'] = [( 'text files', '.txt' ), ( 'all files', '*.*' )]
         opt['parent'] = self
@@ -65,6 +97,16 @@ class MyMenu( tk.Menu ):
 
 
     def _selectArgs( self ):
+        '''
+        **Private Method**
+        
+        Opens an Open Filename Dialog to select a new XML Arguments definition
+        file. If valid file is selected will update the application's 
+        Setup Configuration with this file.
+        
+        :return: n/a:
+        
+        '''
         opt = {}
         opt['filetypes'] = [( 'xml files', '.xml' ), ( 'all files', '.*' )]
         opt['parent'] = self
@@ -79,6 +121,16 @@ class MyMenu( tk.Menu ):
 
 
     def _selectFolder( self ):
+        '''
+        **Private Method**
+        
+        Opens a Ask Directory Dialog to select the folder in which to search
+        for lustre files to test. Updates the application's Setup
+        Configuration with this file.
+        
+        :return: n/a:
+        
+        '''
         folder = askdirectory()
         if( os.path.exists( folder ) == False ):
             messagebox.showerror( 'Uh-oh', 'No Folder Selected' )
@@ -87,6 +139,15 @@ class MyMenu( tk.Menu ):
 
 
     def _selectFiles( self ):
+        '''
+        **Private Method**
+        
+        Opens an Ask-Open Filename Dialog to select a specific lustre file
+        to test. Updates the application's Setup Configuration with this file.
+        
+        :return: n/a:
+        
+        '''
         opt = {}
         opt['filetypes'] = [( 'lus files', '.lus' ), ( 'all files', '.*' )]
         opt['parent'] = self
@@ -101,6 +162,15 @@ class MyMenu( tk.Menu ):
 
 
     def _showOptions( self ):
+        '''
+        **Private Method**
+        
+        Opens a pop-up dialog to display the selected lustre files, argument
+        XML definition file and Log File.
+        
+        :return: n/a:
+        
+        '''
         s = 'TEST OPTIONS:\n\n'
 
         # File(s)

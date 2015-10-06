@@ -41,41 +41,124 @@
             
   <div class="section" id="module-gui.menu">
 <span id="gui-menu-module"></span><h1>gui.menu module<a class="headerlink" href="#module-gui.menu" title="Permalink to this headline">¶</a></h1>
+<p>This module defines the Menu for the GUI.</p>
 <dl class="class">
 <dt id="gui.menu.MyMenu">
 <em class="property">class </em><code class="descclassname">gui.menu.</code><code class="descname">MyMenu</code><span class="sig-paren">(</span><em>masterFrame</em>, <em>root</em><span class="sig-paren">)</span><a class="headerlink" href="#gui.menu.MyMenu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tkinter.Menu</span></code></p>
-<p>classdocs</p>
-<p>Constructor</p>
+<p><strong>Public Class</strong></p>
+<p>Subclassed tk.Menu to add to our GUI.</p>
+<p><strong>Constructor</strong></p>
+<p>Creates the various Menu labels and commands. Registers a handler with
+each command.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>masterFrame</strong> (<em>tk.Frame</em>) &#8211; Parent/Master frame that this is attached to.</li>
+<li><strong>root</strong> (<em>TK</em>) &#8211; The Tkinter root instantiation.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="gui.menu.MyMenu._logStdOut">
 <code class="descname">_logStdOut</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.menu.MyMenu._logStdOut" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Sets the application&#8217;s Setup Config to log to None. This will typically
+indicate to the application to log to the console (sys.__stdout__).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gui.menu.MyMenu._selectArgs">
 <code class="descname">_selectArgs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.menu.MyMenu._selectArgs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Opens an Open Filename Dialog to select a new XML Arguments definition
+file. If valid file is selected will update the application&#8217;s 
+Setup Configuration with this file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gui.menu.MyMenu._selectFiles">
 <code class="descname">_selectFiles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.menu.MyMenu._selectFiles" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Opens an Ask-Open Filename Dialog to select a specific lustre file
+to test. Updates the application&#8217;s Setup Configuration with this file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gui.menu.MyMenu._selectFolder">
 <code class="descname">_selectFolder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.menu.MyMenu._selectFolder" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Opens a Ask Directory Dialog to select the folder in which to search
+for lustre files to test. Updates the application&#8217;s Setup
+Configuration with this file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gui.menu.MyMenu._setLogFile">
 <code class="descname">_setLogFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.menu.MyMenu._setLogFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Opens a Save-As File Dialog to choose a log file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="gui.menu.MyMenu._showOptions">
 <code class="descname">_showOptions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.menu.MyMenu._showOptions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p><strong>Private Method</strong></p>
+<p>Opens a pop-up dialog to display the selected lustre files, argument
+XML definition file and Log File.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
