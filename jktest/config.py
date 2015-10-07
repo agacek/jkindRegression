@@ -34,7 +34,6 @@ class SetupConfig( object ):
     __we_are_the_borg_we_are_one = {}
 
     # Define shared data
-    _verbose = False
     _files = None
     _args = None
     _logfile = None
@@ -208,34 +207,6 @@ class SetupConfig( object ):
         
         '''
         return self._logfile
-
-
-    def setVerbose( self, TorF ):
-        '''
-        **Public Method**
-        
-        Sets the Verbosity Flag, intended to be used by other modules to 
-        indicate level of text output.
-        
-        :param TorF: True for Verbose, False otherwise
-        :type TorF: bool
-        
-        :return: n/a:
-        
-        '''
-        self._verbose = TorF
-
-    def isVerbose( self ):
-        '''
-        **Public Method**
-        
-        Returns if the Verbose flag is set or not.
-        
-        :return: True if verbose, False otherwise
-        :rtype: bool
-        
-        '''
-        return self._verbose
 
 
     def _walk( self, root = '.', recurse = True, pattern = '*' ):

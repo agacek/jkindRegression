@@ -5,6 +5,7 @@ This module contains the Test Suite.
 
 import os
 import sys
+import datetime
 import unittest
 from jktest.config import SetupConfig
 from jktest.guiIF import GuiIF
@@ -14,7 +15,7 @@ from jktest.testcase import testCaseFactory
 DEFAULT_ARGUMENT_FILE = 'default_args.xml'
 
 
-def runsuite( verbose = True ):
+def runsuite():
     '''
     **Public Function**
     
@@ -25,14 +26,14 @@ def runsuite( verbose = True ):
     - Uses the test case factory to dynamically create the test case classes,
       loaded with the filename and the argument sets.
     - Executes the test suite
-    
-    :param verbose: flag to increase verbosity
-    :type verbose: bool
-    
+        
     :return: flag whether the test was successful or not
     :rtype: bool
     
     '''
+
+    # Capture the start time
+    dt_start = datetime.datetime.utcnow()
 
     # Try to open the log file, if it even exists. Try to redirect the i/o
     # to the log file.
@@ -62,10 +63,15 @@ def runsuite( verbose = True ):
     suite = unittest.TestSuite( testCases )
     result = unittest.TextTestRunner( verbosity = 2, stream = logfile ).run( suite )
 
-    if( verbose == True ):
-        print( '\n\n\n*****************************************' )
-        print( 'Overall TestSuite Result:' )
-        print( result )
+    # Capture the end time
+    dt_end = datetime.datetime.utcnow()
+
+    # Print the results
+    print( '\n\n\n*****************************************' )
+    print( 'Overall TestSuite Result:' )
+    print( result )
+    print( 'Start Time (UTC) ' + str( dt_start ) )
+    print( 'End   Time (UTC) ' + str( dt_end ) )
 
     # Try to close the log file
     try:
