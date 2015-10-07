@@ -240,12 +240,12 @@ class JKindResult( object ):
 
                 elif( self.d['answer'] != self.other.d['answer'] ):
                     if( not ( ( self.d['answer'] == 'unknown' ) or ( self.other.d['answer'] == 'unknown' ) ) ):
-                        err = 'Answer mismatch: {} != {}'.format( self.d['answer'], self.other.d['answer'] )
+                        err = '{} Answer mismatch: {} != {}'.format( self.d['name'], self.d['answer'], self.other.d['answer'] )
                         self._logFailure( err )
 
                 elif( ( self.d['answer'] == 'falsifiable' ) and ( self.other.d['answer'] == 'falsifiable' ) ):
                     if( self.d['K'] != self.other.d['K'] ):
-                        err = 'K mismatch: {} != {}'.format( self.d['K'], self.other.d['K'] )
+                        err = '{} K mismatch: {} != {}'.format( self.d['name'], self.d['K'], self.other.d['K'] )
                         self._logFailure( err )
 
             except KeyError as e:

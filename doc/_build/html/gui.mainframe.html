@@ -65,8 +65,26 @@ else to the thread.</p>
 <dt id="gui.mainframe.ExecThread.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gui.mainframe.ExecThread.run" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Public Method</strong></p>
-<p>Do not call directly. Started by threading.Thread.start()</p>
+<p>Do not call directly. Started by threading.Thread.start().
+Updates the GuiReturnVal class variable with the result of
+the test suite run.</p>
 </dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gui.mainframe.GuiReturnVal">
+<em class="property">class </em><code class="descclassname">gui.mainframe.</code><code class="descname">GuiReturnVal</code><a class="headerlink" href="#gui.mainframe.GuiReturnVal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p><strong>Public Class</strong></p>
+<p>This class contains a single class variable to indicate whether the last
+execution of JKind passed. This class is not intended to be instantiated,
+rather the class variable is directly set. External entities may then
+read the class variable, again without instantiation of the class.</p>
+<dl class="attribute">
+<dt id="gui.mainframe.GuiReturnVal.rv">
+<code class="descname">rv</code><em class="property"> = False</em><a class="headerlink" href="#gui.mainframe.GuiReturnVal.rv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

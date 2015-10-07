@@ -20,11 +20,11 @@ else:
 os.chdir( wdir )
 assert os.path.exists( wdir )
 
-SetupConfig().setTestArguments( 'test_arguments.xml' )
+SetupConfig().setTestArguments( 'default_args.xml' )
 
 # file = './unit_test/test_files/tuple.lus'
 # file = 'c:/temp'
-file = 'c:/temp/tuple.lus'
+file = 'c:/temp/records.lus'
 print( os.path.abspath( file ) )
 
 SetupConfig().setTestFiles( file, False )

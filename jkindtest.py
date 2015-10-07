@@ -2,11 +2,15 @@
 This module is the command line entry point for the JKind Regression Test
 Suite. For the arguments, see the source code jkindtest.py or execute:
 
+Return Code == 0 for successful test. 
+Return Code == 1 if any failure occurred.
+
 $ python jkindtest.py -h
 
 '''
 
 import os
+import sys
 import argparse
 from jktest.config import SetupConfig
 from jktest.testsuite import runsuite
@@ -81,6 +85,12 @@ if __name__ == '__main__':
 
     # Launch either the command line or GUI
     if( args.gui ):
-        launchGUI()
+        ok = launchGUI()
     else:
-        runsuite()
+        ok = runsuite()
+
+    # Use this to exit such that the application status code is returned
+    # to the OS. Return code is typically 0 for success, so convert the
+    # boolean return values.
+    # Windows show by: echo %ERRORLEVEL%
+    sys.exit( not int( ok ) )

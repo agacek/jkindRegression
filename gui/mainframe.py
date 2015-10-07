@@ -203,7 +203,21 @@ class ExecThread( threading.Thread ):
         '''
         **Public Method**
         
-        Do not call directly. Started by threading.Thread.start()
+        Do not call directly. Started by threading.Thread.start().
+        Updates the GuiReturnVal class variable with the result of
+        the test suite run.
         
         '''
-        testsuite.runsuite()
+        GuiReturnVal.rv = testsuite.runsuite()
+
+
+class GuiReturnVal( object ):
+    '''
+    **Public Class**
+    
+    This class contains a single class variable to indicate whether the last
+    execution of JKind passed. This class is not intended to be instantiated,
+    rather the class variable is directly set. External entities may then
+    read the class variable, again without instantiation of the class. 
+    '''
+    rv = False
