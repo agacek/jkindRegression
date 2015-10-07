@@ -74,9 +74,9 @@ def runsuite():
     # Print the results
     print( '\n\n\n*****************************************' )
     print( 'Overall TestSuite Result:' )
-    print( result )
     print( 'Start Time (UTC) ' + str( dt_start ) )
     print( 'End   Time (UTC) ' + str( dt_end ) )
+    print( result )
 
     # Try to close the log file
     try:
@@ -85,6 +85,7 @@ def runsuite():
         pass
 
     # By default try to split up the log in to a sub-folder.
+    # If it doesn't work, oh well...
     try:
         splitLog( SetupConfig().getLogFile() )
     except:

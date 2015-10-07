@@ -5,7 +5,8 @@ This module contains utilities for post-processing the output log
 
 import io
 import os
-from .config import SetupConfig
+import shutil
+from jktest.config import SetupConfig
 
 
 def splitLog( logfile ):
@@ -23,6 +24,10 @@ def splitLog( logfile ):
 
     '''
 
+    # First off just make sure this logfile exists. If not assert.
+    assert os.path.exists( logfile ) == True
+
+
     # Get the begin and end tag strings from the configuration. These are
     # later used to determine individual lustre file results in the
     # log file.
@@ -30,13 +35,22 @@ def splitLog( logfile ):
     endTag = SetupConfig().getEndTestTag()
 
     # Create the path name of the output subfolder based upon the log file
-    # name. Then try to create it, catching and passing any exceptions.
+    # name. Then try to delete it so we don't have any stale file left over.
+    # After deleting, recreate the empty folder.
     path = os.path.dirname( logfile )
     path = os.path.join( path, os.path.basename( logfile ).split( '.' )[0] )
+    path = os.path.abspath( path )
 
     try:
-        os.mkdir( path )
-    except FileExistsError:
+        shutil.rmtree( path )
+    except FileNotFoundError:
+        pass
+
+    # Should always be able to create this, but periodically getting a
+    # Windows Permission exception.
+    try:
+        os.makedirs( path )
+    except PermissionError:
         pass
 
     # Open the log file and read all the lines in to a list.
