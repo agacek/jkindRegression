@@ -50,6 +50,11 @@ class SetupConfig( object ):
         # Set the shared state - Borg DP
         self.__dict__ = self.__we_are_the_borg_we_are_one
 
+        # Set the strings to be the beginning and end tags. These are used to
+        # write out for the test cases.
+        self._beginTestTag = 'BEGIN TEST OF: '
+        self._endTestTag = 'END TEST OF '
+
 
     def setTestArguments( self, argumentsXmlFile ):
         '''
@@ -207,6 +212,32 @@ class SetupConfig( object ):
         
         '''
         return self._logfile
+
+
+    def getBeginTestTag( self ):
+        '''
+        **Public Method**
+        
+        Getter method for the beginning test tag string. 
+        
+        :return: begin test tag
+        :rtype: str
+        
+        '''
+        return self._beginTestTag
+
+
+    def getEndTestTag( self ):
+        '''
+        **Public Method**
+        
+        Getter method for the end test tag string.
+        
+        :return: end test tag
+        :rtype: str
+        
+        '''
+        return self._endTestTag
 
 
     def _walk( self, root = '.', recurse = True, pattern = '*' ):

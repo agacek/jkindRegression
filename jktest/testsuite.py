@@ -9,6 +9,7 @@ import datetime
 import unittest
 from jktest.config import SetupConfig
 from jktest.guiIF import GuiIF
+from jktest.logutil import splitLog
 from jktest.testcase import testCaseFactory
 
 
@@ -57,7 +58,11 @@ def runsuite():
     GuiIF().setFileCount( len( SetupConfig().getTestFiles() ) )
 
     for filename in SetupConfig().getTestFiles():
-        testClass = testCaseFactory( filename, SetupConfig().getTestArguments() )
+        testClass = testCaseFactory( filename,
+                                     SetupConfig().getTestArguments(),
+                                     SetupConfig().getBeginTestTag(),
+                                     SetupConfig().getEndTestTag()
+                                     )
         testCases.append( loader.loadTestsFromTestCase( testClass ) )
 
     suite = unittest.TestSuite( testCases )
@@ -76,6 +81,12 @@ def runsuite():
     # Try to close the log file
     try:
         logfile.close()
+    except:
+        pass
+
+    # By default try to split up the log in to a sub-folder.
+    try:
+        splitLog( SetupConfig().getLogFile() )
     except:
         pass
 

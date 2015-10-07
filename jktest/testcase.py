@@ -5,7 +5,7 @@ from jktest.jkind import JKind
 from jktest.results import ResultList
 
 
-def testCaseFactory( filename, argsList ):
+def testCaseFactory( filename, argsList, beginTestTag, endTestTag ):
     '''
     **Public Function**
     
@@ -21,12 +21,22 @@ def testCaseFactory( filename, argsList ):
     :type filename: str
     :param argsList: The list of all the possible arugment strings to run
     :type argsList: list[str, str, ...]
+    :param beginTestTag: String to print at the beginning of each test case.
+    :type beginTestTag: str
+    :param endTestTag: String to print at the end of each test case.
+    :type endTestTag: str
     
     '''
 
     className = filename
     testargs = list( argsList )
-    return type( className, ( _JKTestCase, ), {'file' : filename, 'args' : testargs} )
+    return type( className,
+                 ( _JKTestCase, ),
+                 {'file' : filename,
+                  'args' : testargs,
+                  'beginTestTag' : beginTestTag,
+                  'endTestTag' : endTestTag}
+                )
 
 
 
@@ -74,7 +84,7 @@ class _JKTestCase( unittest.TestCase ):
 
         # Print test header for nicer output formatting
         print( '\n**********************************************' )
-        print( 'BEGIN TEST OF: ' + str( self.file ) )
+        print( self.beginTestTag + str( self.file ) )
 
         for arg in self.args:
             GuiIF().setArgUnderTest( arg )
@@ -96,7 +106,8 @@ class _JKTestCase( unittest.TestCase ):
         Just prints to stdout that the test is done. No other action.
         
         '''
-        print( '\nEND TEST OF ' + str( self.file ) )
+        print( '\n' )
+        print( self.endTestTag + str( self.file ) )
 
 
     def test_result( self ):
