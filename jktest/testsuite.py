@@ -60,6 +60,7 @@ def runsuite():
     for filename in SetupConfig().getTestFiles():
         testClass = testCaseFactory( filename,
                                      SetupConfig().getTestArguments(),
+                                     SetupConfig().getJarFile(),
                                      SetupConfig().getBeginTestTag(),
                                      SetupConfig().getEndTestTag()
                                      )

@@ -9,6 +9,7 @@ import copy
 import fnmatch
 import xml.dom.minidom
 from itertools import product
+from docutils.parsers.rst.directives import path
 
 
 class SetupConfig( object ):
@@ -37,6 +38,7 @@ class SetupConfig( object ):
     _files = None
     _args = None
     _logfile = None
+    _jarfile = None
 
 
     def __init__( self ):
@@ -212,6 +214,38 @@ class SetupConfig( object ):
         
         '''
         return self._logfile
+
+
+    def setJarFile( self, path ):
+        '''
+        **Public Method**
+        
+        Set the fully qualified path of the desired alternate JKind jar file.
+        If not explicitly set the application will use the default JKind that
+        is on the system path.
+        
+        :param path: Fully qualified path to alternate JKind jar file
+        :type path: str
+        
+        :return: n/a:
+        
+        '''
+        self._jarfile = path
+
+
+    def getJarFile( self ):
+        '''
+        **Public Method**
+        
+        Getter method to retrieve the path to the specified alternate JKind
+        jar file to run. If an alternate jar was not specified via the
+        complementary set method, will return None.
+        
+        :return: Fully qualified path if set, None otherwise.
+        :rtype: str *or* None
+        
+        '''
+        return self._jarfile
 
 
     def getBeginTestTag( self ):

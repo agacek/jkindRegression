@@ -44,6 +44,7 @@ if __name__ == '__main__':
     # Optional arguments
     parser.add_argument( '-argfile', help = 'Alternate Config XML file <default is test_arguments.xml>' )
     parser.add_argument( '-logfile', help = 'Log to file, supply filename.' )
+    parser.add_argument( '-jar', help = 'Alternate JKind jar file to run' )
 
     # Optional Flags
     parser.add_argument( '--recur',
@@ -82,6 +83,11 @@ if __name__ == '__main__':
     if( args.logfile ):
         assert os.path.exists( os.path.dirname( args.logfile ) )
         SetupConfig().setLogFile( args.logfile )
+
+    # Check if an alternate JKind jar file was specified
+    if( args.jar ):
+        assert os.path.exists( args.jar )
+        SetupConfig().setJarFile( args.jar )
 
     # Launch either the command line or GUI
     if( args.gui ):

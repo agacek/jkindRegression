@@ -22,16 +22,19 @@ class JKind( object ):
 
     '''
 
-    def __init__( self, fname, arg ):
+    def __init__( self, fname, arg, jkindPath = None ):
         '''
         :param fname: lustre filename to run
         :type fname: str
         :param arg: arguments to execute
         :type arg: str
+        :param jkindPath: Optional alternate JKind jar to execute.
+        :type jkindPath: str
 
         '''
         self._file = fname
         self._arg = arg
+        self._jkindPath = jkindPath
         self._results = None
         self._exception = None
 
@@ -48,9 +51,15 @@ class JKind( object ):
         :return: n/a:
 
         '''
+        if( self._jkindPath == None ):
+            jkind = 'jkind '
+        else:
+            jkind = 'java -jar {} -jkind '.format( self._jkindPath )
+
 
         # Execute JKind from the command line
-        cmdLine = 'jkind ' + self._file + ' -xml ' + self._arg
+        cmdLine = jkind + self._file + ' -xml ' + self._arg
+        # cmdLine = 'jkind ' + self._file + ' -xml ' + self._arg
         print( cmdLine )
         proc = subprocess.Popen( cmdLine,
                                  stdout = subprocess.PIPE,
