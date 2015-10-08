@@ -7,6 +7,7 @@ import os
 import sys
 import datetime
 import unittest
+from jktest.logutil import jkindVersion
 from jktest.config import SetupConfig
 from jktest.guiIF import GuiIF
 from jktest.logutil import splitLog
@@ -44,6 +45,9 @@ def runsuite():
     except:
         logfile = None
         sys.stdout = sys.__stdout__
+
+    # Print the version of jkind
+    print( jkindVersion() )
 
     # If a test arguments XML file wasn't specified, then set the default.
     if ( SetupConfig().getTestArguments() == None ):

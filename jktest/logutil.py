@@ -6,7 +6,25 @@ This module contains utilities for post-processing the output log
 import io
 import os
 import shutil
+import subprocess
 from jktest.config import SetupConfig
+
+
+def jkindVersion():
+
+    jar = SetupConfig().getJarFile()
+
+    if( jar == None ):
+        jkind = 'jkind --version'
+    else:
+        jkind = 'java -jar {} -jkind --version '.format( jar )
+
+    proc = subprocess.Popen( jkind,
+                             stdout = subprocess.PIPE,
+                             stderr = subprocess.STDOUT,
+                             shell = True )
+    ( out, err ) = proc.communicate()
+    return out.decode()
 
 
 def splitLog( logfile ):
