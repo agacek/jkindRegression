@@ -42,7 +42,7 @@ if __name__ == '__main__':
                          help = 'Display GUI - may be used individually or with all other arguments.' )
 
     # Optional arguments
-    parser.add_argument( '-argfile', help = 'Alternate Config XML file <default is test_arguments.xml>' )
+    parser.add_argument( '-argfile', help = 'Alternate Config XML file <default is default_args.xml>' )
     parser.add_argument( '-logfile', help = 'Log to file, supply filename.' )
     parser.add_argument( '-jar', help = 'Alternate JKind jar file to run' )
 

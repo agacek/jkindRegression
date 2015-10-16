@@ -7,11 +7,130 @@ import io
 import os
 import shutil
 import subprocess
+import sys
 from jktest.config import SetupConfig
 
 
-def jkindVersion():
+class Tee( object ):
+    '''
+    **Public Class**
+    
+    Instantiations of this class are used to set the sys.stdout.
+    By specifying multiple files, or sys.__stdout__, can redirect stdout to
+    multiple targets.
+    
+    Typical usage is to specify a file and the sys.__stdout__ to write to both
+    a file and the console.
+    
+    f = open('somefile.log', 'w')
+    sys.stdout = Tee( sys.__stdout__, f )
+    
+    '''
+    def __init__( self, *files ):
+        '''
+        **Constructor**
+        
+        :param *files: any number of stdout objects to write output to
+        :type *files: <_io.TextIOWrapper>
+        '''
+        self.files = files
 
+
+    def write( self, obj ):
+        '''
+        **Public Method**
+        
+        Implementation of the TextIOWrapper write method. Typically not 
+        explicitly called, but rather provides the method for stdout to access.
+        
+        :param obj: Any object type that implements write() for stdout
+        :return: n/a:
+        
+        '''
+        for f in self.files:
+            f.write( obj )
+            f.flush()  # If you want the output to be visible immediately
+
+
+    def flush( self ) :
+        '''
+        **Public Method**
+        
+        Implementation of the TextIOWrapper flush method. Typically not
+        explicitly called, but rather provides the method for stdout to access.
+        
+        :return: n/a:
+        
+        '''
+        for f in self.files:
+            f.flush()
+
+
+    def closeFiles( self ):
+        '''
+        **Public Method**
+        
+        This method attempts to close any files that may have been opened.
+        Catches and passes all exceptions.
+        
+        :return: n/a:
+        
+        '''
+
+        for f in self.files:
+            try:
+                f.close()
+            except:
+                pass
+
+
+def openLog():
+    '''
+    **Public Function**
+
+    Opens the log file, if one was specified. If so will direct the stdio
+    to both the file and to the console. If no file, then just to the
+    console.
+    
+    :return: The opened file if available otherwise None
+    :rtype: file *or* None
+    
+    '''
+    try:
+        logfile = open( SetupConfig().getLogFile(), 'w' )
+        sys.stdout = Tee( sys.__stdout__, logfile )
+    except:
+        logfile = None
+        sys.stdout = sys.__stdout__
+    return logfile
+
+
+def closeLog():
+    '''
+    **Public Function**
+    
+    Closes the log file, if it were opened. Restores the stdio back
+    to the console.
+    
+    :return: n/a:
+    
+    '''
+    try:
+        sys.stdout.closeFiles()
+    except:
+        pass
+    sys.stdout = sys.__stdout__
+
+
+def jkindVersion():
+    '''
+    **Public Function**
+    
+    Gets the jkind version string.
+    
+    :rtype: string
+    
+    '''
     jar = SetupConfig().getJarFile()
 
     if( jar == None ):
