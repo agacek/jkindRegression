@@ -9,6 +9,7 @@ Submodules
    jktest.config
    jktest.guiIF
    jktest.jkind
+   jktest.logutil
    jktest.results
    jktest.testcase
    jktest.testsuite

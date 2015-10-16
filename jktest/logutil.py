@@ -30,8 +30,8 @@ class Tee( object ):
         '''
         **Constructor**
         
-        :param *files: any number of stdout objects to write output to
-        :type *files: <_io.TextIOWrapper>
+        :param \*files: any number of stdout objects to write output to
+        :type \*files: <_io.TextIOWrapper>
         '''
         self.files = files
 

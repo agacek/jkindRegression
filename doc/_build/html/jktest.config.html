@@ -76,6 +76,11 @@ __dict__ and thus all share the data.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="jktest.config.SetupConfig._jarfile">
+<code class="descname">_jarfile</code><em class="property"> = None</em><a class="headerlink" href="#jktest.config.SetupConfig._jarfile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="jktest.config.SetupConfig._logfile">
 <code class="descname">_logfile</code><em class="property"> = None</em><a class="headerlink" href="#jktest.config.SetupConfig._logfile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -144,6 +149,25 @@ recurse through sub-folders.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="jktest.config.SetupConfig.getJarFile">
+<code class="descname">getJarFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.getJarFile" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public Method</strong></p>
+<p>Getter method to retrieve the path to the specified alternate JKind
+jar file to run. If an alternate jar was not specified via the
+complementary set method, will return None.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Fully qualified path if set, None otherwise.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str <em>or</em> None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="jktest.config.SetupConfig.getLogFile">
 <code class="descname">getLogFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.getLogFile" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Public Method</strong></p>
@@ -190,6 +214,25 @@ combinations.</p>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">List of files if initialized, otherwise None</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list[str...] <em>or</em> None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="jktest.config.SetupConfig.setJarFile">
+<code class="descname">setJarFile</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.setJarFile" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public Method</strong></p>
+<p>Set the fully qualified path of the desired alternate JKind jar file.
+If not explicitly set the application will use the default JKind that
+is on the system path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Fully qualified path to alternate JKind jar file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
 </tr>
 </tbody>
 </table>
