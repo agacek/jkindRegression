@@ -22,7 +22,7 @@ class JKind( object ):
 
     '''
 
-    def __init__( self, fname, arg, jkindPath = None ):
+    def __init__( self, fname, arg, jkindPath = None, quiet = False ):
         '''
         :param fname: lustre filename to run
         :type fname: str
@@ -30,6 +30,8 @@ class JKind( object ):
         :type arg: str
         :param jkindPath: Optional alternate JKind jar to execute.
         :type jkindPath: str
+        :param quiet: Optional flag to suppress non-failing output errors
+        :type quiet: boolean
 
         '''
         self._file = fname
@@ -37,6 +39,7 @@ class JKind( object ):
         self._jkindPath = jkindPath
         self._results = None
         self._exception = None
+        self._quiet = quiet
 
 
     def run( self ):
@@ -112,6 +115,11 @@ class JKind( object ):
         If either of these cases are found will print the string to our
         console/log for later analysis.
         
+        If the global quiet flag was set in the Setup Configuration, will
+        suppress output prints for errors that are non-failing, such as
+        non-supported argument combinations and if proving engines have
+        been disabled by the argument combinations.
+        
         :param string: String to examine for JKind output errors. Typically 
                        from the JKind command line output.
         :type: str
@@ -121,8 +129,18 @@ class JKind( object ):
         
         '''
 
-        if( string.lower().startswith( 'error' ) == True ):
+        string = string.lower()
+        if( string.startswith( 'error' ) == True ):
             self._results = None
+
+            # If selected by cmd line arguments, let's suppress "errors" about
+            # "not supported" or "proving engines disabled". Less clutter in
+            # the output reports...
+            if( self._quiet == True ):
+                if( ( string.find( 'not supported with' ) >= 0 ) or
+                    ( string.find( 'all proving engines disabled' ) >= 0 ) ):
+                    return False
+
             print( '    >> ' + string )
             return False
 

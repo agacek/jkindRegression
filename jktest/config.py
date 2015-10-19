@@ -39,6 +39,7 @@ class SetupConfig( object ):
     _args = None
     _logfile = None
     _jarfile = None
+    _quiet = False
 
 
     def __init__( self ):
@@ -246,6 +247,38 @@ class SetupConfig( object ):
         
         '''
         return self._jarfile
+
+
+    def setQuiet( self, TorF ):
+        '''
+        **Public Method**
+        
+        Sets the quiet flag, which indicates that all "errors" reported by
+        jkind that are not failures are suppressed in the output. These are
+        raised when non-supported argument combinations have been selected or
+        if all proving engines are turned off based upon the argument combos.
+        
+        :param TorF: Set quiet flag on or off
+        :type TorF: boolean
+        
+        :return: n/a:
+        
+        '''
+        self._quiet = TorF
+
+
+    def isQuiet( self ):
+        '''
+        **Public Method**
+        
+        Returns the quiet flag, to indicate whether non-failing errors should
+        be suppressed in the output logs.
+        
+        :return: the quiet flag
+        :rtype: boolean
+        
+        '''
+        return self._quiet
 
 
     def getBeginTestTag( self ):

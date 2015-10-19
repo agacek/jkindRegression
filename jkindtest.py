@@ -51,6 +51,10 @@ if __name__ == '__main__':
                         action = 'store_true',
                         help = 'Flag to look for files in subdirectories when Directory is specified' )
 
+    parser.add_argument( '--quiet',
+                         action = 'store_true',
+                         help = 'Flag to suppress non-failing warnings or errors' )
+
     args = parser.parse_args()
 
 
@@ -88,6 +92,10 @@ if __name__ == '__main__':
     if( args.jar ):
         assert os.path.exists( args.jar )
         SetupConfig().setJarFile( args.jar )
+
+    # Check if the quiet flag was set
+    if( args.quiet ):
+        SetupConfig().setQuiet( args.quiet )
 
     # Launch either the command line or GUI
     if( args.gui ):

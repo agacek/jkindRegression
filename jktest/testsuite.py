@@ -63,13 +63,14 @@ def runsuite():
         testClass = testCaseFactory( filename,
                                      SetupConfig().getTestArguments(),
                                      SetupConfig().getJarFile(),
+                                     SetupConfig().isQuiet(),
                                      SetupConfig().getBeginTestTag(),
                                      SetupConfig().getEndTestTag()
                                      )
         testCases.append( loader.loadTestsFromTestCase( testClass ) )
 
     suite = unittest.TestSuite( testCases )
-    result = unittest.TextTestRunner( verbosity = 2, stream = logfile ).run( suite )
+    result = unittest.TextTestRunner( verbosity = 3, stream = logfile ).run( suite )
 
     # Capture the end time
     dt_end = datetime.datetime.utcnow()

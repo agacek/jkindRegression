@@ -5,7 +5,7 @@ from jktest.jkind import JKind
 from jktest.results import ResultList
 
 
-def testCaseFactory( filename, argsList, jkindJar, beginTestTag, endTestTag ):
+def testCaseFactory( filename, argsList, jkindJar, quiet, beginTestTag, endTestTag ):
     '''
     **Public Function**
     
@@ -23,6 +23,9 @@ def testCaseFactory( filename, argsList, jkindJar, beginTestTag, endTestTag ):
     :type argsList: list[str, str, ...]
     :param jkindJar: Fully qualified path to the JKind jar file to use
     :type jkindJar: str
+    :param quiet: Flag to indicate if non-failing errors should be suppressed
+                  in the log outputs
+    :type quiet: boolean
     :param beginTestTag: String to print at the beginning of each test case.
     :type beginTestTag: str
     :param endTestTag: String to print at the end of each test case.
@@ -37,6 +40,7 @@ def testCaseFactory( filename, argsList, jkindJar, beginTestTag, endTestTag ):
                  {'file' : filename,
                   'args' : testargs,
                   'jkindJar' : jkindJar,
+                  'quiet' : quiet,
                   'beginTestTag' : beginTestTag,
                   'endTestTag' : endTestTag}
                 )
@@ -91,7 +95,7 @@ class _JKTestCase( unittest.TestCase ):
 
         for arg in self.args:
             GuiIF().setArgUnderTest( arg )
-            jk = JKind( self.file, arg, jkindPath = self.jkindJar )
+            jk = JKind( self.file, arg, jkindPath = self.jkindJar, quiet = self.quiet )
             jk.run()
 
             # Do not append None-type result returns

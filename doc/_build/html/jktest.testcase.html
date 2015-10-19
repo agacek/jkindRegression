@@ -99,7 +99,7 @@ failure will not end this method.</p>
 
 <dl class="function">
 <dt id="jktest.testcase.testCaseFactory">
-<code class="descclassname">jktest.testcase.</code><code class="descname">testCaseFactory</code><span class="sig-paren">(</span><em>filename</em>, <em>argsList</em>, <em>jkindJar</em>, <em>beginTestTag</em>, <em>endTestTag</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.testcase.testCaseFactory" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">jktest.testcase.</code><code class="descname">testCaseFactory</code><span class="sig-paren">(</span><em>filename</em>, <em>argsList</em>, <em>jkindJar</em>, <em>quiet</em>, <em>beginTestTag</em>, <em>endTestTag</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.testcase.testCaseFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Public Function</strong></p>
 <p>This is a class factory, returning a class definition sub-classed from 
 the JKTestCase &#8220;Abstract&#8221; Base Class. The arguments to this function
@@ -115,6 +115,8 @@ write a single unittest.TestCase.</p>
 <li><strong>filename</strong> (<em>str</em>) &#8211; The qualified filename to run with JKind</li>
 <li><strong>argsList</strong> (<em>list[str, str, ...]</em>) &#8211; The list of all the possible arugment strings to run</li>
 <li><strong>jkindJar</strong> (<em>str</em>) &#8211; Fully qualified path to the JKind jar file to use</li>
+<li><strong>quiet</strong> (<em>boolean</em>) &#8211; Flag to indicate if non-failing errors should be suppressed
+in the log outputs</li>
 <li><strong>beginTestTag</strong> (<em>str</em>) &#8211; String to print at the beginning of each test case.</li>
 <li><strong>endTestTag</strong> (<em>str</em>) &#8211; String to print at the end of each test case.</li>
 </ul>
