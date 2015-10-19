@@ -102,9 +102,6 @@ def openLog():
     except:
         logfile = None
         sys.stdout = sys.__stdout__
-
-    sys.stderr = sys.stdout
-
     return logfile
 
 
@@ -123,7 +120,6 @@ def closeLog():
     except:
         pass
     sys.stdout = sys.__stdout__
-    sys.stderr = sys.__stderr__
 
 
 def jkindVersion():
