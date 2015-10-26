@@ -5,7 +5,7 @@ from jktest.jkind import JKind
 from jktest.results import ResultList
 
 
-def testCaseFactory( filename, argsList, jkindJar, quiet, beginTestTag, endTestTag ):
+def testCaseFactory( filename, argsList, jkindJar, javaPath, quiet, beginTestTag, endTestTag ):
     '''
     **Public Function**
     
@@ -40,6 +40,7 @@ def testCaseFactory( filename, argsList, jkindJar, quiet, beginTestTag, endTestT
                  {'file' : filename,
                   'args' : testargs,
                   'jkindJar' : jkindJar,
+                  'javaPath' : javaPath,
                   'quiet' : quiet,
                   'beginTestTag' : beginTestTag,
                   'endTestTag' : endTestTag}
@@ -95,7 +96,11 @@ class _JKTestCase( unittest.TestCase ):
 
         for arg in self.args:
             GuiIF().setArgUnderTest( arg )
-            jk = JKind( self.file, arg, jkindPath = self.jkindJar, quiet = self.quiet )
+            jk = JKind( self.file,
+                        arg,
+                        jkindPath = self.jkindJar,
+                        javaPath = self.javaPath,
+                        quiet = self.quiet )
             jk.run()
 
             # Do not append None-type result returns

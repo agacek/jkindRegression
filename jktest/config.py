@@ -38,7 +38,8 @@ class SetupConfig( object ):
     _files = None
     _args = None
     _logfile = None
-    _jarfile = None
+    _jkindfile = None
+    _java = None
     _quiet = False
 
 
@@ -217,7 +218,7 @@ class SetupConfig( object ):
         return self._logfile
 
 
-    def setJarFile( self, path ):
+    def setJkindFile( self, path ):
         '''
         **Public Method**
         
@@ -231,10 +232,10 @@ class SetupConfig( object ):
         :return: n/a:
         
         '''
-        self._jarfile = path
+        self._jkindfile = path
 
 
-    def getJarFile( self ):
+    def getJkindFile( self ):
         '''
         **Public Method**
         
@@ -246,7 +247,37 @@ class SetupConfig( object ):
         :rtype: str *or* None
         
         '''
-        return self._jarfile
+        return self._jkindfile
+
+
+    def setJava( self, java ):
+        '''
+        **Public Method**
+        
+        Set an alternate Java executable to run. If not explicitly set the
+        application will run whatever Java is on the system path.
+        
+        :param java: Fully qualified path to alternate Java executable
+        :type java: str
+        
+        :return: n/a:
+        
+        '''
+        self._java = java
+
+
+    def getJava( self ):
+        '''
+        **Public Method**
+        
+        Getter method to retrieve the path to the alternate Java executable,
+        if specified
+        
+        :return: Fully qualified path if set, None otherwise.
+        :rtype: str *or* None
+        
+        '''
+        return self._java
 
 
     def setQuiet( self, TorF ):

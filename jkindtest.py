@@ -44,7 +44,8 @@ if __name__ == '__main__':
     # Optional arguments
     parser.add_argument( '-argfile', help = 'Alternate Config XML file <default is default_args.xml>' )
     parser.add_argument( '-logfile', help = 'Log to file, supply filename.' )
-    parser.add_argument( '-jar', help = 'Alternate JKind jar file to run' )
+    parser.add_argument( '-jkind', help = 'Alternate JKind jar file to run' )
+    parser.add_argument( '-java', help = 'Alternate Java executable to run. If used you must also specify -jar for JKind.' )
 
     # Optional Flags
     parser.add_argument( '--recur',
@@ -89,9 +90,18 @@ if __name__ == '__main__':
         SetupConfig().setLogFile( args.logfile )
 
     # Check if an alternate JKind jar file was specified
-    if( args.jar ):
-        assert os.path.exists( args.jar )
-        SetupConfig().setJarFile( args.jar )
+    if( args.jkind ):
+        assert os.path.exists( args.jkind )
+        SetupConfig().setJkindFile( args.jkind )
+
+    # Check if an alternate Java executable was specified. Note that we must
+    # have also specified the JKind path as well if we want to do this.
+    if( args.java and not args.jkind ):
+        parser.error( 'Must specify -jkind if using -java' )
+
+    if( args.java ):
+        assert os.path.exists( args.java )
+        SetupConfig().setJava( args.java )
 
     # Check if the quiet flag was set
     if( args.quiet ):

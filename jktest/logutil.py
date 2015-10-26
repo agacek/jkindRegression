@@ -131,12 +131,18 @@ def jkindVersion():
     :rtype: string
     
     '''
-    jar = SetupConfig().getJarFile()
+    jkindJar = SetupConfig().getJkindFile()
+    javaPath = SetupConfig().getJava()
 
-    if( jar == None ):
+    if( javaPath == None ):
+        java = 'java'
+    else:
+        java = javaPath
+
+    if( jkindJar == None ):
         jkind = 'jkind --version'
     else:
-        jkind = 'java -jar {} -jkind --version '.format( jar )
+        jkind = '{} -jar {} -jkind --version '.format( java, jkindJar )
 
     proc = subprocess.Popen( jkind,
                              stdout = subprocess.PIPE,
