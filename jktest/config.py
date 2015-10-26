@@ -9,7 +9,7 @@ import copy
 import fnmatch
 import xml.dom.minidom
 from itertools import product
-from docutils.parsers.rst.directives import path
+# from docutils.parsers.rst.directives import path
 
 
 class SetupConfig( object ):
