@@ -35,6 +35,9 @@ def runsuite():
     :rtype: bool
     
     '''
+    # Check the jkind version and solvers. Will assert if solvers are
+    # not found.
+    ver = jkindVersion()
 
     # Capture the start time
     dt_start = datetime.datetime.utcnow()
@@ -50,7 +53,7 @@ def runsuite():
     logfile = openLog()
 
     # Print the version of jkind
-    print( jkindVersion() )
+    print( ver )
 
     # Build a Test Suite made of the Generic test functions. The specific file and
     # arguments run in the tests are determined at execution time.
