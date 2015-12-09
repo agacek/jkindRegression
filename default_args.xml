@@ -25,6 +25,6 @@
     <arg></arg>
     <arg>-smooth</arg>
     <arg>-interval</arg>
-    <arg>-reduce_inv</arg>
+    <arg>-support</arg>
   </ArgumentGroup>
 </Configuration>

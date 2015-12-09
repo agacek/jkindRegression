@@ -64,7 +64,7 @@ Note that unless specified it is expected that the *test_arguments.xml* file is 
     &ltarg&gt-pdr_max 0&lt/arg&gt
     &ltarg&gt-smooth&lt/arg&gt
     &ltarg&gt-interval&lt/arg&gt
-    &ltarg&gt-reduce_inv&lt/arg&gt
+    &ltarg&gt-support&lt/arg&gt
     &ltarg&gt-no_bmc&lt/arg&gt
     &ltarg&gt-no_inv_gen&lt/arg&gt
     &ltarg&gt-induct_cex&lt/arg&gt
