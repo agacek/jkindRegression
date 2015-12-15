@@ -26,7 +26,7 @@
     <link rel="top" title="JKind Regression Suite 1 documentation" href="index.html" />
     <link rel="up" title="jktest package" href="jktest.html" />
     <link rel="next" title="jktest.testcase module" href="jktest.testcase.html" />
-    <link rel="prev" title="jktest.jkind module" href="jktest.jkind.html" />
+    <link rel="prev" title="jktest.logutil module" href="jktest.logutil.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -109,7 +109,12 @@ same number of Property elements were read from the XML output files.</li>
 If one or both of the values are &#8220;unknown&#8221; this is considered
 equal (ok).</li>
 <li>If the &#8220;answer&#8221; key/value pairs are &#8220;falsifiable&#8221;, checks that the
-&#8220;K&#8221; key/value pairs are equal.</li>
+&#8220;K&#8221; key/value pairs meet the conditions:
+1) sources are pdr or bmc
+2) if sources are both bmc, then k1==k2
+3) if sources are bmc and pdr, then Kbmc &lt;= Kpdr
+4) if sources are pdr, then don&#8217;t care (pass)
+5) anything else is flagged as fail</li>
 </ul>
 <p class="last">Returns bool</p>
 </dd>
@@ -255,7 +260,7 @@ Pops the last item in the internal list.</p>
   <li><a href="index.html">Documentation overview</a><ul>
   <li><a href="modules.html">jkindRegression</a><ul>
   <li><a href="jktest.html">jktest package</a><ul>
-      <li>Previous: <a href="jktest.jkind.html" title="previous chapter">jktest.jkind module</a></li>
+      <li>Previous: <a href="jktest.logutil.html" title="previous chapter">jktest.logutil module</a></li>
       <li>Next: <a href="jktest.testcase.html" title="next chapter">jktest.testcase module</a></li>
   </ul></li>
   </ul></li>

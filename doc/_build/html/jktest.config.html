@@ -76,8 +76,13 @@ __dict__ and thus all share the data.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="jktest.config.SetupConfig._jarfile">
-<code class="descname">_jarfile</code><em class="property"> = None</em><a class="headerlink" href="#jktest.config.SetupConfig._jarfile" title="Permalink to this definition">¶</a></dt>
+<dt id="jktest.config.SetupConfig._java">
+<code class="descname">_java</code><em class="property"> = None</em><a class="headerlink" href="#jktest.config.SetupConfig._java" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="jktest.config.SetupConfig._jkindfile">
+<code class="descname">_jkindfile</code><em class="property"> = None</em><a class="headerlink" href="#jktest.config.SetupConfig._jkindfile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -154,8 +159,26 @@ recurse through sub-folders.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="jktest.config.SetupConfig.getJarFile">
-<code class="descname">getJarFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.getJarFile" title="Permalink to this definition">¶</a></dt>
+<dt id="jktest.config.SetupConfig.getJava">
+<code class="descname">getJava</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.getJava" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public Method</strong></p>
+<p>Getter method to retrieve the path to the alternate Java executable,
+if specified</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Fully qualified path if set, None otherwise.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str <em>or</em> None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="jktest.config.SetupConfig.getJkindFile">
+<code class="descname">getJkindFile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.getJkindFile" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Public Method</strong></p>
 <p>Getter method to retrieve the path to the specified alternate JKind
 jar file to run. If an alternate jar was not specified via the
@@ -243,8 +266,26 @@ be suppressed in the output logs.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="jktest.config.SetupConfig.setJarFile">
-<code class="descname">setJarFile</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.setJarFile" title="Permalink to this definition">¶</a></dt>
+<dt id="jktest.config.SetupConfig.setJava">
+<code class="descname">setJava</code><span class="sig-paren">(</span><em>java</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.setJava" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>Public Method</strong></p>
+<p>Set an alternate Java executable to run. If not explicitly set the
+application will run whatever Java is on the system path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>java</strong> (<em>str</em>) &#8211; Fully qualified path to alternate Java executable</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">n/a:</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="jktest.config.SetupConfig.setJkindFile">
+<code class="descname">setJkindFile</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#jktest.config.SetupConfig.setJkindFile" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>Public Method</strong></p>
 <p>Set the fully qualified path of the desired alternate JKind jar file.
 If not explicitly set the application will use the default JKind that
