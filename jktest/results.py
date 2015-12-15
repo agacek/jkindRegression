@@ -172,7 +172,12 @@ class JKindResult( object ):
           If one or both of the values are "unknown" this is considered
           equal (ok).
         - If the "answer" key/value pairs are "falsifiable", checks that the
-          "K" key/value pairs are equal.
+          "K" key/value pairs meet the conditions:
+          1) sources are pdr or bmc
+          2) if sources are both bmc, then k1==k2
+          3) if sources are bmc and pdr, then Kbmc <= Kpdr
+          4) if sources are pdr, then don't care (pass)
+          5) anything else is flagged as fail
           
         Returns bool 
             
@@ -245,8 +250,43 @@ class JKindResult( object ):
 
                 elif( ( self.d['answer'] == 'falsifiable' ) and ( self.other.d['answer'] == 'falsifiable' ) ):
                     if( self.d['K'] != self.other.d['K'] ):
-                        err = '{} K mismatch: {} != {}'.format( self.d['name'], self.d['K'], self.other.d['K'] )
-                        self._logFailure( err )
+                        # Logic for comparing K-values:
+                        #
+                        # if (src1 || src2) != (bmc || pdr):
+                        #   fail
+                        # if src1==bmc && src2==bmc:
+                        #   k1==k2, else fail
+                        # if src1==pdr && src2==pdr:
+                        #   don't care, pass
+                        # if src1==bmc && src2==pdr:
+                        #   k1 <= k2, else fail
+                        # otherwise complain...
+                        #
+                        if( not( self.d['source'] == 'bmc' or self.d['source'] == 'pdr' ) or
+                            not( self.other.d['source'] == 'bmc' or self.other.d['source'] == 'pdr' ) ):
+                            err = 'falsifiable source is not pdr or bmc. <{}> : <{}>'.format( self.d['source'], self.other.d['source'] )
+                            self._logFailure( err )
+
+                        elif( self.d['source'] == self.other.d['source'] == 'bmc' ):
+                            err = '{} K mismatch: {} != {} for bmc'.format( self.d['name'], self.d['K'], self.other.d['K'] )
+
+                        elif( self.d['source'] == self.other.d['source'] == 'pdr' ):
+                            pass  # don't care, unconditionally pass
+
+                        elif( self.d['source'] == 'bmc' ):
+                            if( self.d['K'] > self.other.d['K'] ):
+                                err = 'bmc K value ({}) > pdr K value ({})'.format( self.d['K'], self.other.d['K'] )
+                                self._logFailure( err )
+
+                        elif( self.d['source'] == 'pdr' ):
+                            if( self.d['K'] < self.other.d['K'] ):
+                                err = 'bmc K value ({}) > pdr K value ({})'.format( self.other.d['K'], self.d['K'] )
+                                self._logFailure( err )
+
+                        else:
+                            err = 'Unrecognized test condition for K'
+                            self._logFailure( err )
+
 
             except KeyError as e:
                 err = 'Key Error Exception: Missing field {}'.format( str( e ) )

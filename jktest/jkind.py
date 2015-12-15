@@ -215,7 +215,7 @@ class JKind( object ):
             # Assumes that there is only one Answer, etc...
             answerAttr = each.getElementsByTagName( 'Answer' )[0]
             res['answer'] = answerAttr.firstChild.data
-            # res['source'] = answerAttr.getAttribute( 'source' )
+            res['source'] = answerAttr.getAttribute( 'source' )
 
             # Get the K attribute and fill in the value if available
             try:
