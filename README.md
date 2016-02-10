@@ -4,10 +4,10 @@ This a regression test suite for JKind. This suite is built in C-Python v 3.4.2 
 
 ## Requirements:
  - C-Python v3.4.2 or later (recommend retrieving from python.org)
- - Python distribution on system path such that it can be run from command line or shell
- - JKind distribution on system path (this suite tested against v2.1.1)
  - Yices distribution on system path (this suite tested against v1.0.40)
+ - Yices2 distribution on system path (this suite tested against v2.4.1)
  - CVC4 distribution on system path (this suite tested against v1.4)
+ - Z3 distribution on system path (this suite tested against 4.4.1)
  
 ## Description:
 This suite runs JKind against Lustre files using varying arguments and solvers. The suite checks that the JKind results do not change given a different set or arguments. The arguments applied to each Lustre file include the desired solver and any additional flags (see the JKind help description for all options). Each Lustre file is run against all the arguments and if any irregularities are encountered these are logged as failures.
@@ -31,43 +31,62 @@ Along with the final report line seen above the log will also show each of the t
 ## What defines a Failure?
  - If there are a mis-matched number of Properties between argument set executions. There is no further attempt to match Properties for further checks.
  - If two same named Properties have different Answer elements. The exception to this rule is if one of the Property Answer elements is "unknown", this case is deemed to be ok.
- - If two same named Properties have Answer element = "falsifiable" and the K elements do not matche.
+ - If two same named Properties have Answer element = "falsifiable", the K elements are tested as follows:
+   - If either src1 or src2 are NOT from bmc or pdr will fail and complain
+   - If src1==bmc and src2==pdr, then k1==k2; otherwise fail
+   - If src1==src2==pdr, don't care. Pass unconditionally.
+   - If src1==bmc and src2==pdr, then k1 < k2; otherwise fail
+   - If scr1==pdr and src2==bmc, then k1 > k2; otherwise fail
  
 ## Usage:
-Command Line usage:
+Command Line usage (also available from the python help command):
 
 $ python jkindtest.py <-file FILE **OR** -dir DIR> <-argfile FILE> <-logfile FILE> <--gui> <--recur>
 
 1. -file : One of the mandatory-ish arguments. Specify the Lustre file to test. May substitute -dir or --gui.
 2. -dir : One of the mandatory-ish arguments. Specify the folder/directory to search for *.lus files to test. May substitute -file or --gui.
-3. -argfile : Optional. Specify an alternate XML Argument File. The default is ./test_arguments.xml.
-4. -logfile : Optional. Specify a text file to log the output. Default is stdout (console).
-5. --recur : Optional flag. If -dir was specified, this flag indicates that the search for Lustre files should recurse through sub-directories.
-6. --gui : Optional flag. If this is specified will launch a simple Tk GUI. Special note that the -dir/-file and -logfile may be specified at the command line with the --gui flag to "pre-load" the options.
+3. --gui : Optional flag. If this is specified will launch a simple Tk GUI. Special note that the -dir/-file and -logfile may be specified at the command line with the --gui flag to "pre-load" the options.
+4. -argfile : Optional. Specify an alternate XML Argument File. The default is ./test_arguments.xml.
+5. -logfile : Optional. Specify a text file to log the output. Default is stdout (console).
+6. -jkind : Optional. Specify an alternate JKind to run (default is what is on system path)
+7. -java : Optional. Specify an alternate Java executable (default is what is on system path)
+8. --recur : Optional flag. If -dir was specified, this flag indicates that the search for Lustre files should recurse through sub-directories.
+8. --quite : Optional flag. Suppresses non-failing warnings or errors.
 
 The GUI gives menu options to manually specify a file or directory and a log file. When the execute button is pressed will give a running update on the file count, the file under test and the argument set under test. The GUI can be useful for monitoring progress when logging to file as the stdout is redicted to the file and does not update the console.
 
-Note that unless specified it is expected that the *test_arguments.xml* file is at the root level (included as part of this git repo). This XML file specifies the arguments to be applied to the Lustre files. The arguments are specified by one or more elements named *ArgumentGroup*. The test suite will read the XML file and then construct the command line arguments to call based upon the possible combinations of the Argument Groups.
+Note that unless specified it is expected that the *default_args.xml* file is at the root level (included as part of this git repo). This XML file specifies the arguments to be applied to the Lustre files. The arguments are specified by one or more elements named *ArgumentGroup*. The test suite will read the XML file and then construct the command line arguments to call based upon the possible combinations of the Argument Groups.
 
 <pre><code>
 &ltConfiguration&gt
 
+  &lt!-- Solvers and PDR-only --&gt
   &ltArgumentGroup&gt
     &ltarg&gt-solver yices&lt/arg&gt
-    &ltarg&gt-solver smtinterpol&lt/arg&gt
+    &ltarg&gt-solver yices2&lt/arg&gt
     &ltarg&gt-solver cvc4&lt/arg&gt
+    &ltarg&gt-solver z3&lt/arg&gt
+    &ltarg&gt-solver smtinterpol&lt/arg&gt
+    &ltarg&gt-no_bmc -no_k_induction -no_inv_gen&lt/arg&gt
   &lt/ArgumentGroup&gt
   
+  &lt!-- With and without PDR --&gt
   &ltArgumentGroup&gt
-    &ltarg&gt&lt/arg&gt
-    &ltarg&gt-no_k_induction&lt/arg&gt
+    &ltarg&rt&lt/arg&rt
     &ltarg&gt-pdr_max 0&lt/arg&gt
+  &lt/ArgumentGroup&gt
+  
+  &lt!-- Always product inductive counter-examples --&gt
+  &ltArgumentGroup&gt
+    &ltarg&gt-induct_cex&lt/arg&gt
+  &lt/ArgumentGroup&gt
+  
+  &lt!-- Miscellaneous options --&gt
+  &ltArgumentGroup&gt
+    &ltarg&rt&lt/arg&rt
     &ltarg&gt-smooth&lt/arg&gt
     &ltarg&gt-interval&lt/arg&gt
     &ltarg&gt-support&lt/arg&gt
-    &ltarg&gt-no_bmc&lt/arg&gt
-    &ltarg&gt-no_inv_gen&lt/arg&gt
-    &ltarg&gt-induct_cex&lt/arg&gt
   &lt/ArgumentGroup&gt
   
 &lt/Configuration&gt
