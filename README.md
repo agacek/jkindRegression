@@ -7,7 +7,7 @@ This a regression test suite for JKind. This suite is built in C-Python v 3.4.2 
  - Yices distribution on system path (this suite tested against v1.0.40)
  - Yices2 distribution on system path (this suite tested against v2.4.1)
  - CVC4 distribution on system path (this suite tested against v1.4)
- - Z3 distribution on system path (this suite tested against 4.4.1)
+ - Z3 distribution on system path (this suite tested against 4.4.2)
  
 ## Description:
 This suite runs JKind against Lustre files using varying arguments and solvers. The suite checks that the JKind results do not change given a different set or arguments. The arguments applied to each Lustre file include the desired solver and any additional flags (see the JKind help description for all options). Each Lustre file is run against all the arguments and if any irregularities are encountered these are logged as failures.
