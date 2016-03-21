@@ -25,6 +25,6 @@
     <arg></arg>
     <arg>-smooth</arg>
     <arg>-interval</arg>
-    <arg>-support</arg>
+    <arg>-ivc</arg>
   </ArgumentGroup>
 </Configuration>

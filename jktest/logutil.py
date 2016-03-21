@@ -127,7 +127,7 @@ def jkindVersion():
     **Public Function**
     
     Gets the jkind version string. Asserts if the following solvers aren't
-    found: yices, yices2, cvc4, z3, smtinterpol.
+    found: yices, yices2, cvc4, z3.
     
     :rtype: string
     
@@ -153,11 +153,10 @@ def jkindVersion():
 
     ver = out.decode()
 
-    assert ver.find( 'yices,' ) > 0, 'Assertion Error: yices solver not detected'
+    assert ver.find( 'yices' ) > 0, 'Assertion Error: yices solver not detected'
     assert ver.find( 'yices2' ) > 0, 'Assertion Error: yices2 solver not detected'
     assert ver.find( 'z3' ) > 0, 'Assertion Error: z3 solver not detected'
     assert ver.find( 'cvc4' ) > 0, 'Assertion Error: cvc4 solver not detected'
-    assert ver.find( 'smtinterpol' ) > 0, 'Assertion Error: smtinterpol solver not detected'
 
     return ver
 
