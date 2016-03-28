@@ -19,4 +19,8 @@
     <arg>-induct_cex</arg>
   </ArgumentGroup>
 
+  <ArgumentGroup>
+    <arg>-timeout 20</arg>
+  </ArgumentGroup>
+
 </Configuration>
