@@ -2,9 +2,9 @@
 <Configuration>
 
   <ArgumentGroup>
-    <arg>-solver yices</arg>
-    <arg>-solver smtinterpol</arg>
-    <arg>-solver cvc4</arg>
+    <arg>-solver yices -timeout 60</arg>
+    <arg>-solver smtinterpol -timeout 60</arg>
+    <arg>-solver cvc4 -timeout 60</arg>
   </ArgumentGroup>
 
 </Configuration>

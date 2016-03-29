@@ -3,7 +3,6 @@
   <ArgumentGroup>
     <arg>-solver yices</arg>
     <arg>-solver yices2</arg>
-    <arg>-solver cvc4</arg>
     <arg>-solver z3</arg>
     <arg>-solver smtinterpol</arg>
     <arg>-no_bmc -no_k_induction -no_inv_gen</arg>
@@ -17,7 +16,7 @@
 
   <!-- Always produce inductive counter-examples -->
   <ArgumentGroup>
-    <arg>-induct_cex</arg>
+    <arg>-induct_cex -timeout 60</arg>
   </ArgumentGroup>
 
   <!-- Miscellaneous options -->
