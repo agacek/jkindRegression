@@ -192,8 +192,15 @@ class JKind( object ):
         # The XML file should be the same name as our *.lus file, just with
         # the xml extension.
         xmlFile = self._file + '.xml'
-        assert os.path.exists( xmlFile ) == True, 'XML File Exists?'
-
+        
+        # assert os.path.exists( xmlFile ) == True, 'XML File Exists?'
+        # Check that the file really exists. If not, print an error to the
+        # console. Afterwards, still use an assert as this will break out of
+        # the current test case.
+        if( os.path.exists(xmlFile) != True ):
+            print('*** ERROR: XML File not generated for ' + self._file )
+            assert os.path.exists(xmlFile)
+        
         # Get the top level document
         doc = xml.dom.minidom.parse( xmlFile )
 
@@ -227,7 +234,7 @@ class JKind( object ):
             # Add to our list of Properties
             self._results.append( res )
 
-        # Check that our results list ins't empty. If it is, then add a single
+        # Check that our results list isn't empty. If it is, then add a single
         # empty result so that downstream tests may pass.
         if( len( self._results ) < 1 ):
             empty = JKindResult( self._file, self._arg )
