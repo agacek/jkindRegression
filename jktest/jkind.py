@@ -198,7 +198,7 @@ class JKind( object ):
         # the current test case.
         if( os.path.exists(xmlFile) != True ):
             print('*** ERROR: XML File not generated for ' + self._file )            
-            assert os.path.exists( xmlFile ) == True, 'XML File Exists?'
+        assert os.path.exists( xmlFile ) == True, 'XML File Exists?'
         
         # Get the top level document
         doc = xml.dom.minidom.parse( xmlFile )

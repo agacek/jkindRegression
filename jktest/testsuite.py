@@ -44,7 +44,7 @@ def runsuite():
 
     # If a test arguments XML file wasn't specified, then set the default.
     if ( SetupConfig().getTestArguments() == None ):
-        assert os.path.exists( DEFAULT_ARGUMENT_FILE )
+        # assert os.path.exists( DEFAULT_ARGUMENT_FILE )
         SetupConfig().setTestArguments( DEFAULT_ARGUMENT_FILE )
 
     # Open the log. If a log file was specified it will be opened and the

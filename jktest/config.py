@@ -74,8 +74,11 @@ class SetupConfig( object ):
         :return: n/a:
         :asserts: argumentsXmlFile file exists
         
-        '''
+        '''        
+        if( os.path.exists( argumentsXmlFile ) != True ): 
+            print( '*** ERROR: Arguments file does not exist -> ' + argumentsXmlFile )
         assert os.path.exists( argumentsXmlFile )
+        
         argsListList = list()
         doc = xml.dom.minidom.parse( argumentsXmlFile )
         groups = doc.getElementsByTagName( 'ArgumentGroup' )
@@ -145,16 +148,22 @@ class SetupConfig( object ):
         if( isinstance( fileOrPath, list ) == True ):
             self._files = list( fileOrPath )
 
+            if( len( fileOrPath) < 1 ):
+                print( '*** ERROR: No file or path selected')
             assert len( fileOrPath ) > 0  # Make sure this isn't an empty list
 
             # Test that the files exist
             for each in self._files:
+                if( os.path.exists( each ) != True ):
+                    print( '*** ERROR: Selected file/path does not exist -> ' + each )
                 assert os.path.exists( each ), 'User specified file/path does not exist'
 
         # Otherwise we believe we've received either a single file name or a
         # directory for us to search for *.lus files.
         else:
             # Make sure this even exists
+            if( os.path.exists( fileOrPath ) != True ):
+                print( '*** ERROR: User specified file/path does not exist-> ' + fileOrPath )
             assert os.path.exists( fileOrPath ), 'User specified file/path does not exist'
 
             # Format the path argument slashes

@@ -152,11 +152,22 @@ def jkindVersion():
     ( out, err ) = proc.communicate()
 
     ver = out.decode()
-
-    assert ver.find( 'yices' ) > 0, 'Assertion Error: yices solver not detected'
-    assert ver.find( 'yices2' ) > 0, 'Assertion Error: yices2 solver not detected'
-    assert ver.find( 'z3' ) > 0, 'Assertion Error: z3 solver not detected'
-    assert ver.find( 'cvc4' ) > 0, 'Assertion Error: cvc4 solver not detected'
+    
+    if( ver.find( 'yices' ) < 0 ):
+        print( 'Assertion Error: yices solver not detected' )
+        assert False
+    
+    if( ver.find( 'yices2' ) < 0 ):
+        print( 'Assertion Error: yices2 solver not detected' )
+        assert False
+    
+    if( ver.find( 'z3' ) < 0 ):
+        print( 'Assertion Error: z3 solver not detected' )
+        assert False
+    
+    if( ver.find( 'cvc4' ) < 0 ):
+        print( 'Assertion Error: cvc4 solver not detected' )
+        assert False 
 
     return ver
 
@@ -177,7 +188,9 @@ def splitLog( logfile ):
     '''
 
     # First off just make sure this logfile exists. If not assert.
-    assert os.path.exists( logfile ) == True
+    if( os.path.exists( logfile ) != True ):
+        print('*** ERROR: Log File path does not exist -> ' + logfile )
+        assert False 
 
 
     # Get the begin and end tag strings from the configuration. These are
