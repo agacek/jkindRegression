@@ -192,14 +192,13 @@ class JKind( object ):
         # The XML file should be the same name as our *.lus file, just with
         # the xml extension.
         xmlFile = self._file + '.xml'
-        
-        # assert os.path.exists( xmlFile ) == True, 'XML File Exists?'
+                
         # Check that the file really exists. If not, print an error to the
         # console. Afterwards, still use an assert as this will break out of
         # the current test case.
         if( os.path.exists(xmlFile) != True ):
-            print('*** ERROR: XML File not generated for ' + self._file )
-            assert os.path.exists(xmlFile)
+            print('*** ERROR: XML File not generated for ' + self._file )            
+            assert os.path.exists( xmlFile ) == True, 'XML File Exists?'
         
         # Get the top level document
         doc = xml.dom.minidom.parse( xmlFile )
